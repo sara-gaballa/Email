@@ -1,0 +1,49 @@
+{
+    "type" : "object",
+
+    "title" : "Email",
+
+    "properties" : {
+        "from" : {
+            "type" : "string",
+            "format" : "email"
+        },
+
+        "to" : {
+            "type" : ["string"],
+            "format" : "email"
+        },
+
+        "subject" : {
+            "type" : "string"
+        },
+
+        "body" : {
+            "type" : "string"
+        },
+
+        "date" : {
+            "type" : "string"
+        },
+
+        "time" : {
+            "type" : "string"
+        },
+
+        "priority" : {
+            "enum" : ["critical", "high", "medium", "low"]
+        },
+
+        "attachments" : {
+            "type": "array",
+            "title": "Attachments",
+            "items": {
+                "type": "string",
+                "format": "data-url"
+            }
+        }
+    },
+    
+    "required" : ["from", "to"]
+
+}
