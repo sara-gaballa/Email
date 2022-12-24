@@ -3,11 +3,24 @@
     padding: 0;
 }
 .image {
-    background-image: url("https://th.bing.com/th/id/R.2da39bed03e8f88b92cc8b72efa35f0d?rik=IcfhdAI6nhgKbg&riu=http%3a%2f%2fwallpapercave.com%2fwp%2fKSnFrMw.jpg&ehk=a66%2bAJIH%2fArCFjpy%2buk%2bd5akJQX28GJ%2bq36n6bY2DG0%3d&risl=&pid=ImgRaw&r=0");
+    background-image: url("https://wallpapercave.com/wp/KSnFrMw.jpg");
     height: 100%;
+    width: 100%;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    bottom:50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-bottom: -50vw;
+    margin-top: -0.5vw;
+    max-width: 100vw;
+    width: 100vw;
+    max-height: 100vw;
+    height: 46.9vw;
   }
 .header-left img{
     object-fit: contain;
