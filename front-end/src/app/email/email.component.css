@@ -251,6 +251,12 @@ height: 89vh;
 #profile-content{
     position: absolute;
     background-image: url("https://wallpapercave.com/wp/KSnFrMw.jpg");
+    background-image: url("https://wallpapercave.com/wp/KSnFrMw.jpg");
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     border: 2px solid  rgb(140, 137, 232);
     border-top-right-radius: 10px ;
     border-bottom-right-radius: 10px ;
