@@ -5,12 +5,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EmailComponent } from './email/email.component';
 import { StartPageComponent } from './start-page/start-page.component';
+import { InboxComponent } from './inbox/inbox.component';
+import { SentComponent } from './sent/sent.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EmailComponent,
-    StartPageComponent
+    StartPageComponent,
+    InboxComponent,
+    SentComponent
   ],
   imports: [
     BrowserModule,
