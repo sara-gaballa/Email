@@ -162,6 +162,7 @@ height: 89vh;
     align-items: center;
 }
 .emailList_settings .material-symbols-outlined{
+    border: none;
     margin: 5px;
     cursor: pointer;
 }
@@ -179,7 +180,7 @@ height: 89vh;
     cursor: pointer;
     font-size: 15px;
 }
-.section {
+/* .section {
     display: flex;
     align-items: center;
     border-bottom-width: 2px;
@@ -191,4 +192,52 @@ height: 89vh;
 }
 .section h4{
     font-size: 17px;
+} */
+.emailList_sections {
+    display: flex;
+    flex:0.7;
+    align-items: center;
+    background-color: white;
+    padding: 10px;
+    border-radius: 50px;
+    border: 2px solid  rgb(140, 137, 232);
 }
+.emailList_sections input{
+    border: none;
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    font-size: medium;
+    background-color: transparent;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 80px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-top-right-radius: 20px ;
+    border-bottom-right-radius: 20px ;
+    border-top-left-radius: 20px ;
+    border-bottom-left-radius: 20px ;
+    border: 2px solid  rgb(140, 137, 232);
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    border-top-right-radius: 50px ;
+    border-bottom-right-radius: 50px ;
+    border-top-left-radius: 50px ;
+    border-bottom-left-radius: 50px ;
+  }
+  .dropdown-content a:hover {background-color: #f1f1f1}
+  .dropdown:hover .dropdown-content {
+    display: block;
+    cursor: pointer;
+  }

@@ -1,4 +1,16 @@
-@import "../css/mail-box.css";
+.mails{
+    position: absolute;
+    border: 2px solid  rgb(140, 137, 232);
+    flex: 1;
+    overflow: scroll;
+    border-radius: 10px;
+    width: 1300px;
+    height: 540px;
+    left: 220px;
+    top :145px;
+    box-shadow: 0 8px 10px -7px rgb(226, 226, 251);
+    background: #ffffff;
+}
 .btn{
     border-radius: 5px;
     float: left;
