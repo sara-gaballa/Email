@@ -1,25 +1,26 @@
 package com.example.email.service;
 
-import com.example.email.model.Email;
 import com.example.email.model.User;
 
-public class LoggingProxy implements Logging {
-    private LoggingService service;
+import java.io.IOException;
+import java.util.List;
 
-    public LoggingProxy(LoggingService service) {
-        this.service = service;
-        //accounts = new ArrayList<>();
+public class LoggingProxy implements Logging {
+
+    private LoggingService service = new LoggingService();
+
+    public LoggingProxy() {
     }
 
     @Override
-    public Email[] signUp(User user) {
+    public void signUp(User user) throws IOException {
         if (this.service.findUser(user.getEmail()) != null)
             throw new RuntimeException("Email address already exists!");
-        return this.service.signUp(user);
+        this.service.signUp(user);
     }
 
     @Override
-    public Email[] signIn(String email, String password) {
+    public List<String> signIn(String email, String password) {
         User user = this.service.findUser(email);
         if (user == null)
             throw new RuntimeException("Email address not found");

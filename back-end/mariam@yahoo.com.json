@@ -1,0 +1,9 @@
+{
+  "firstName" : "Mariam",
+  "lastName" : "Hossam",
+  "email" : "mariam@yahoo.com",
+  "password" : "mariam123",
+  "contacts" : [ ],
+  "userFolders" : [ ],
+  "folder" : "mariam@yahoo.com"
+}
