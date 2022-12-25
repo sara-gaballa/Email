@@ -6,13 +6,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./email.component.css']
 })
 export class EmailComponent implements OnInit {
-
+  search:string|null='Search'
 
   constructor(private router:Router) { }
 
   ngOnInit(): void {
   }
-  goToPage():void {
-    this.router.navigate(['inbox']);
-    }
+  change(s:string):void{
+    this.search=s;
+  }
 }
