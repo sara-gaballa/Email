@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EmailComponent } from './email/email.component';
+import { DraftComponent } from './draft/draft.component';
 import { InboxComponent } from './inbox/inbox.component';
 import { SentComponent } from './sent/sent.component';
 import { StartPageComponent } from './start-page/start-page.component';
+import { TrashComponent } from './trash/trash.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,15 @@ const routes: Routes = [
   },
   {
     path:'',
-    component:StartPageComponent
+    component:StartPageComponent,
+  },
+  {
+    path:'draft',
+    component:DraftComponent,
+  },
+  {
+    path:'trash',
+    component:TrashComponent,
   }
 ];
 

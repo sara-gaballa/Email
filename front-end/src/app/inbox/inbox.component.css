@@ -13,3 +13,22 @@
 h1{
     font-size: 17px;
 }
+.email{
+    border-radius: 5px;
+    float: left;
+    width: 100%;
+	height: 70px;
+    display: block;
+    border: 2px solid  rgb(140, 137, 232);
+    color: rgb(0, 0, 0);
+    background: rgb(255, 255, 255);
+	cursor: pointer;
+}
+.email .material-symbols-outlined{
+    float: left;
+    color: rgb(140, 137, 232);
+    cursor: pointer;
+}
+.email:hover{
+    background: rgb(207, 207, 216);
+}
