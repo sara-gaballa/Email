@@ -8,7 +8,7 @@
     <div class = "header">
         
         <div class = "header-left">
-            <span class = "material-symbols-outlined">menu</span>
+            <!-- <span class = "material-symbols-outlined">menu</span> -->
             <img src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png" >
         </div>
         <div class = "header-middle">
@@ -27,7 +27,7 @@
         <!-- side bar section start  -->
         <div class="sidebar">
             <button class="sidebar_compose">
-                <span class="material-symbols-outlined">add</span>
+                <span class="material-symbols-outlined" routerLink="/start">add</span>
                 Compose
             </button>
             <div class="sidebaroption sidebaroption_active">
@@ -42,6 +42,10 @@
                 <span class="material-symbols-outlined">draft</span>
                 <h3>Draft</h3>
             </div>
+            <button class="sidebar_addfolder">
+                <span class="material-symbols-outlined">add</span>
+                add new folder
+            </button>
         </div>
         <!-- side bar section ends  -->
 
@@ -50,8 +54,18 @@
             <div class="emailList_settings">
                 <div class="emailList_settingsLeft">
                         <input type="checkbox" class="material-symbols-outlined">
-                        <select class="List" name="List">
+                        <select class="List" name="List">//search >>>>> need search bar 
+                            <option value="1">All</option>
+                            <option value="2">Subject</option>
+                            <option value="3">Sender</option>
+                        </select>
+                        <select class="List" name="List">//filter
                             <option value="1">Filter</option>
+                            <option value="2">Subject</option>
+                            <option value="3">Sender</option>
+                        </select>
+                        <select class="List" name="List">//filter//sort
+                            <option value="1">sort</option>
                             <option value="2">Subject</option>
                             <option value="3">Sender</option>
                         </select>
