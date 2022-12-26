@@ -33,9 +33,22 @@ export class EmailComponent {
   navigate(page: string) {
     console.log(page)
   }
-
-  addFolder(newFolder: string) {
-    this.folders.addFolder(newFolder)
-    this.folders.getFolders()
+  addfolder(){
+    let name=document.getElementById("FolderName") as HTMLInputElement ;
+    if(name?.value!=''){
+      this.folders.addFolder(name?.value)
+      this.folders.getFolders()
+      let click = document.getElementById("NewFolder");
+      click!.style.display = "none";
+    }
+    name.value='';
+  }
+  openWindow() {
+    let click = document.getElementById("NewFolder");
+    if(click != null && click.style.display === "none") {
+        click.style.display = "block";
+    } else if(click != null){
+        click.style.display = "none";
+    }
   }
 }

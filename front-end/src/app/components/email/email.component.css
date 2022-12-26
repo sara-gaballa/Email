@@ -288,4 +288,46 @@ height: 89vh;
     cursor: pointer;
     text-align: left;
 }
-
+.addNewFolder{
+    position: relative;
+    background-image: url("https://wallpapercave.com/wp/KSnFrMw.jpg");
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: 2px solid  rgb(140, 137, 232);
+    border-top-right-radius: 10px ;
+    border-bottom-right-radius: 10px ;
+    border-top-left-radius: 10px ;
+    border-bottom-left-radius: 10px ;
+    z-index: 1;
+    height: 130px;
+    width: 200px;
+    left:10px;
+    bottom:10px;
+}
+.inputfolder{
+    background: #e0dede;
+    border-radius: 10px;
+    margin: 20px auto;
+	padding: 10px;
+    position: relative;
+    left: 7px;
+    cursor: pointer;
+}
+.showfolder{
+    position:relative;
+    text-align: left;
+    width: 70px;
+	height: 35px;
+	background: #e0dede;
+	display: flex;
+	margin: 20px auto;
+	padding: 10px;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+    bottom: 20px;
+    cursor: pointer;
+}

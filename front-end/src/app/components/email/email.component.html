@@ -42,10 +42,15 @@
                     <h3> {{ folder.getName() }} </h3>
                 </div>
 
-                <button class="sidebar_addfolder" (click)="addFolder('cursed')">
+                <button class="sidebar_addfolder" (click)="openWindow()">
                   <span class="material-symbols-outlined">create_new_folder</span>
                   add new folder
                 </button>
+                <div class="addNewFolder" id="NewFolder" style="display: none;">
+                    <input  class="inputfolder" type="text" name="txt" id="FolderName" placeholder="Folder name" required="">
+                    <button (click)="addfolder()" class="showfolder">Add</button>
+                    <span (click)="addfolder()"class="material-symbols-outlined" style=" position:relative; bottom: 70px; left: 105px;">add_circle</span>
+                </div>
             </div>
             <!-- side bar section ends  -->
 
