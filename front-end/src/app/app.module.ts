@@ -3,12 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EmailComponent } from './email/email.component';
-import { StartPageComponent } from './start-page/start-page.component';
-import { InboxComponent } from './email-pages/inbox/inbox.component';
-import { SentComponent } from './email-pages/sent/sent.component';
-import { DraftComponent } from './email-pages/draft/draft.component';
-import { TrashComponent } from './email-pages/trash/trash.component';
+import { StartPageComponent } from './components/start-page/start-page.component';
+import { InboxComponent } from './components/inbox/inbox.component';
+import { FolderComponent } from './components/folder/folder.component';
+import { MailboxComponent } from './components/mailbox/mailbox.component';
+import { EmailComponent } from './components/email/email.component';
+
 
 @NgModule({
   declarations: [
@@ -16,9 +16,8 @@ import { TrashComponent } from './email-pages/trash/trash.component';
     EmailComponent,
     StartPageComponent,
     InboxComponent,
-    SentComponent,
-    DraftComponent,
-    TrashComponent
+    FolderComponent,
+    MailboxComponent
   ],
   imports: [
     BrowserModule,

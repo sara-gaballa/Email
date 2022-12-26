@@ -1,0 +1,106 @@
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="image">
+        <!-- header starts -->
+        <div class="header">
+
+            <div class="header-left">
+                <!-- <span class = "material-symbols-outlined">menu</span> -->
+                <img src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png">
+            </div>
+
+            <div class="header-right">
+                <span class="material-symbols-outlined">notifications</span>
+                <div class="profile">
+                    <button class="material-symbols-outlined" (click)="show_hide_profile()">account_circle</button>
+                    <div id="profile-content" style="display: none; position:absolute;">
+                        <img id="img" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" style="width:50px; height:50px; position:relative; left: 100px; top:20px">
+                        <label for="img" style=" position:relative; top: 20px; left: 95px; color:whitesmoke">Sara_Nancy</label>
+                        <label for="img" style=" position:relative; top: 40px; right: 20px; color:whitesmoke">nancyhisham@galaxy.com</label>
+                        <button id="logout" routerLink="/">Sign Out</button>
+                        <span class="material-symbols-outlined" style=" position:relative; top: 58px; left: 150px;" routerLink="/">logout</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- header ends -->
+
+        <!-- main body start -->
+        <div class="main_body">
+            <!-- side bar section start  -->
+            <div class="sidebar">
+                <button class="sidebar_compose">
+                <span class="material-symbols-outlined" routerLink="/start">add</span>
+                Compose
+            </button>
+
+                <div class="sidebaroption sidebaroption_active" routerLink='/inbox'>
+                    <span class="material-symbols-outlined">inbox</span>
+                    <h3>Inbox</h3>
+                </div>
+                <div class="sidebaroption sidebaroption_active" routerLink='/sent'>
+                    <span class="material-symbols-outlined">send</span>
+                    <h3>Sent</h3>
+                </div>
+                <div class="sidebaroption sidebaroption_active" routerLink='/draft'>
+                    <span class="material-symbols-outlined">draft</span>
+                    <h3>Draft</h3>
+                </div>
+                <div class="sidebaroption sidebaroption_active" routerLink='/trash'>
+                    <span class="material-symbols-outlined">delete</span>
+                    <h3>Trash</h3>
+                </div>
+
+                <button class="sidebar_addfolder">
+                <span class="material-symbols-outlined">add</span>
+                add new folder
+            </button>
+            </div>
+            <!-- side bar section ends  -->
+
+            <!-- email body starts -->
+            <div class="emailList">
+                <div class="emailList_settings">
+                    <div class="emailList_settingsLeft">
+                        <input type="checkbox" class="material-symbols-outlined">
+                        <select class="List" name="List">//filter
+                            <option value="1">Filter</option>
+                            <option value="2">Subject</option>
+                            <option value="3">Sender</option>
+                        </select>
+                        <select class="List" name="List">//filter//sort
+                            <option value="1">sort</option>
+                            <option value="2">Subject</option>
+                            <option value="3">Sender</option>
+                        </select>
+                        <span class="material-symbols-outlined">Refresh</span>
+                    </div>
+                    <!-- sections start -->
+                    <div class="emailList_sections">
+                        <span class="material-symbols-outlined"> search </span>
+                        <input type="text" placeholder={{search}}/>
+                        <div class="dropdown">
+                            <span class="material-symbols-outlined">arrow_drop_down</span>
+                            <div class="dropdown-content">
+                                <a (click)="change('Search All Mail')" value="All">All</a>
+                                <a (click)="change('Search Subject Mail')" value="Subject">Subject</a>
+                                <a (click)="change('Search Sender Mail')" value="Sender">Sender</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="emailList_settingsRight">
+                        <span class="material-symbols-outlined">chevron_left</span>
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </div>
+                </div>
+                <!-- sections end -->
+            </div>
+            <!-- email body ends -->
+        </div>
+        <!-- main body ends -->
+    </div>
+</body>

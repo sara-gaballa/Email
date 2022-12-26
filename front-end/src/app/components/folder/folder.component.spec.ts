@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TrashComponent } from './trash.component';
+import { FolderComponent } from './folder.component';
 
-describe('TrashComponent', () => {
-  let component: TrashComponent;
-  let fixture: ComponentFixture<TrashComponent>;
+describe('FolderComponent', () => {
+  let component: FolderComponent;
+  let fixture: ComponentFixture<FolderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TrashComponent ]
+      declarations: [ FolderComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TrashComponent);
+    fixture = TestBed.createComponent(FolderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
