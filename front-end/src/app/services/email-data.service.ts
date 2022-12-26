@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { RemoteProxyService } from '../controller/remote-proxy.service';
-import { MailBox } from '../model/mailbox';
 import { FolderManagerService } from './folder-manager.service';
 
 
