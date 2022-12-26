@@ -1,23 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Folder } from 'src/app/model/folder';
 import { FolderManagerService } from 'src/app/services/folder-manager.service';
-import { FolderComponent } from '../folder/folder.component';
 @Component({
   selector: 'app-email',
   templateUrl: './email.component.html',
   styleUrls: ['./email.component.css']
 })
-export class EmailComponent implements OnInit{
+export class EmailComponent {
   search: string = 'Search'
   click: string = ''
-  shownFolders: FolderComponent[] = []
+  shownFolders: Folder[] = []
 
   constructor(private router:Router, private folders: FolderManagerService) {
     this.shownFolders = folders.getFolders()
-  }
-
-  ngOnInit(): void {
-
   }
 
   change(s:string):void{
@@ -28,20 +24,17 @@ export class EmailComponent implements OnInit{
     let click = document.getElementById("profile-content");
       if(click != null && click.style.display === "none") {
           click.style.display = "block";
-        } else if(click != null){
+      } else if(click != null){
           click.style.display = "none";
-        }
+      }
   }
 
   navigate(page: string) {
-    /* if(page == 'trash')
-      console.log("trash")
-    else if(page == 'inbox')
-      console.log("inbox")
-    else if(page == 'draft')
-      console.log("draft")
-    else if(page == 'sent')
-      console.log("sent") */
     console.log(page)
+  }
+
+  addFolder(newFolder: string) {
+    this.folders.addFolder(newFolder)
+    this.folders.getFolders()
   }
 }
