@@ -10,13 +10,13 @@ public class FileManager {
     private static ObjectMapper objectMapper = new ObjectMapper();
 
     //create new folder in the given path
-    public boolean addFolder(String path) {
+    public static boolean addFolder(String path) {
         File folder = new File(parentFolder + "/" + path);
         return folder.mkdirs();
     }
 
     //delete folder with the given path
-    public boolean deleteFolder(String path) {
+    public static boolean deleteFolder(String path) {
         File folder = new File(parentFolder + "/" + path);
         for (File file : folder.listFiles()) {
             // delete files and empty sub-folders
@@ -25,7 +25,11 @@ public class FileManager {
         return folder.delete();
     }
 
-    // TODO : rename folder
+    //rename folder with the given path
+    public static boolean renameFolder(String oldPath, String newPath) {
+        File folder = new File(parentFolder + "/" + oldPath);
+        return folder.renameTo(new File(parentFolder + "/" + newPath));
+    }
 
     public static File[] getAllFiles(String path) {
         File file = new File(parentFolder + "/" + path);
@@ -51,6 +55,7 @@ public class FileManager {
     }
 
     public static File addFile(String path, String fileName) throws IOException {
+        addFolder(path);
         File file = new File(parentFolder + "/" + path + "/" + fileName);
         file.createNewFile();
         return file;

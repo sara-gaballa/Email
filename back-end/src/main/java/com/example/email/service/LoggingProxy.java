@@ -28,4 +28,9 @@ public class LoggingProxy implements Logging {
             throw new RuntimeException("Incorrect password");
         return this.service.signIn(email, password);
     }
+
+    @Override
+    public User findUser(String email) {
+        return service.findUser(email);
+    }
 }

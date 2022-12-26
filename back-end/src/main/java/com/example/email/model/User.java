@@ -1,5 +1,7 @@
 package com.example.email.model;
 
+import com.example.email.mailmanager.FileManager;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +20,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.contacts = new ArrayList<>();
-        
+        FileManager.addFolder(email);
     }
 
     public String getFirstName() {

@@ -1,7 +1,7 @@
 package com.example.email.model;
 
 public class Email {
-    private final String id;
+    private String id;
     private String from;
     private String to;
     private String date;
@@ -11,9 +11,8 @@ public class Email {
     private Priority priority;
     private String[] attachments;
 
-    public Email(String id, String from, String to, String date, String time, String subject,
+    public Email(String from, String to, String date, String time, String subject,
                  String body, Priority priority, String[] attachments) {
-        this.id = id;
         this.from = from;
         this.to = to;
         this.date = date;
@@ -26,6 +25,12 @@ public class Email {
 
     public String getId() {
         return id;
+    }
+
+    // set id only one time
+    public void setId(String id) {
+        if (this.id == null)
+            this.id = id;
     }
 
     public String getFrom() {
