@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
-public class DataManager implements Manager {
+// draft class
+public class DataManager {
     private final static String parentFolder = "parent";
     private static ObjectMapper objectMapper = new ObjectMapper();
 

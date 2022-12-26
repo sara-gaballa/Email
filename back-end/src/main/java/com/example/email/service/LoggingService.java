@@ -1,13 +1,9 @@
 package com.example.email.service;
 
 import com.example.email.model.User;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class LoggingService implements Logging {
@@ -19,17 +15,7 @@ public class LoggingService implements Logging {
 
     @Override
     public void signUp(User user) throws IOException {
-        accounts.add(user);
-        System.out.println(Arrays.toString(accounts.toArray()));
-        File mailFolder = new File(user.getEmail() + ".json");
-        mailFolder.createNewFile();
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        //configure objectMapper for pretty input
-        objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-
-        //write email object to json file
-        objectMapper.writeValue(mailFolder, user);
+        accounts.add(new User(user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword()));
     }
 
     @Override

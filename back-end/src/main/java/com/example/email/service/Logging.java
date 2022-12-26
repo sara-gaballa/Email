@@ -6,8 +6,9 @@ import java.io.IOException;
 import java.util.List;
 
 public interface Logging {
-    public void signUp(User user) throws IOException;
+    void signUp(User user) throws IOException;
 
-    public List<String> signIn(String email, String password);
+    List<String> signIn(String email, String password);
 
+    User findUser(String email);
 }
