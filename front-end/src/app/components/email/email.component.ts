@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { Folder } from 'src/app/model/folder';
 import { FolderManagerService } from 'src/app/services/folder-manager.service';
+
+//observable
 @Component({
   selector: 'app-email',
   templateUrl: './email.component.html',
@@ -12,7 +13,7 @@ export class EmailComponent {
   click: string = ''
   shownFolders: Folder[] = []
 
-  constructor(private router:Router, private folders: FolderManagerService) {
+  constructor(private folders: FolderManagerService) {
     this.shownFolders = folders.getFolders()
   }
 

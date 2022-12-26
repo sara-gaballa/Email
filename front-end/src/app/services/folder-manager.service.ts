@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Folder } from '../model/folder';
 
+//observer
 @Injectable({
   providedIn: 'root'
 })
 export class FolderManagerService {
 
+  //Email folders
   private folders: Folder[] = [];
+
+  //names of folders
   private names: string[] = ['inbox', 'sent', 'draft', 'trash'];
 
   constructor() {
