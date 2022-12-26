@@ -8,6 +8,7 @@ import { InboxComponent } from './components/inbox/inbox.component';
 import { FolderComponent } from './components/folder/folder.component';
 import { MailboxComponent } from './components/mailbox/mailbox.component';
 import { EmailComponent } from './components/email/email.component';
+import { MailAreaComponent } from './components/mail-area/mail-area.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { EmailComponent } from './components/email/email.component';
     StartPageComponent,
     InboxComponent,
     FolderComponent,
-    MailboxComponent
+    MailboxComponent,
+    MailAreaComponent
   ],
   imports: [
     BrowserModule,

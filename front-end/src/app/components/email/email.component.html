@@ -33,31 +33,19 @@
             <!-- side bar section start  -->
             <div class="sidebar">
                 <button class="sidebar_compose">
-                <span class="material-symbols-outlined" routerLink="/start">add</span>
-                Compose
-            </button>
+                  <span class="material-symbols-outlined" routerLink="/start">add</span>
+                  Compose
+                </button>
 
-                <div class="sidebaroption sidebaroption_active" routerLink='/inbox'>
-                    <span class="material-symbols-outlined">inbox</span>
-                    <h3>Inbox</h3>
-                </div>
-                <div class="sidebaroption sidebaroption_active" routerLink='/sent'>
-                    <span class="material-symbols-outlined">send</span>
-                    <h3>Sent</h3>
-                </div>
-                <div class="sidebaroption sidebaroption_active" routerLink='/draft'>
-                    <span class="material-symbols-outlined">draft</span>
-                    <h3>Draft</h3>
-                </div>
-                <div class="sidebaroption sidebaroption_active" routerLink='/trash'>
-                    <span class="material-symbols-outlined">delete</span>
-                    <h3>Trash</h3>
+                <div class="sidebaroption sidebaroption_active" routerLink='/emails' *ngFor="let folder of shownFolders" (click)="navigate(folder.getName())">
+                    <span class="material-symbols-outlined">{{ folder.getIcon() }}</span>
+                    <h3> {{ folder.getName() }} </h3>
                 </div>
 
                 <button class="sidebar_addfolder">
-                <span class="material-symbols-outlined">add</span>
-                add new folder
-            </button>
+                  <span class="material-symbols-outlined">create_new_folder</span>
+                  add new folder
+              </button>
             </div>
             <!-- side bar section ends  -->
 
