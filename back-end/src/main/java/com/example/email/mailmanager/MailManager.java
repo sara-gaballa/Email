@@ -17,7 +17,6 @@ public interface MailManager {//TODO: write email
     // Check: Queue -> Array
     Email getMail(String path, String name) throws IOException;
 
-
     void addMail(String path, String fileName, Email email) throws IOException;
 
     // TODO : add ID
