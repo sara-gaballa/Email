@@ -1,1 +1,12 @@
-<p>mail-box works!</p>
+<app-email></app-email>
+
+<form class="mails">
+    <!-- <img id="img" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" style="width:60px; height:60px; position:relative; left: 610px; top:20px;"> -->
+    <div class = "From"><h2>{{getSenderName()}}</h2> </div>
+    <div class = "Email"><h3>{{getSenderEmail()}}</h3> </div>
+    <div class = "Date" ><h4>Date: {{getDate()}}</h4> </div>
+    <div class = "To"  > <h5>To: {{getTo()}} </h5></div>
+    <div class = "Subject" ><h1>{{getSubject()}}</h1></div>
+    <div class = "Body" ><h6>{{getbody()}}</h6></div>
+    
+</form>
