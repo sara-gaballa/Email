@@ -51,4 +51,14 @@ export class EmailComponent {
         click.style.display = "none";
     }
   }
+
+  inbox(){
+    let click = document.getElementById("inbox");
+      if(click != null && click.style.display === "none") {
+          click.style.display = "block";
+      } else if(click != null){
+          click.style.display = "none";
+      }
+  }
+
 }
