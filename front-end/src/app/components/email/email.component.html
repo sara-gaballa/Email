@@ -40,6 +40,9 @@
                 <div class="sidebaroption sidebaroption_active" routerLink='/emails' *ngFor="let folder of shownFolders" (click)="navigate(folder.getName())">
                     <span class="material-symbols-outlined">{{ folder.getIcon() }}</span>
                     <h3> {{ folder.getName() }} </h3>
+                    <ng-template [ngIf]="folder.getName()=='inbox'">
+                        <span class="material-symbols-outlined">arrow_drop_down</span>
+                    </ng-template>
                 </div>
 
                 <button class="sidebar_addfolder" (click)="openWindow()">
