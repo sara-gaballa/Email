@@ -6,15 +6,18 @@ export class Folder {
 
   private icon: string = ''
 
-  private icons: string[] = ['inbox', 'send', 'draft', 'delete', 'folder'];
+  private icons: string[] = ['inbox', 'send', 'draft', 'delete'];
 
   private emails: Email[] = [] //those emails representing only current page since the rest is handeled in the back
-
+constructor(name:string) {
+    this.name=name;
+    this.setIcon();
+}
   setName(name: string) { this.name = name }
 
   getName(): string { return this.name }
 
-  setIcon() {
+  setIcon() {//map
     if(this.name == 'inbox')
       this.icon = this.icons[0]
     else if(this.name == 'sent')
@@ -23,8 +26,9 @@ export class Folder {
       this.icon = this.icons[2]
     else if(this.name == 'trash')
       this.icon = this.icons[3]
-    else if(this.name != '')
-      this.icon = this.icon[4]
+    else
+      this.icon = 'folder'
+
   }
 
   getIcon(): string { return this.icon }

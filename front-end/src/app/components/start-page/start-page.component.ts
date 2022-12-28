@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationService } from 'src/app/services/navigation.service';
+import { User } from 'src/app/model/User';
+import { LoggingService } from 'src/app/services/logging.service';
 
 @Component({
   selector: 'app-start-page',
@@ -8,15 +9,15 @@ import { NavigationService } from 'src/app/services/navigation.service';
 })
 export class StartPageComponent implements OnInit {
 
-  constructor(private navigationService: NavigationService) { }
+  constructor(private loggingService: LoggingService) { }
 
   //Should be false by default and set to true by back
   private valid = true
 
   ngOnInit(): void {}
 
-  signUp(username: string, email: string, password: string) { this.navigationService.signUp(username, email, password) }
+  signUp(firstName: string, lastName: string, email: string, password: string) { this.loggingService.signUp(new User(firstName, lastName, email, password)) }
 
-  signIn(email: string, password: string) { this.navigationService.signIn(email, password) }
+  signIn(email: string, password: string) { this.loggingService.signIn(email, password) }
 
 }

@@ -18,12 +18,19 @@ export class FolderManagerService {
 
   constructor(private httpService: EmailHttpService) {
     //TODO take all extra folders from back
+
     for(let i = 0; i < 4; i++) {
-      let folder = new Folder()
-      folder.setName(this.names[i])
-      folder.setIcon()
+      let folder = new Folder(this.names[i])
       this.folders.push(folder)
     }
+    httpService.getFolders().subscribe((res)=>{
+
+      for (let i=0;i<res.length;i++){
+        let folder = new Folder(res[i])
+        this.folders.push(folder)
+        this.names.push(res[i]);
+      }
+    });
   }
 
   //get updated folders
@@ -31,12 +38,12 @@ export class FolderManagerService {
 
   //add folder (observer updated)
   addFolder(name: string) {
-    let folder = new Folder()
+    let folder = new Folder(name)
     this.names.push(name)
-    folder.setName(name)
-    folder.setIcon()
     this.folders.push(folder)
+    console.log(folder.getIcon());
     //TODO send to back
+    this.httpService.addFolder(name);
   }
 
   //delete folder (observer updated)
