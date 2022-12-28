@@ -1,3 +1,5 @@
+import { Email } from "./Email";
+
 export class Folder {
 
   private name: string = ''
@@ -5,6 +7,8 @@ export class Folder {
   private icon: string = ''
 
   private icons: string[] = ['inbox', 'send', 'draft', 'delete', 'folder'];
+
+  private emails: Email[] = [] //those emails representing only current page since the rest is handeled in the back
 
   setName(name: string) { this.name = name }
 
@@ -24,4 +28,9 @@ export class Folder {
   }
 
   getIcon(): string { return this.icon }
+
+  setEmails(emails: Email[]) { this.emails = emails }
+
+  getEmails(): Email[] { return this.emails }
+
 }

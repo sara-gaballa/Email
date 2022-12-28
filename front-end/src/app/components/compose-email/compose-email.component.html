@@ -1,13 +1,12 @@
 <app-email></app-email>
 <!-- start of main compose -->
-    <div class="compose-email">
-        <form>
-        <input  class="inputfolder" type="text"   placeholder="To">
-        <input  class="inputfolder" type="text"   placeholder="Subject">
-        <textarea id="emailbody"  rows="15" cols="112" style="overflow: scroll; left: 5px;position: absolute;font-size: 20px;" placeholder="Emailbody"></textarea>
-        </form>
-        <button id="logout" routerLink="/emails">Sent <span class="material-symbols-outlined" style="position: absolute; left:60px; bottom:4px ">send</span></button>
-        
-        <label class="file" for="f"><span class="material-symbols-outlined" style="position: absolute; left:8px;  ">attachment</span></label>
-        <input type="file" id="f"style="display:none">
+<div class="compose-email">
+    <form>
+        <input class="inputfolder" type="text" placeholder="To">
+        <input class="inputfolder" type="text" placeholder="Subject">
+        <textarea id="emailbody" rows="15" cols="112" style="overflow: scroll; left: 5px;position: absolute;font-size: 20px;" placeholder="Email body"></textarea>
+    </form>
+    <button id="logout" routerLink="/emails">Sent <span class="material-symbols-outlined" style="position: absolute; left:60px; bottom:4px ">send</span></button>
+    <label class="file" for="f"><span class="material-symbols-outlined" style="position: absolute; left:8px;">attachment</span></label>
+    <input type="file" id="f" style="display:none">
 </div>

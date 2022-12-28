@@ -15,11 +15,11 @@
             <div class="header-right">
                 <span class="material-symbols-outlined">notifications</span>
                 <div class="profile">
-                    <button class="material-symbols-outlined" (click)="show_hide_profile()">account_circle</button>
+                    <button class="material-symbols-outlined" (click)="showWindow('profile-content')">account_circle</button>
                     <div id="profile-content" style="display: none; position:absolute;">
                         <img id="img" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" style="width:50px; height:50px; position:relative; left: 100px; top:20px">
-                        <label for="img" style=" position:relative; top: 20px; left: 95px; color:whitesmoke">Sara_Nancy</label>
-                        <label for="img" style=" position:relative; top: 40px; right: 20px; color:whitesmoke">nancyhisham@galaxy.com</label>
+                        <label for="img" style=" position:relative; top: 20px; left: 95px; color:whitesmoke"><br>{{getUserName()}}</label>
+                        <label for="img" style=" position:relative; top: 40px; right: 20px; color:whitesmoke">{{getUserEmail()}}</label>
                         <button id="logout" routerLink="/">Sign Out</button>
                         <span class="material-symbols-outlined" style=" position:relative; top: 58px; left: 150px;" routerLink="/">logout</span>
                     </div>
@@ -33,32 +33,32 @@
             <!-- side bar section start  -->
             <div class="sidebar">
                 <button class="sidebar_compose" routerLink="/compose">
-                  <span class="material-symbols-outlined" >add</span>
-                  Compose
-                </button>
+                <span class="material-symbols-outlined" >add</span>
+                Compose
+              </button>
 
                 <div class="sidebaroption sidebaroption_active" routerLink='/emails' *ngFor="let folder of shownFolders" (click)="navigate(folder.getName())">
                     <span class="material-symbols-outlined">{{ folder.getIcon() }}</span>
                     <h3> {{ folder.getName() }} </h3>
                     <div class="default-prioprity">
-                    <ng-template [ngIf]="folder.getName()=='inbox'">
-                        <span class="material-symbols-outlined" (click)="inbox()">arrow_drop_down</span>
-                        <div id="inbox" style="display:none; position:absolute;">
-                            <b>default</b>
-                            <b style="top:45px">priority</b>
-                        </div>
-                    </ng-template>
+                        <ng-template [ngIf]="folder.getName()=='inbox'">
+                            <span class="material-symbols-outlined" (click)="showWindow('inbox')">arrow_drop_down</span>
+                            <div id="inbox" style="display:none; position:absolute;">
+                                <b>default</b>
+                                <b style="top:45px">priority</b>
+                            </div>
+                        </ng-template>
+                    </div>
                 </div>
-            </div>
 
-                <button class="sidebar_addfolder" (click)="openWindow()">
-                  <span class="material-symbols-outlined">create_new_folder</span>
-                  add new folder
-                </button>
+                <button class="sidebar_addfolder" (click)="showWindow('NewFolder')">
+                <span class="material-symbols-outlined">create_new_folder</span>
+                add new folder
+              </button>
                 <div class="addNewFolder" id="NewFolder" style="display: none;">
-                    <input  class="inputfolder" type="text" name="txt" id="FolderName" placeholder="Folder name" required="">
+                    <input class="inputfolder" type="text" name="txt" id="FolderName" placeholder="Folder name" required="">
                     <button (click)="addfolder()" class="showfolder">Add</button>
-                    <span (click)="addfolder()"class="material-symbols-outlined" style=" position:relative; bottom: 70px; left: 105px;">add_circle</span>
+                    <span (click)="addfolder()" class="material-symbols-outlined" style=" position:relative; bottom: 70px; left: 105px;">add_circle</span>
                 </div>
             </div>
             <!-- side bar section ends  -->
@@ -69,15 +69,15 @@
                     <div class="emailList_settingsLeft">
                         <input type="checkbox" class="material-symbols-outlined">
                         <select class="List" name="List">//filter
-                            <option value="1">Filter</option>
-                            <option value="2">Subject</option>
-                            <option value="3">Sender</option>
-                        </select>
+                          <option value="1">Filter</option>
+                          <option value="2">Subject</option>
+                          <option value="3">Sender</option>
+                      </select>
                         <select class="List" name="List">//filter//sort
-                            <option value="1">sort</option>
-                            <option value="2">Subject</option>
-                            <option value="3">Sender</option>
-                        </select>
+                          <option value="1">sort</option>
+                          <option value="2">Subject</option>
+                          <option value="3">Sender</option>
+                      </select>
                         <span class="material-symbols-outlined">Refresh</span>
                     </div>
                     <!-- sections start -->
@@ -106,3 +106,15 @@
         <!-- main body ends -->
     </div>
 </body>
+
+<div class="mails">
+    <button class="email" *ngFor="let email of shownEmails; let i = index" (click)="setOpenedEmail(i)" routerLink="/mail-box">
+  <span class = "material-symbols-outlined" >mail</span>
+</button>
+</div>
+
+<!-- <div class="mails"> -->
+<!-- <button class="email" (click)="setOpenedEmail(0)" routerLink="/mail-box"> -->
+<!-- <span class = "material-symbols-outlined" >mail</span> -->
+<!-- </button> -->
+<!-- </div> -->

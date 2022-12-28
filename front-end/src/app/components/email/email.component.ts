@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
-import { Folder } from 'src/app/model/folder';
+import { Email } from 'src/app/model/Email';
+import { Folder } from 'src/app/model/Folder';
+import { ContactService } from 'src/app/services/contact.service';
+import { EMailDataService } from 'src/app/services/email-data.service';
 import { FolderManagerService } from 'src/app/services/folder-manager.service';
+import { NavigationService } from 'src/app/services/navigation.service';
+import { UserService } from 'src/app/services/user.service';
 
-//observable
+//observable and all services observers except EmailHttpService is the facade for our program
 @Component({
   selector: 'app-email',
   templateUrl: './email.component.html',
@@ -12,27 +17,22 @@ export class EmailComponent {
   search: string = 'Search'
   click: string = ''
   shownFolders: Folder[] = []
+  shownEmails: Email[] = []
 
-  constructor(private folders: FolderManagerService) {
+  constructor(private folders: FolderManagerService, private userService: UserService, private contaceService: ContactService,
+              private navigationService: NavigationService, private emailDataService: EMailDataService) {
     this.shownFolders = folders.getFolders()
+    this.shownEmails = emailDataService.getCurrentPageEmails()
   }
 
   change(s:string):void{
-    this.search=s;
-  }
-
-  show_hide_profile() {
-    let click = document.getElementById("profile-content");
-      if(click != null && click.style.display === "none") {
-          click.style.display = "block";
-      } else if(click != null){
-          click.style.display = "none";
-      }
+    this.search = s;
   }
 
   navigate(page: string) {
-    console.log(page)
+    this.folders.setCurrentFolder(page)
   }
+
   addfolder(){
     let name=document.getElementById("FolderName") as HTMLInputElement ;
     if(name?.value!=''){
@@ -43,22 +43,22 @@ export class EmailComponent {
     }
     name.value='';
   }
-  openWindow() {
-    let click = document.getElementById("NewFolder");
-    if(click != null && click.style.display === "none") {
-        click.style.display = "block";
-    } else if(click != null){
-        click.style.display = "none";
-    }
-  }
 
-  inbox(){
-    let click = document.getElementById("inbox");
+  showWindow(window: string){
+    let click = document.getElementById(window);
       if(click != null && click.style.display === "none") {
           click.style.display = "block";
-      } else if(click != null){
+      } else if(click != null) {
           click.style.display = "none";
       }
   }
+
+  setOpenedEmail(id: number) { this.emailDataService.setOpenedEmail(this.shownEmails[id]) }
+
+  logout() { this.navigationService.logout() }
+
+  getUserName(): string { return this.userService.getUser().getFirstName().concat(" " + this.userService.getUser().getLastName()) }
+
+  getUserEmail(): string { return this.userService.getUser().getEmail() }
 
 }

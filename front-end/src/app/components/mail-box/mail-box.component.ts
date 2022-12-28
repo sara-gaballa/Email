@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Email } from 'src/app/model/Email';
+import { EMailDataService } from 'src/app/services/email-data.service';
 
 @Component({
   selector: 'app-mail-box',
@@ -7,27 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class MailBoxComponent implements OnInit {
-  ngOnInit(): void {}
-  constructor() {
-    
-   }
-  getSubject():string{
-    return "Subject";
+
+  constructor(private emailDataService: EMailDataService) { }
+
+  ngOnInit(): void {
   }
-  getSenderName():string{
-    return "Nancy";
-  }
-  getSenderEmail():string{
-    return "NancyHisham@galaxy.com";
-  }
-  getDate():string{
-    return "12/27/2022"
-  }
-  getTo():string{
-    return "SaraGaballah@galaxy.com"
-  }
-  getbody():string{
-    return "body"
-  }
+
+  getOpenedEmail(): Email { return this.emailDataService.getOpenedEmail() }
 
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Folder } from '../model/folder';
+import { EmailHttpService } from '../controller/EmailFacade';
+import { Folder } from '../model/Folder';
 
 //observer
 @Injectable({
@@ -8,12 +9,14 @@ import { Folder } from '../model/folder';
 export class FolderManagerService {
 
   //Email folders
-  private folders: Folder[] = [];
+  private folders: Folder[] = []
+
+  currentFolder: string = 'inbox'
 
   //names of folders
   private names: string[] = ['inbox', 'sent', 'draft', 'trash'];
 
-  constructor() {
+  constructor(private httpService: EmailHttpService) {
     //TODO take all extra folders from back
     for(let i = 0; i < 4; i++) {
       let folder = new Folder()
@@ -51,5 +54,9 @@ export class FolderManagerService {
     this.folders[index].setIcon()
     //TODO send to back
   }
+
+  getCurrentFolder() { return this.currentFolder }
+
+  setCurrentFolder(currentFolder: string) { this.currentFolder = currentFolder }
 
 }

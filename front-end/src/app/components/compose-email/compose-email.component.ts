@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Email } from 'src/app/model/Email';
+import { EMailDataService } from 'src/app/services/email-data.service';
 
 @Component({
   selector: 'app-compose-email',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ComposeEmailComponent implements OnInit {
 
-  constructor() { }
+  // constructor(private emailDataService: EMailDataService) { }
 
   ngOnInit(): void {
   }
+
+  // getOpenedEmail(): Email { return this.emailDataService.getOpenedEmail() }
 
 }

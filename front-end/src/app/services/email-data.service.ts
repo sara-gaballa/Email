@@ -1,34 +1,23 @@
 import { Injectable } from '@angular/core';
-import { RemoteProxyService } from '../controller/remote-proxy.service';
+import { EmailHttpService } from '../controller/EmailFacade';
+import { Email } from '../model/Email';
 import { FolderManagerService } from './folder-manager.service';
 
-
-//Mail mediator
+//All Mails
 @Injectable({
   providedIn: 'root'
 })
 export class EMailDataService {
 
-  /* private mails: Map<string, MailBox[]>; */
+  //initial opened email and changes when user chooses the desired email
+  openedEmail: Email = new Email("111", "Rowaina", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG")
 
-  constructor(private remoteProxy: RemoteProxyService, private folders: FolderManagerService) {
-    //TODO take extra mails from back
-    for(let i = 0; i < 4; i++) {
-      //TODO subscribe all essential mails form back
-    }
-  }
+  constructor(private httpService: EmailHttpService, private folderManager: FolderManagerService) {}
 
-  deleteMail(folderName: string, id: number) {
-    if(folderName != 'trash') {
-      //TODO add mail to trash
-      //TODO send to back
-    }
-    else {
-      //TODO delete mail premenantly
-      //TODO send to back
-    }
-  }
+  getCurrentPageEmails(): Email[] { return this.httpService.getEMails(this.folderManager.getCurrentFolder()) }
 
-  addMail(folderName: string) {}
+  setOpenedEmail(email: Email) { this.openedEmail = email }
+
+  getOpenedEmail(): Email { return this.openedEmail }
 
 }
