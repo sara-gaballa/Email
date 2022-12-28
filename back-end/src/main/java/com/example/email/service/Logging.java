@@ -11,4 +11,6 @@ public interface Logging {
     List<String> signIn(String email, String password);
 
     User findUser(String email);
+    
+    User getCurrentUser();
 }

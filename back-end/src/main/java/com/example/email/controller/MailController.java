@@ -13,7 +13,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 @RestController
-@CrossOrigin("https://localhost:4200")
+@CrossOrigin("http://localhost:4200/")
 @RequestMapping("/mail")
 public class MailController {
     @Autowired
@@ -25,16 +25,27 @@ public class MailController {
         try {
             logging.signUp(user);
         } catch (Exception e) {
+            System.out.println(user.getEmail());
         }
         System.out.println(user.getEmail());
     }
 
     @GetMapping("/signIn")
-    public List<String> signIn(@RequestBody String email, @RequestBody String password) {
+    public List<String> signIn(@RequestParam String email, @RequestParam String password) {
         try {
             return logging.signIn(email, password);
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    @GetMapping("/addFolder")
+    public void addFolder(@RequestParam String name) {
+        try {
+            service.addFolder(logging.getCurrentUser(), name);
+            System.out.println(logging.getCurrentUser().getFirstName() + " has added " + name + " folder.");
+        } catch (Exception e) {
+            System.out.println("something happened");
         }
     }
 
