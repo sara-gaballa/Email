@@ -1,6 +1,5 @@
 
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Contact } from '../model/Contact';
 import { Email } from '../model/Email';
 import { User } from '../model/User';
@@ -14,7 +13,7 @@ export class EmailHttpService{
     getUser(): User { return new User("Rowaina", "Abdelnaser", "Rowainaabdelnasser@gmail.com", "Rowaina20000") }
 
     //gets current page of the passed folder
-    getEMails(folder: string): Email[] { return [new Email("111", "Rokii", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG"), new Email("112", "Neso", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG"),
+    getEMails(folder: string, state: string): Email[] { return [new Email("111", "Rokii", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG"), new Email("112", "Neso", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG"),
                                                 new Email("113", "Sara", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG"), new Email("111", "Mariam", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG")]
                                         }
 
@@ -22,13 +21,15 @@ export class EmailHttpService{
 
     forwardEmail(email: Email, users: User[]) {} //forward to selected contacts
 
-    //logs out
     logout() {}
-    //both sign in and log out can be merged and controlled by parameter
-    //sign in
-    signIn() {}
+
+    signIn(email: string, password: string) { /*signIn in back*/ }
+
+    signUp(userName: string, email: string, password: string) { /*signUp in back*/ }
 
     updateFolders(action: string, name: string) {} //add delete rename
 
     updateEmail(action: string, id: string) {} //add or delete email
+
+    sort(folder: string, sort: string) {} //filter is the same so prameter will handel both
 }

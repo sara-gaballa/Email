@@ -3,6 +3,7 @@ import { Email } from 'src/app/model/Email';
 import { Folder } from 'src/app/model/Folder';
 import { ContactService } from 'src/app/services/contact.service';
 import { EMailDataService } from 'src/app/services/email-data.service';
+import { EmailsManipulationService } from 'src/app/services/emails-manipulation.service';
 import { FolderManagerService } from 'src/app/services/folder-manager.service';
 import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
@@ -20,18 +21,16 @@ export class EmailComponent {
   shownEmails: Email[] = []
 
   constructor(private folders: FolderManagerService, private userService: UserService, private contaceService: ContactService,
-              private navigationService: NavigationService, private emailDataService: EMailDataService) {
+              private navigationService: NavigationService, private emailDataService: EMailDataService, private emailManipulationService: EmailsManipulationService) {
     this.shownFolders = folders.getFolders()
-    this.shownEmails = emailDataService.getCurrentPageEmails()
+    this.shownEmails = emailDataService.getPageEmails('current')
   }
 
-  change(s:string):void{
-    this.search = s;
-  }
+  changeSearchLabel(s:string):void { this.search = s; }
 
-  navigate(page: string) {
-    this.folders.setCurrentFolder(page)
-  }
+  foldersNavigate(folder: string) { this.folders.setCurrentFolder(folder) } //can' remember if current is viewed or not..If not, "this.shownEmails = emailDataService.getPageEmails('current')"
+
+  pagesNavigate(state: string) { this.emailDataService.getPageEmails(state) }
 
   addfolder(){
     let name=document.getElementById("FolderName") as HTMLInputElement ;
@@ -60,5 +59,14 @@ export class EmailComponent {
   getUserName(): string { return this.userService.getUser().getFirstName().concat(" " + this.userService.getUser().getLastName()) }
 
   getUserEmail(): string { return this.userService.getUser().getEmail() }
+
+  // search(search: string) {  }
+
+  sort(sort: string) { this.emailManipulationService.sort(this.folders.getCurrentFolder(), sort) }
+
+  ///////////////////////////////////////////
+  //Put this on arrows for navigation:
+  // (click)="pagesNavigate('next')"
+  // (click)="pagesNavigate('previouse')"
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-start-page',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StartPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private navigationService: NavigationService) { }
 
-  ngOnInit(): void {
-  }
+  //Should be false by default and set to true by back
+  private valid = true
+
+  ngOnInit(): void {}
+
+  signUp(username: string, email: string, password: string) { this.navigationService.signUp(username, email, password) }
+
+  signIn(email: string, password: string) { this.navigationService.signIn(email, password) }
 
 }

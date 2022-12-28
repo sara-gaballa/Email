@@ -3,7 +3,6 @@ import { EmailHttpService } from 'src/app/controller/EmailFacade';
 import { DraftEmail } from 'src/app/model/DraftEmail';
 import { Email } from 'src/app/model/Email';
 import { Folder } from 'src/app/model/Folder';
-import { EMailDataService } from 'src/app/services/email-data.service';
 import { FolderManagerService } from 'src/app/services/folder-manager.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -20,7 +19,7 @@ export class ComposeEmailComponent implements OnInit {
 
   //httpService can be moved to compose service and be used insetead
   //also will be useful on sending data during composing
-  constructor(private httpService: EmailHttpService, private userService: UserService, private folderManager: FolderManagerService) {
+  constructor(private httpService: EmailHttpService, private userService: UserService, folderManager: FolderManagerService) {
     this.folders = folderManager.getFolders()
     this.draftFolder = this.folders[3]
     this.draftFolder.addEmail(this.composingEmail)

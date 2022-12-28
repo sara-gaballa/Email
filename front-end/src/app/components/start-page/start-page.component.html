@@ -10,19 +10,19 @@
             <div class="signup">
                 <form>
                     <label for="chk" aria-hidden="true">Sign up</label>
-                    <input type="text" name="txt" placeholder="User name" required="">
-                    <input type="email" name="email" placeholder="Email" required="">
-                    <input type="password" name="pswd" placeholder="Password" required="">
-                    <button routerLink="/emails">Sign up</button>
+                    <input type="text" name="username" placeholder="User name" required="" #username>
+                    <input type="email" name="email" placeholder="Email" required="" #emailSignUp>
+                    <input type="password" name="password" placeholder="Password" required="" #passwordSignUp>
+                    <button (click)="signUp(username.value, emailSignUp.value, passwordSignUp.value)" routerLink="/emails">Sign up</button>
                 </form>
             </div>
 
             <div class="login">
                 <form>
                     <label for="chk" aria-hidden="true">Login</label>
-                    <input type="email" name="email" placeholder="Email" required="">
-                    <input type="password" name="pswd" placeholder="Password" required="">
-                    <button routerLink="/emails">Login</button>
+                    <input type="email" name="email" placeholder="Email" required="" #emailLogin>
+                    <input type="password" name="pswd" placeholder="Password" required="" #passwordLogin>
+                    <button (click)="signIn(emailLogin.value, passwordLogin.value)" routerLink="/emails">Login</button>
                 </form>
             </div>
         </div>

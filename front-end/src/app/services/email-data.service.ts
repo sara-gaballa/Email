@@ -14,7 +14,12 @@ export class EMailDataService {
 
   constructor(private httpService: EmailHttpService, private folderManager: FolderManagerService) {}
 
-  getCurrentPageEmails(): Email[] { return this.httpService.getEMails(this.folderManager.getCurrentFolder()) }
+  /*state:
+    - current: no navigation yet ie first page view
+    - next: gets next page
+    - previouse: gets previous page
+  */
+  getPageEmails(state: string): Email[] { return this.httpService.getEMails(this.folderManager.getCurrentFolder(), state) }
 
   setOpenedEmail(email: Email) { this.openedEmail = email }
 

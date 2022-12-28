@@ -18,8 +18,8 @@
                     <button class="material-symbols-outlined" (click)="showWindow('profile-content')">account_circle</button>
                     <div id="profile-content" style="display: none; position:absolute;">
                         <img id="img" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" style="width:50px; height:50px; position:relative; left: 100px; top:20px">
-                        <label for="img" style=" position:relative; top: 20px; left: 95px; color:whitesmoke"><br>{{getUserName()}}</label>
-                        <label for="img" style=" position:relative; top: 40px; right: 20px; color:whitesmoke">{{getUserEmail()}}</label>
+                        <label for="img" style=" position:relative; top: 20px; left: 95px; color:whitesmoke"><br>{{ getUserName() }}</label>
+                        <label for="img" style=" position:relative; top: 40px; right: 20px; color:whitesmoke">{{ getUserEmail() }}</label>
                         <button id="logout" routerLink="/">Sign Out</button>
                         <span class="material-symbols-outlined" style=" position:relative; top: 58px; left: 150px;" routerLink="/">logout</span>
                     </div>
@@ -37,7 +37,7 @@
                 Compose
               </button>
 
-                <div class="sidebaroption sidebaroption_active" routerLink='/emails' *ngFor="let folder of shownFolders" (click)="navigate(folder.getName())">
+                <div class="sidebaroption sidebaroption_active" routerLink='/emails' *ngFor="let folder of shownFolders" (click)="foldersNavigate(folder.getName())">
                     <span class="material-symbols-outlined">{{ folder.getIcon() }}</span>
                     <h3> {{ folder.getName() }} </h3>
                     <div class="default-prioprity">
@@ -72,12 +72,12 @@
                           <option value="1">Filter</option>
                           <option value="2">Subject</option>
                           <option value="3">Sender</option>
-                      </select>
+                        </select>
                         <select class="List" name="List">//filter//sort
                           <option value="1">sort</option>
-                          <option value="2">Subject</option>
-                          <option value="3">Sender</option>
-                      </select>
+                          <option value="2" (click)="sort('subject')" >Subject</option>
+                          <option value="3" (click)="sort('sender')" >Sender</option>
+                        </select>
                         <span class="material-symbols-outlined">Refresh</span>
                     </div>
                     <!-- sections start -->
@@ -87,9 +87,9 @@
                         <div class="dropdown">
                             <span class="material-symbols-outlined">arrow_drop_down</span>
                             <div class="dropdown-content">
-                                <a (click)="change('Search All Mail')" value="All">All</a>
-                                <a (click)="change('Search Subject Mail')" value="Subject">Subject</a>
-                                <a (click)="change('Search Sender Mail')" value="Sender">Sender</a>
+                                <a (click)="changeSearchLabel('Search All Mail')" value="All">All</a>
+                                <a (click)="changeSearchLabel('Search Subject Mail')" value="Subject">Subject</a>
+                                <a (click)="changeSearchLabel('Search Sender Mail')" value="Sender">Sender</a>
                             </div>
                         </div>
                     </div>

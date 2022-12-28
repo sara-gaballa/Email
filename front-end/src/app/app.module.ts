@@ -15,6 +15,7 @@ import { UserService } from './services/user.service';
 import { ContactService } from './services/contact.service';
 import { NavigationService } from './services/navigation.service';
 import { ComposeService } from './services/compose.service';
+import { EmailsManipulationService } from './services/emails-manipulation.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ComposeService } from './services/compose.service';
     UserService,
     ContactService,
     NavigationService,
-    ComposeService
+    ComposeService,
+    EmailsManipulationService
   ],
   bootstrap: [AppComponent]
 })
