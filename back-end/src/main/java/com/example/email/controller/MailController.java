@@ -6,31 +6,47 @@ import com.example.email.service.Logging;
 import com.example.email.service.LoggingProxy;
 import com.example.email.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
 @RestController
-@CrossOrigin("https://localhost:4200")
+@CrossOrigin("http://localhost:4200/")
 @RequestMapping("/mail")
 public class MailController {
     @Autowired
     MailService service = new MailService();
     Logging logging = new LoggingProxy();
 
-    @RequestMapping("/signUp")
-    public void signUp() {
-        User mockUser = new User("Mariam", "Hossam", "mariam@yahoo.com", "mariam123");
-        User mockUser2 = new User("Menna", "Hossam", "menna@yahoo.com", "menna123");
+    @PostMapping("/signUp")
+    public void signUp(@RequestBody User user) {
         try {
-            logging.signUp(mockUser);
-            logging.signUp(mockUser2);
+            logging.signUp(user);
         } catch (Exception e) {
+            System.out.println(user.getEmail());
         }
-        System.out.println(mockUser.getEmail());
+        System.out.println(user.getEmail());
+    }
+
+    @GetMapping("/signIn")
+    public List<String> signIn(@RequestParam String email, @RequestParam String password) {
+        try {
+            return logging.signIn(email, password);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @GetMapping("/addFolder")
+    public void addFolder(@RequestParam String name) {
+        try {
+            service.addFolder(logging.getCurrentUser(), name);
+            System.out.println(logging.getCurrentUser().getFirstName() + " has added " + name + " folder.");
+        } catch (Exception e) {
+            System.out.println("something happened");
+        }
     }
 
     @RequestMapping("/send")

@@ -21,7 +21,7 @@ export class EmailComponent {
   shownEmails: Email[] = []
 
   constructor(private folders: FolderManagerService, private userService: UserService, private contaceService: ContactService,
-              private loggingService: LoggingService, private emailDataService: EMailDataService, private emailManipulationService: EmailsManipulationService) {
+              private navigationService: LoggingService, private emailDataService: EMailDataService, private emailManipulationService: EmailsManipulationService) {
     this.shownFolders = folders.getFolders()
     this.shownEmails = emailDataService.getPageEmails('current')
   }
@@ -54,7 +54,7 @@ export class EmailComponent {
 
   setOpenedEmail(id: number) { this.emailDataService.setOpenedEmail(this.shownEmails[id]) }
 
-  logout() { this.loggingService.logout() }
+  // logout() { this.loggingService.logout() }
 
   getUserName(): string { return this.userService.getUser().getFirstName().concat(" " + this.userService.getUser().getLastName()) }
 
@@ -68,5 +68,9 @@ export class EmailComponent {
   //Put this on arrows for navigation:
   // (click)="pagesNavigate('next')"
   // (click)="pagesNavigate('previouse')"
-
+cl(){
+  let click = document.getElementById("body");
+  let c = document.getElementById("window");
+  c.style.display="none";
+}
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/model/User';
 import { LoggingService } from 'src/app/services/logging.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class StartPageComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  signUp(username: string, email: string, password: string) { this.loggingService.signUp(username, email, password) }
+  signUp(firstName: string, lastName: string, email: string, password: string) { this.loggingService.signUp(new User(firstName, lastName, email, password)) }
 
   signIn(email: string, password: string) { this.loggingService.signIn(email, password) }
 

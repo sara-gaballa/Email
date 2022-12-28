@@ -430,3 +430,20 @@ h1 {
 .email:hover {
     background: rgb(207, 207, 216);
 }
+.default-prioprity .material-symbols-outlined{
+    background-color: transparent;
+    border-color: transparent;
+}
+.default-prioprity .material-symbols-outlined:hover{
+    background-color: transparent;
+}
+.default-prioprity .de-pr button{
+    border-radius: 5px;
+    width: 100%;
+    height: 30px;
+    display: block;
+    background-color: 2px solid rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border-color: rgb(140, 137, 232);
+    cursor: pointer;
+}

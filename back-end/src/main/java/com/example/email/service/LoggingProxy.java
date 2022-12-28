@@ -33,4 +33,8 @@ public class LoggingProxy implements Logging {
     public User findUser(String email) {
         return service.findUser(email);
     }
+
+    public User getCurrentUser() {
+        return service.getCurrentUser();
+    }
 }
