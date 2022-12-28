@@ -1,22 +1,22 @@
 export class Email {
 
-  private id: string = '';
+  protected id: string = '';
 
-  private from: string = '';
+  protected from: string = '';
 
-  private to: string = '';
+  protected to: string = '';
 
-  private date: string = '';
+  protected date: string = '';
 
-  private time: string = '';
+  protected time: string = '';
 
-  private subject: string = '';
+  protected subject: string = '';
 
-  private body: string = '';
+  protected body: string = '';
 
   // private Priority priority;
 
-  private attachments: string[] = [];
+  protected attachments: string[] = [];
 
   constructor(id: string, from: string, to: string, date: string, time: string, subject: string, body: string) {
     this.id = id

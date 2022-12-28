@@ -2,11 +2,11 @@
 <!-- start of main compose -->
 <div class="compose-email">
     <form>
-        <input class="inputfolder" type="text" placeholder="To">
-        <input class="inputfolder" type="text" placeholder="Subject">
-        <textarea id="emailbody" rows="15" cols="112" style="overflow: scroll; left: 5px;position: absolute;font-size: 20px;" placeholder="Email body"></textarea>
+        <input class="inputfolder" type="text" placeholder="To" #to (change)="changeTo(to.value)">
+        <input class="inputfolder" type="text" placeholder="Subject" #subject (change)="changeSubject(subject.value)">
+        <textarea id="emailbody" rows="15" cols="112" style="overflow: scroll; left: 5px;position: absolute;font-size: 20px;" placeholder="Email body" #emailBody (change)="changeBody(emailBody.value)"></textarea>
     </form>
-    <button id="logout" routerLink="/emails">Sent <span class="material-symbols-outlined" style="position: absolute; left:60px; bottom:4px ">send</span></button>
+    <button id="logout" (click)="send(to.value, subject.value, emailBody.value)" routerLink="/emails">Sent <span class="material-symbols-outlined" style="position: absolute; left:60px; bottom:4px ">send</span></button>
     <label class="file" for="f"><span class="material-symbols-outlined" style="position: absolute; left:8px;">attachment</span></label>
     <input type="file" id="f" style="display:none">
 </div>
