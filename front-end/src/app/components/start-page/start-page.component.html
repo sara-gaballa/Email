@@ -10,10 +10,11 @@
             <div class="signup">
                 <form>
                     <label for="chk" aria-hidden="true">Sign up</label>
-                    <input type="text" name="username" placeholder="User name" required="" #username>
+                    <input type="text" name="firstname" placeholder="First name" required="" #firstname>
+                    <input type="text" name="lastname" placeholder="Last name" required="" #lastname>
                     <input type="email" name="email" placeholder="Email" required="" #emailSignUp>
                     <input type="password" name="password" placeholder="Password" required="" #passwordSignUp>
-                    <button (click)="signUp(username.value, emailSignUp.value, passwordSignUp.value)" routerLink="/emails">Sign up</button>
+                    <button (click)="signUp(firstname.value,lastname.value, emailSignUp.value, passwordSignUp.value)" routerLink="/emails">Sign up</button>
                 </form>
             </div>
 

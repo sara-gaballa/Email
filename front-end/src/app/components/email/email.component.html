@@ -21,7 +21,7 @@
                         <label for="img" style=" position:relative; top: 20px; left: 95px; color:whitesmoke"><br>{{ getUserName() }}</label>
                         <label for="img" style=" position:relative; top: 40px; right: 20px; color:whitesmoke">{{ getUserEmail() }}</label>
                         <button id="logout" routerLink="/">Sign Out</button>
-                        <span class="material-symbols-outlined" style=" position:relative; top: 58px; left: 150px;" routerLink="/">logout</span>
+                        <span class="material-symbols-outlined" style=" position:relative; top: 40px; left: 150px; color: white" routerLink="/">logout</span>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                 add new folder
               </button>
                 <div class="addNewFolder" id="NewFolder" style="display: none;">
-                    <input class="inputfolder" type="text" name="txt" id="FolderName" placeholder="Folder name" required="">
+                    <input class="inputfolder" type="text" id="FolderName" placeholder="Folder name">
                     <button (click)="addfolder()" class="showfolder">Add</button>
                     <span (click)="addfolder()" class="material-symbols-outlined" style=" position:relative; bottom: 70px; left: 105px;">add_circle</span>
                 </div>
