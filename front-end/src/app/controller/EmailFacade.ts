@@ -58,9 +58,6 @@ export class EmailHttpService{
 
     logout() {}
 
-
-
-
     updateFolders(action: string, name: string) {} //add delete rename
 
     updateEmail(action: string, id: string) {} //add or delete email

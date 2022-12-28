@@ -3,7 +3,6 @@ import { Email } from 'src/app/model/Email';
 import { Folder } from 'src/app/model/Folder';
 import { ContactService } from 'src/app/services/contact.service';
 import { EMailDataService } from 'src/app/services/email-data.service';
-import { EmailsManipulationService } from 'src/app/services/emails-manipulation.service';
 import { FolderManagerService } from 'src/app/services/folder-manager.service';
 import { LoggingService } from 'src/app/services/logging.service';
 import { UserService } from 'src/app/services/user.service';
@@ -21,7 +20,7 @@ export class EmailComponent {
   shownEmails: Email[] = []
 
   constructor(private folders: FolderManagerService, private userService: UserService, private contaceService: ContactService,
-              private navigationService: LoggingService, private emailDataService: EMailDataService, private emailManipulationService: EmailsManipulationService) {
+              private navigationService: LoggingService, private emailDataService: EMailDataService) {
     this.shownFolders = folders.getFolders()
     this.shownEmails = emailDataService.getPageEmails('current')
   }
@@ -33,10 +32,9 @@ export class EmailComponent {
   pagesNavigate(state: string) { this.emailDataService.getPageEmails(state) }
 
   addfolder(){
-    let name=document.getElementById("FolderName") as HTMLInputElement ;
+    let name = document.getElementById("FolderName") as HTMLInputElement ;
     if(name?.value!=''){
       this.folders.addFolder(name?.value)
-      this.folders.getFolders()
       let click = document.getElementById("NewFolder");
       click!.style.display = "none";
     }
@@ -62,15 +60,10 @@ export class EmailComponent {
 
   // search(search: string) {  }
 
-  sort(sort: string) { this.emailManipulationService.sort(this.folders.getCurrentFolder(), sort) }
+  sort(sort: string) { this.emailDataService.sort(this.folders.getCurrentFolder(), sort) }
 
   ///////////////////////////////////////////
   //Put this on arrows for navigation:
   // (click)="pagesNavigate('next')"
   // (click)="pagesNavigate('previouse')"
-cl(){
-  let click = document.getElementById("body");
-  let c = document.getElementById("window");
-  c.style.display="none";
-}
 }

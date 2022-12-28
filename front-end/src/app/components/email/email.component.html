@@ -2,7 +2,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 
-<body (click)="cl()" id="body">
+<body>
     <div class="image">
         <!-- header starts -->
         <div class="header">
@@ -16,7 +16,7 @@
                 <span class="material-symbols-outlined">notifications</span>
                 <div class="profile">
                     <button class="material-symbols-outlined" (click)="showWindow('profile-content')">account_circle</button>
-                    <div id="profile-content" style="display: none; position:absolute;" >
+                    <div id="profile-content" style="display: none; position:absolute;">
                         <img id="img" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" style="width:50px; height:50px; position:relative; left: 100px; top:20px">
                         <label for="img" style=" position:relative; top: 20px; left: 95px; color:whitesmoke"><br>{{ getUserName() }}</label>
                         <label for="img" style=" position:relative; top: 40px; right: 20px; color:whitesmoke">{{ getUserEmail() }}</label>
@@ -56,7 +56,7 @@
                 add new folder
               </button>
                 <div class="addNewFolder" id="NewFolder" style="display: none;">
-                    <input class="inputfolder" type="text" id="FolderName" placeholder="Folder name" >
+                    <input class="inputfolder" type="text" id="FolderName" placeholder="Folder name">
                     <button (click)="addfolder()" class="showfolder">Add</button>
                     <span (click)="addfolder()" class="material-symbols-outlined" style=" position:relative; bottom: 70px; left: 105px;">add_circle</span>
                 </div>

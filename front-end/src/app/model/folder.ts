@@ -11,9 +11,10 @@ export class Folder {
   private emails: Email[] = [] //those emails representing only current page since the rest is handeled in the back
 
   constructor(name:string) {
-    this.name=name;
+    this.name = name;
     this.setIcon();
   }
+
   setName(name: string) { this.name = name }
 
   getName(): string { return this.name }

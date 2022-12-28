@@ -17,18 +17,14 @@ export class FolderManagerService {
   private names: string[] = ['inbox', 'sent', 'draft', 'trash'];
 
   constructor(private httpService: EmailHttpService) {
-    //TODO take all extra folders from back
-
     for(let i = 0; i < 4; i++) {
       let folder = new Folder(this.names[i])
       this.folders.push(folder)
     }
     httpService.getFolders().subscribe((res)=>{
-
       for (let i=0;i<res.length;i++){
-        let folder = new Folder(res[i])
-        this.folders.push(folder)
-        this.names.push(res[i]);
+        this.folders.push(new Folder(res[i]))
+        this.names.push(res[i])
       }
     });
   }
@@ -38,11 +34,8 @@ export class FolderManagerService {
 
   //add folder (observer updated)
   addFolder(name: string) {
-    let folder = new Folder(name)
+    this.folders.push(new Folder(name))
     this.names.push(name)
-    this.folders.push(folder)
-    console.log(folder.getIcon());
-    //TODO send to back
     this.httpService.addFolder(name);
   }
 
@@ -51,7 +44,7 @@ export class FolderManagerService {
     let index = this.names.indexOf(name)
     this.names.splice(index, 1)
     this.folders.splice(index, 1)
-    //TODO send to back
+    //TODO send to back to delete
   }
 
   //rename folder (observer updated)
@@ -59,11 +52,14 @@ export class FolderManagerService {
     let index = this.names.indexOf(before)
     this.folders[index].setName(after)
     this.folders[index].setIcon()
-    //TODO send to back
+    //TODO send to back to rename
   }
 
   getCurrentFolder() { return this.currentFolder }
 
-  setCurrentFolder(currentFolder: string) { this.currentFolder = currentFolder }
+  setCurrentFolder(currentFolder: string) {
+    this.currentFolder = currentFolder
+    //TODO send to back to take the required mails
+  }
 
 }

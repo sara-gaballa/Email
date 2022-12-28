@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { EmailHttpService } from 'src/app/controller/EmailFacade';
 import { DraftEmail } from 'src/app/model/DraftEmail';
 import { Email } from 'src/app/model/Email';
 import { Folder } from 'src/app/model/Folder';
@@ -18,8 +17,6 @@ export class ComposeEmailComponent implements OnInit {
   private folders: Folder[]
   private draftFolder: Folder
 
-  //httpService can be moved to compose service and be used insetead
-  //also will be useful on sending data during composing
   constructor(private composeService: ComposeService, private userService: UserService, folderManager: FolderManagerService) {
     this.folders = folderManager.getFolders()
     this.draftFolder = this.folders[3]
