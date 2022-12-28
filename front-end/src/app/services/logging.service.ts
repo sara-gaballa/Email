@@ -4,7 +4,7 @@ import { EmailHttpService } from '../controller/EmailFacade';
 @Injectable({
   providedIn: 'root'
 })
-export class NavigationService {
+export class LoggingService {
 
   constructor(private httpService: EmailHttpService) { }
 

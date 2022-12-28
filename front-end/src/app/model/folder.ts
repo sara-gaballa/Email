@@ -6,7 +6,7 @@ export class Folder {
 
   private icon: string = ''
 
-  private icons: string[] = ['inbox', 'send', 'draft', 'delete', 'folder'];
+  private icons: string[] = ['inbox', 'send', 'draft', 'delete', 'Folder'];
 
   private emails: Email[] = [] //those emails representing only current page since the rest is handeled in the back
 

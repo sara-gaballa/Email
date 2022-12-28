@@ -9,4 +9,8 @@ export class EmailsManipulationService {
   constructor(private httpService: EmailHttpService) { }
 
   sort(folder: string, sort: string) { this.httpService.sort(folder, sort) }
+
+  search() {}
+
+  filter() {}
 }

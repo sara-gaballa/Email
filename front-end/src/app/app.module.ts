@@ -13,7 +13,7 @@ import { ComposeEmailComponent } from './components/compose-email/compose-email.
 import { HttpClient } from '@angular/common/http';
 import { UserService } from './services/user.service';
 import { ContactService } from './services/contact.service';
-import { NavigationService } from './services/navigation.service';
+import { LoggingService } from './services/logging.service';
 import { ComposeService } from './services/compose.service';
 import { EmailsManipulationService } from './services/emails-manipulation.service';
 
@@ -36,7 +36,7 @@ import { EmailsManipulationService } from './services/emails-manipulation.servic
     HttpClient,
     UserService,
     ContactService,
-    NavigationService,
+    LoggingService,
     ComposeService,
     EmailsManipulationService
   ],
