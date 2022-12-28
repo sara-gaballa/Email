@@ -1,27 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { DraftEmail } from 'src/app/model/DraftEmail';
-import { Email } from 'src/app/model/Email';
 import { Folder } from 'src/app/model/Folder';
-import { ComposeService } from 'src/app/services/compose.service';
-import { FolderManagerService } from 'src/app/services/folder-manager.service';
-import { UserService } from 'src/app/services/user.service';
+import { EmailHttpService } from 'src/app/controller/EmailFacade';
+import {Email} from "../../model/Email";
 
 @Component({
   selector: 'app-compose-email',
   templateUrl: './compose-email.component.html',
   styleUrls: ['./compose-email.component.css']
 })
+
 export class ComposeEmailComponent implements OnInit {
 
   private composingEmail: DraftEmail
   private folders: Folder[]
   private draftFolder: Folder
 
-  constructor(private composeService: ComposeService, private userService: UserService, folderManager: FolderManagerService) {
-    this.folders = folderManager.getFolders()
-    this.draftFolder = this.folders[3]
-    this.draftFolder.addEmail(this.composingEmail)
-  }
+  private email:Email;
+
+  constructor(private httpService: EmailHttpService) { }
+
+
 
   ngOnInit(): void {}
 
@@ -35,11 +34,23 @@ export class ComposeEmailComponent implements OnInit {
     //remove from draft here and back
     this.draftFolder.removeEmail(this.composingEmail)
     this.folders[1].addEmail(this.composingEmail)
-    this.composeService.sendComposedEmail(new Email('0', this.userService.getUser().getEmail(), to, '25/8/2002', '5:04', subject, emailBody))
   }
-  submit(){
-    let a=document.getElementById("f") as HTMLInputElement;
-    console.log(a.value);
+  composeEmail() { //facade
+    let to = document.getElementById("to") as HTMLInputElement;
+    let from = this.httpService.getUser().getEmail();
+    // let priority = document.getElementById("priority") as HTMLInputElement;
+    let sentDate = new Date();
+    let time=sentDate.getHours()+":"+sentDate.getMinutes()+":"+sentDate.getSeconds();
+    let subject = document.getElementById("subject") as HTMLInputElement;
+    let body = document.getElementById("body") as HTMLInputElement;
+    // let attachments = document.getElementById("attachments") as HTMLInputElement; //cant send more than one?
+    this.email= new Email(from, to.value,sentDate.toLocaleDateString(),time,subject.value,body.value)
+    this.httpService.sendEmail(this.email);
   }
+
+
+
+
+
 
 }

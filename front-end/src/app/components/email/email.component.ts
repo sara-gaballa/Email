@@ -43,11 +43,11 @@ export class EmailComponent {
 
   showWindow(window: string){
     let click = document.getElementById(window);
-      if(click != null && click.style.display === "none") {
-          click.style.display = "block";
-      } else if(click != null) {
-          click.style.display = "none";
-      }
+    if(click != null && click.style.display === "none") {
+      click.style.display = "block";
+    } else if(click != null) {
+      click.style.display = "none";
+    }
   }
 
   setOpenedEmail(id: number) { this.emailDataService.setOpenedEmail(this.shownEmails[id]) }

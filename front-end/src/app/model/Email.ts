@@ -18,8 +18,7 @@ export class Email {
 
   protected attachments: string[] = [];
 
-  constructor(id: string, from: string, to: string, date: string, time: string, subject: string, body: string) {
-    this.id = id
+  constructor( from: string, to: string, date: string, time: string, subject: string, body: string) {
     this.from = from
     this.to = to
     this.date = date
