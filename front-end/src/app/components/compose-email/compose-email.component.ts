@@ -39,5 +39,9 @@ export class ComposeEmailComponent implements OnInit {
     this.folders[1].addEmail(this.composingEmail)
     this.httpService.sendEmail(new Email('0', this.userService.getUser().getEmail(), to, '25/8/2002', '5:04', subject, emailBody))
   }
+  submit(){
+    let a=document.getElementById("f") as HTMLInputElement;
+    console.log(a.value);
+  }
 
 }
