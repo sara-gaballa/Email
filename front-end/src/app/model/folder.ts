@@ -33,4 +33,8 @@ export class Folder {
 
   getEmails(): Email[] { return this.emails }
 
+  addEmail(email: Email) { this.emails.unshift(email) }
+
+  removeEmail(email: Email) { this.emails.splice(this.emails.indexOf(email), 1) }
+
 }

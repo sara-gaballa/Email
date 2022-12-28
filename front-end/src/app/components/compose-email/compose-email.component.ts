@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { EmailHttpService } from 'src/app/controller/EmailFacade';
 import { DraftEmail } from 'src/app/model/DraftEmail';
 import { Email } from 'src/app/model/Email';
+import { Folder } from 'src/app/model/Folder';
 import { EMailDataService } from 'src/app/services/email-data.service';
+import { FolderManagerService } from 'src/app/services/folder-manager.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,12 +14,16 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ComposeEmailComponent implements OnInit {
 
-  composingEmail: DraftEmail
+  private composingEmail: DraftEmail
+  private folders: Folder[]
+  private draftFolder: Folder
 
   //httpService can be moved to compose service and be used insetead
   //also will be useful on sending data during composing
-  constructor(private httpService: EmailHttpService, private userService: UserService) {
-    //send the mail to draft front and back
+  constructor(private httpService: EmailHttpService, private userService: UserService, private folderManager: FolderManagerService) {
+    this.folders = folderManager.getFolders()
+    this.draftFolder = this.folders[3]
+    this.draftFolder.addEmail(this.composingEmail)
   }
 
   ngOnInit(): void {}
@@ -30,6 +36,8 @@ export class ComposeEmailComponent implements OnInit {
 
   send(to: string, subject: string, emailBody: string) {
     //remove from draft here and back
+    this.draftFolder.removeEmail(this.composingEmail)
+    this.folders[1].addEmail(this.composingEmail)
     this.httpService.sendEmail(new Email('0', this.userService.getUser().getEmail(), to, '25/8/2002', '5:04', subject, emailBody))
   }
 
