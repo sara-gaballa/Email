@@ -1,13 +1,11 @@
 package com.example.email.mailmanager;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.File;
 import java.io.IOException;
 
 public class FileManager {
-    private final static String parentFolder = "parent";
-    private static ObjectMapper objectMapper = new ObjectMapper();
+    private final static String parentFolder = FoldersName.PARENT;
+    private static String currentFolder;
 
     //create new folder in the given path
     public static boolean addFolder(String path) {
@@ -70,5 +68,14 @@ public class FileManager {
         }
         return new File(toFolder).listFiles();
     }
+
+    public static void setCurrentFolder(String Folder) {
+        currentFolder = Folder;
+    }
+
+    public static String getCurrentFolder() {
+        return currentFolder;
+    }
+
 
 }

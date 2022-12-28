@@ -65,4 +65,40 @@ public class Email {
         return attachments;
     }
 
+    public boolean search(String[] attributes, String value) {
+        boolean found = false;
+        for (String attribute : attributes) {
+            switch (attribute) {
+                case "to":
+                    found = this.to.toLowerCase().contains(value.toLowerCase());
+                    break;
+                case "from":
+                    found = this.from.toLowerCase().contains(value.toLowerCase());
+                    break;
+                case "date":
+                    found = this.date.toLowerCase().contains(value.toLowerCase());
+                    break;
+                case "time":
+                    found = this.time.toLowerCase().contains(value.toLowerCase());
+                    break;
+                case "subject":
+                    found = this.subject.toLowerCase().contains(value.toLowerCase());
+                    break;
+                case "body":
+                    found = this.body.toLowerCase().contains(value.toLowerCase());
+                    break;
+                case "priority":
+                    found = this.priority.name().toLowerCase().contains(value.toLowerCase());
+                case "attachments":
+                    for (String attachment : attachments) {
+                        found = attachment.toLowerCase().contains(value.toLowerCase());
+                        if (found) break;
+                    }
+            }
+            if (found)
+                return true;
+        }
+        return false;
+    }
+
 }

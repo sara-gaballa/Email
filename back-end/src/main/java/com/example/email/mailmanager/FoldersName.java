@@ -5,4 +5,5 @@ public class FoldersName {
     public static final String SENT = "sent";
     public static final String TRASH = "trash";
     public static final String DRAFT = "draft";
+    public static final String PARENT = "parent";
 }

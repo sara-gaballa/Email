@@ -23,4 +23,9 @@ public interface MailManager {//TODO: write email
     void deleteMails(String path, String[] ids);
 
     void moveMails(String fromPath, String toPath, String[] ids);
+
+    //void setCurrentFolder(String currentFolder);
+
+    //String getCurrentFolder();
+    List<Email> searchMails(String[] attributes, String value);
 }

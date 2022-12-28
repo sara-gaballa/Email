@@ -51,7 +51,7 @@ public class MailController {
 
     @RequestMapping("/send")
     public void send() {
-        User mockUser = logging.findUser("menna@yahoo.com");
+        User mockUser = new User("a", "b", "c", "d");
         Queue<String> q = new PriorityQueue<>();
         q.add("mariam@yahoo.com");
         Email email = new Email("menna@yahoo.com", "mariam@yahoo.com", "12/26/22", "8:31", "test",
@@ -60,7 +60,12 @@ public class MailController {
             this.service.sendMail(mockUser, email, q);
         } catch (Exception e) {
         }
-        System.out.println(mockUser.getEmail());
+        // System.out.println(mockUser.getEmail());
+    }
+
+    @GetMapping("/search")
+    public List<Email> search(@RequestParam String[] attributes, @RequestParam String value) {
+        return this.service.search(attributes, value);
     }
     // sign in / send / add folder / rename folder/ delete folder/ delete mails/ get all mails / move mails
 

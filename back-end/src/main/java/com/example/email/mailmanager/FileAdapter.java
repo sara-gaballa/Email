@@ -11,6 +11,7 @@ import java.util.List;
 
 public class FileAdapter implements MailManager {
     private static ObjectMapper objectMapper = new ObjectMapper();
+    private List<Email> currentEmails;
 
     // return all mails in specific folder
     @Override
@@ -20,6 +21,7 @@ public class FileAdapter implements MailManager {
         for (File file : files) {
             emails.add(objectMapper.readValue(file, Email.class));
         }
+        this.currentEmails = emails;
         return emails;
     }
 
@@ -57,5 +59,29 @@ public class FileAdapter implements MailManager {
             name = name.concat(".json");
         }
         FileManager.moveFiles(fromPath, toPath, fileNames);
+    }
+
+    /*//set current folder's name
+    @Override
+    public void setCurrentFolder(String currentFolder) {
+        FileManager.setCurrentFolder(currentFolder);
+    }
+
+    //return current folder's name
+    @Override
+    public String getCurrentFolder() {
+        return FileManager.getCurrentFolder();
+    }*/
+
+    @Override
+    public List<Email> searchMails(String[] attributes, String value) {
+        if (currentEmails.isEmpty())// check for empty list to avoid null pointer exception
+            return null;
+        List<Email> matchEmails = new ArrayList<>();
+        for (Email email : currentEmails) {
+            if (email.search(attributes, value))
+                matchEmails.add(email);
+        }
+        return matchEmails;
     }
 }

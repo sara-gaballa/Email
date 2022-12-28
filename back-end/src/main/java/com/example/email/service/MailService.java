@@ -19,6 +19,7 @@ public class MailService {
 
     // sign in / send / add folder / rename folder/ delete folder/ delete mails/ get all mails / move mails
     public List<Email> getAllMails(User user, String folder) throws IOException {
+        FileManager.setCurrentFolder(folder);
         return mailManager.getAllMails(user.getFolder() + "/" + folder);
     }
 
@@ -53,6 +54,10 @@ public class MailService {
 
     public void deleteFolder(User user, String folderName) {
         FileManager.deleteFolder(user.getFolder() + "/" + folderName);
+    }
+
+    public List<Email> search(String[] attributes, String value) {
+        return this.mailManager.searchMails(attributes, value);
     }
 
 }
