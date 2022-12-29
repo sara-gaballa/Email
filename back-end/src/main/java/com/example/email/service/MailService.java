@@ -1,17 +1,20 @@
 package com.example.email.service;
 
-import com.example.email.MailPartitioningManager.*;
 import com.example.email.mailmanager.FileAdapter;
 import com.example.email.mailmanager.FileManager;
 import com.example.email.mailmanager.FoldersName;
 import com.example.email.mailmanager.MailManager;
+import com.example.email.mailpartitioning.CriteriaSender;
+import com.example.email.mailpartitioning.CriteriaSubject;
+import com.example.email.mailpartitioning.EmailsIterator;
+import com.example.email.mailpartitioning.ICriteria;
 import com.example.email.model.Email;
 import com.example.email.model.User;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.UUID;
 
@@ -71,21 +74,28 @@ public class MailService {
     }
 
     public List<Email> filter(String criteria, String value) {
-        if(criteria.equalsIgnoreCase("subject")) {
-            return cretiriaSubject.meetCriteria(mailManager.getCurrentEmails() ,value);
-        }
-        else if(criteria.equalsIgnoreCase("Sender")){
+        if (criteria.equalsIgnoreCase("subject")) {
+            return cretiriaSubject.meetCriteria(mailManager.getCurrentEmails(), value);
+        } else if (criteria.equalsIgnoreCase("Sender")) {
             return cretiriaSender.meetCriteria(mailManager.getCurrentEmails(), value);
         }
         return null;
     }
 
     public List<Email> pageNavigate(String direction) {
-        if(iterator.hasNextPage() && direction.equalsIgnoreCase("next")) {
+        if (iterator.hasNextPage() && direction.equalsIgnoreCase("next")) {
             return iterator.getNextPage();
-        } else if(iterator.hasPreviousPage() && direction.equalsIgnoreCase(("Previous"))) {
-            return  iterator.getPreviousPage();
+        } else if (iterator.hasPreviousPage() && direction.equalsIgnoreCase(("Previous"))) {
+            return iterator.getPreviousPage();
         } else return iterator.getCurrentPage();
+    }
+
+    public List<Email> sort(String attribute) {
+        return mailManager.sort(attribute);
+    }
+
+    public PriorityQueue<Email> sortByPriority() {
+        return mailManager.sortByPriority();
     }
 
 }

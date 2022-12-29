@@ -1,5 +1,7 @@
 package com.example.email.mailmanager;
 
+import com.example.email.comparators.IComparatorFactory;
+import com.example.email.comparators.MailComparatorFactory;
 import com.example.email.model.Email;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -7,11 +9,15 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class FileAdapter implements MailManager {
     private static ObjectMapper objectMapper = new ObjectMapper();
-    private List<Email> currentEmails;
+    IComparatorFactory comparatorFactory = new MailComparatorFactory();
+
+    private List<Email> currentEmails = new ArrayList<>();
 
     // return all mails in specific folder
     @Override
@@ -88,5 +94,18 @@ public class FileAdapter implements MailManager {
     @Override
     public List<Email> getCurrentEmails() {
         return currentEmails;
+    }
+
+    public List<Email> sort(String attribute) {
+        Collections.sort(currentEmails, comparatorFactory.getComparator(attribute));
+        return currentEmails;
+    }
+
+    public PriorityQueue<Email> sortByPriority() {
+        PriorityQueue que = new PriorityQueue(currentEmails.size(), comparatorFactory.getComparator("priority"));
+        for (Email email : currentEmails) {
+            que.add(email);
+        }
+        return que;
     }
 }
