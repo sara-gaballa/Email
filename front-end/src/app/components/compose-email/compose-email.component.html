@@ -2,9 +2,19 @@
 <!-- start of main compose -->
 <div class="compose-email">
   <form>
-    <input class="inputfolder" type="text" placeholder="To" id="to" >
-    <input class="inputfolder" type="text" placeholder="Subject" id="subject" >
-    <textarea id="body" rows="15" cols="112" style="overflow: scroll; left: 5px;position: absolute;font-size: 20px;" placeholder="Email body" ></textarea>
+    <input class="inputfolder" type="text"  id="to" >
+    <label for="to" style="left: 15px">To</label>
+    <input class="inputfolder" type="text"  id="subject" >
+    <label for="subject">Subject</label>
+    <select id="priority" name="List" >
+      <option value="CRITICAL">Critical</option>
+      <option value="HIGH">High</option>
+      <option value="MEDIUM">Medium</option>
+      <option value="LOW">Low</option>
+    </select>
+    <label for="priority"  style="top: 15px;position: relative;right: 168px">Priority</label>
+<!--    <time>{{this.date}}</time>-->
+    <textarea id="body" rows="14" cols="112" style="overflow: scroll; left: 5px;bottom:50px;position: absolute;font-size: 20px;" placeholder="Email body" ></textarea>
     <button id="logout"  routerLink="/emails" (click)="composeEmail()">Sent <span class="material-symbols-outlined" style="position: absolute; left:60px; bottom:4px ">send</span></button>
     <label class="file" for="attachments"><span class="material-symbols-outlined" style="position: absolute; left:8px;">attachment</span></label>
     <input type="file" id="attachments" style="display:none">

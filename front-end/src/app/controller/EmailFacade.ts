@@ -55,8 +55,8 @@ export class EmailHttpService{
     getUser(): User { return new User("Rowaina", "Abdelnaser", "Rowainaabdelnasser@gmail.com", "Rowaina20000") }
 
     //gets current page of the passed folder
-    getEMails(folder: string, state: string): Email[] { return [new Email("Rokii", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG"), new Email( "Neso", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG"),
-                                                new Email( "Sara", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG"), new Email( "Mariam", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG")]
+    getEMails(folder: string, state: string): Email[] { return [new Email("Rokii", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG","high"), new Email( "Neso", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG","high"),
+                                                new Email( "Sara", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG","high"), new Email( "Mariam", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG","high")]
                                         }
 
 

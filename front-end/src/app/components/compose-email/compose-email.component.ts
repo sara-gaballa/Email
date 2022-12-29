@@ -15,10 +15,11 @@ export class ComposeEmailComponent implements OnInit {
   private composingEmail: DraftEmail
   private folders: Folder[]
   private draftFolder: Folder
-
   private email:Email;
-
-  constructor(private httpService: EmailHttpService) { }
+  date:any;
+  constructor(private httpService: EmailHttpService) {
+    this.date=new Date().toLocaleString();
+  }
 
 
 
@@ -38,13 +39,13 @@ export class ComposeEmailComponent implements OnInit {
   composeEmail() { //facade
     let to = document.getElementById("to") as HTMLInputElement;
     let from = this.httpService.getUser().getEmail();
-    // let priority = document.getElementById("priority") as HTMLInputElement;
+    let priority = document.getElementById("priority") as HTMLInputElement;
     let sentDate = new Date();
     let time=sentDate.getHours()+":"+sentDate.getMinutes()+":"+sentDate.getSeconds();
     let subject = document.getElementById("subject") as HTMLInputElement;
     let body = document.getElementById("body") as HTMLInputElement;
     // let attachments = document.getElementById("attachments") as HTMLInputElement; //cant send more than one?
-    this.email= new Email(from, to.value,sentDate.toLocaleDateString(),time,subject.value,body.value)
+    this.email= new Email(from, to.value,sentDate.toLocaleDateString(),time,subject.value,body.value,priority.value)
     this.httpService.sendEmail(this.email);
   }
 

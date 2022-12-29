@@ -20,17 +20,22 @@
 
 input {
     /* width: 1245px; */
-    width: 600px;
+    width: 1000px;
     height: 20px;
-    background: #e0dede;
+    background: #e7d3ee;
     display: flex;
-    margin: 5px;
-    padding: 15px;
+    padding: 8px;
     border: none;
     outline: none;
     border-radius: 5px;
+    position: relative;
+    left: 50px;
 }
-
+label{
+  position: relative;
+  bottom: 30px;
+  font-size: 16px;
+}
 button {
     position: relative;
     height: 40px;
@@ -53,7 +58,7 @@ button {
     cursor: pointer;
     text-align: left;
     left: 1183px;
-    top: 380px;
+    top: 375px;
 }
 
 .file {
@@ -79,5 +84,31 @@ button {
     outline: none;
     position: relative;
     left: 5px;
-    top: 340px;
+    top: 335px;
+}
+textarea{
+  background-image: linear-gradient(to bottom, rgb(255, 255, 255), rgb(231, 211, 238)), url("https://wallpapercave.com/wp/KSnFrMw.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  resize: none;
+}
+select{
+  background-image: linear-gradient(to bottom, rgb(255, 255, 255), rgb(231, 211, 238)), url("https://wallpapercave.com/wp/KSnFrMw.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 8px;
+  width: 120px;
+  height: 30px;
+  position: relative;
+  top: 15px;
+  left: 2px;
+
 }
