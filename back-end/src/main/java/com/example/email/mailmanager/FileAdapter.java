@@ -1,17 +1,21 @@
 package com.example.email.mailmanager;
 
+import com.example.email.comparators.IComparatorFactory;
+import com.example.email.comparators.MailComparatorFactory;
 import com.example.email.model.Email;
-import com.example.email.model.Priority;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class FileAdapter implements MailManager {
     private static ObjectMapper objectMapper = new ObjectMapper();
+    IComparatorFactory comparatorFactory = new MailComparatorFactory();
     private List<Email> currentEmails = new ArrayList<>();
 
     // return all mails in specific folder
@@ -88,31 +92,19 @@ public class FileAdapter implements MailManager {
 
     @Override
     public List<Email> getCurrentEmails() {
-        String[] string = new String[5];
-        currentEmails.add(new Email( "Rokii", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Neso", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Sara", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Mariam", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Rokiii", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Nesoo", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Saraa", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Mariamm", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Rokiiii", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Nesooo", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Saraaa", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Mariammm", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Rokiiiii", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Nesoooo", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Saraaaa", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Mariammmm", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Rokiiiiii", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Nesooooo", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Saraaaaa", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Mariammmmm", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Rokiiiiiii", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Nesoooooo", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Saraaaaaa", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
-        currentEmails.add(new Email( "Mariammmmmm", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", Priority.CRITICAL, string));
         return currentEmails;
+    }
+
+    public List<Email> sort(String attribute) {
+        Collections.sort(currentEmails, comparatorFactory.getComparator(attribute));
+        return currentEmails;
+    }
+
+    public PriorityQueue<Email> sortByPriority() {
+        PriorityQueue que = new PriorityQueue(currentEmails.size(), comparatorFactory.getComparator("priority"));
+        for (Email email : currentEmails) {
+            que.add(email);
+        }
+        return que;
     }
 }

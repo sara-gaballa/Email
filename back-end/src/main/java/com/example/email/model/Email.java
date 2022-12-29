@@ -3,7 +3,7 @@ package com.example.email.model;
 public class Email {
     private String id;
     private String from;
-    private String to;
+    private String[] to;// TODO : convert 'to' to queue or list
     private String date;
     private String time;
     private String subject;
@@ -11,7 +11,7 @@ public class Email {
     private Priority priority;
     private String[] attachments;
 
-    public Email(String from, String to, String date, String time, String subject,
+    public Email(String from, String[] to, String date, String time, String subject,
                  String body, Priority priority, String[] attachments) {
         this.from = from;
         this.to = to;
@@ -37,7 +37,7 @@ public class Email {
         return from;
     }
 
-    public String getTo() {
+    public String[] getTo() {
         return to;
     }
 
@@ -70,7 +70,8 @@ public class Email {
         for (String attribute : attributes) {
             switch (attribute) {
                 case "to":
-                    found = this.to.toLowerCase().contains(value.toLowerCase());
+                    for (String receiver : to)
+                        found |= receiver.toLowerCase().contains(value.toLowerCase());
                     break;
                 case "from":
                     found = this.from.toLowerCase().contains(value.toLowerCase());
@@ -90,10 +91,8 @@ public class Email {
                 case "priority":
                     found = this.priority.name().toLowerCase().contains(value.toLowerCase());
                 case "attachments":
-                    for (String attachment : attachments) {
-                        found = attachment.toLowerCase().contains(value.toLowerCase());
-                        if (found) break;
-                    }
+                    for (String attachment : attachments)
+                        found |= attachment.toLowerCase().contains(value.toLowerCase());
             }
             if (found)
                 return true;

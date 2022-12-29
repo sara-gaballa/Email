@@ -69,7 +69,7 @@ public class MailController {
         User mockUser = new User("a", "b", "c", "d");
         Queue<String> q = new PriorityQueue<>();
         q.add("mariam@yahoo.com");
-        Email email = new Email("menna@yahoo.com", "mariam@yahoo.com", "12/26/22", "8:31", "test",
+        Email email = new Email("menna@yahoo.com", new String[]{"mariam@yahoo.com"}, "12/26/22", "8:31", "test",
                 "did that arrive?", null, null);
         try {
             this.service.sendMail(mockUser, email, q);
@@ -81,6 +81,16 @@ public class MailController {
     @GetMapping("/search")
     public List<Email> search(@RequestParam String[] attributes, @RequestParam String value) {
         return this.service.search(attributes, value);
+    }
+
+    @GetMapping("/sort")
+    public List<Email> sort(@RequestParam String attribute) {
+        return this.service.sort(attribute);
+    }
+
+    @GetMapping("/priority")
+    public PriorityQueue<Email> sortByPriority() {
+        return this.service.sortByPriority();
     }
     // sign in / send / add folder / rename folder/ delete folder/ delete mails/ get all mails / move mails
 
