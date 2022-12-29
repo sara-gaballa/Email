@@ -4,6 +4,7 @@ import { Contact } from '../model/Contact';
 import { Email } from '../model/Email';
 import { User } from '../model/User';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { Observable } from 'rxjs';
 
 // This can be a facad for the whole program
 const httpOptions = {
@@ -11,6 +12,7 @@ const httpOptions = {
     'content-type': 'application/json',
   })
 };
+
 @Injectable()
 export class EmailHttpService{
 
@@ -23,13 +25,13 @@ export class EmailHttpService{
     public signUp(user: User){ //done
       console.log("Sending request...");
       console.log(user);
-      return this.http.post<void>(this.mailUrl + "signUp",user, httpOptions).subscribe();
+      return this.http.post<void>(this.mailUrl + "signUp",user, httpOptions);
     }
 
     public signIn(email: string, password: string){ //done
       console.log("Sending request...");
       console.log("email:"+email+"pass:"+password);
-      return this.http.get<void>(this.mailUrl + "signIn",{params:{email,password}}).subscribe();
+      return this.http.get<User>(this.mailUrl + "signIn",{params:{email,password}});
     }
 
     public addFolder(name:string){
@@ -44,7 +46,7 @@ export class EmailHttpService{
       return this.http.get<string[]>(this.mailUrl + "getFolders",httpOptions);
     }
 
-    sendEmail(email: Email) {
+    sendEmail(email: Email, to: string[]) {
       console.log("Sending request...");
       console.log(email);
       return this.http.post<void>(this.mailUrl + "compose",email, httpOptions).subscribe();
@@ -56,11 +58,16 @@ export class EmailHttpService{
     getUser(): User { return new User("Rowaina", "Abdelnaser", "Rowainaabdelnasser@gmail.com", "Rowaina20000") }
 
     //gets current page of the passed folder
-    getEMails(folder: string, state: string): Email[] { return [new Email("111", "Rokii", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", []), new Email("112", "Neso", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", []),
-                                                new Email("113", "Sara", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", []), new Email("111", "Mariam", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", [])]
-                                        }
+    getEMails(folder: string, state: string): Email[] { return [new Email("Rokii", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG","critical", []), new Email("Neso", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", "critical", []),
+                                                new Email("Sara", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", "critical", []), new Email("Mariam", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", "critical",[])]
+    }
 
-
+                                        //gets current page of the passed folder
+    filter(criteria: string, value: string): Observable<Email[]> {
+      console.log("Sending request...");
+      console.log("criteria:"+criteria+" value:"+value);
+      return this.http.post<Email[]>(this.mailUrl + "filter/" + criteria + "/" + value, httpOptions)
+    }
 
     forwardEmail(email: Email, users: User[]) {} //forward to selected contacts
 

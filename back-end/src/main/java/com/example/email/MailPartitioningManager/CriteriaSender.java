@@ -11,7 +11,7 @@ public class CriteriaSender implements ICriteria{
     public List<Email> meetCriteria(List<Email> emails, String sender) {
         List<Email> filteredEmails = new ArrayList<>();
         for(Email email : emails) {
-            if(email.getSubject().equalsIgnoreCase(sender)) {
+            if(email.getFrom().equalsIgnoreCase(sender)) {
                 filteredEmails.add(email);
             }
         }

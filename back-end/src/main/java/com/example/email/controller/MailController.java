@@ -39,6 +39,21 @@ public class MailController {
         }
     }
 
+//    @GetMapping("/signIn")
+//    public User signIn(@RequestParam String email, @RequestParam String password) {
+//        try {
+//            return logging.signIn(email, password);
+//        } catch (Exception e) {
+//            return null;
+//        }
+//    }
+
+    @PostMapping("/getMails/{folder}/{direction}")
+    public List<Email> getEmails(@PathVariable("folder") String folder ,
+                                 @PathVariable("direction") String direction) {
+        return service.pageNavigate(folder, direction);
+    }
+
     @GetMapping("/addFolder")
     public void addFolder(@RequestParam String name) {
         try {
@@ -68,5 +83,11 @@ public class MailController {
         return this.service.search(attributes, value);
     }
     // sign in / send / add folder / rename folder/ delete folder/ delete mails/ get all mails / move mails
+
+    @PostMapping(value = "/filter/{criteria}/{value}", consumes = {"application/json"})
+    public List<Email> filter(@PathVariable("criteria") String criteria,
+                              @PathVariable("value") String value) {
+        return this.service.filter(criteria, value);
+    }
 
 }

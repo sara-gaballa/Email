@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { EmailHttpService } from 'src/app/services/http.service';
+import { Contact } from 'src/app/model/Contact';
 import { Email } from 'src/app/model/Email';
 import { Folder } from 'src/app/model/folder';
-import { EMailDataService } from 'src/app/services/email-data.service';
-import { FolderManagerService } from 'src/app/services/folder-manager.service';
-import { LoggingService } from 'src/app/services/logging.service';
-import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/model/User';
+import { EmailService } from 'src/app/services/email.service';
 
 //observable and all services observers except EmailHttpService is the facade for our program
 @Component({
@@ -12,28 +12,35 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './email.component.html',
   styleUrls: ['./email.component.css']
 })
-export class EmailComponent {
+export class EmailComponent implements OnInit{
   search: string = 'Search'
   click: string = ''
   shownFolders: Folder[] = []
   shownEmails: Email[] = []
 
-  constructor(private folders: FolderManagerService, private userService: UserService,
-              private navigationService: LoggingService, private emailDataService: EMailDataService) {
-    this.shownFolders = folders.getFolders()
-    this.shownEmails = emailDataService.getPageEmails('current')
+  constructor(private httpService: EmailHttpService, private emailService: EmailService) {
+    this.shownFolders = emailService.getFolders()
+    console.log(this.shownFolders + "hhhhhhhhhhhhh")
+    this.shownEmails = emailService.getPageEmails('current')
+  }
+
+  ngOnInit(): void {
+
   }
 
   changeSearchLabel(s:string):void { this.search = s; }
 
-  foldersNavigate(folder: string) { this.folders.setCurrentFolder(folder) } //can' remember if current is viewed or not..If not, "this.shownEmails = emailDataService.getPageEmails('current')"
+  foldersNavigate(folder: string) {
+    this.emailService.setCurrentFolder(folder)
+    this.emailService.getPageEmails('current')
+  }
 
-  pagesNavigate(state: string) { this.emailDataService.getPageEmails(state) }
+  pagesNavigate(state: string) { this.emailService.getPageEmails(state) }
 
   addfolder(){
     let name = document.getElementById("FolderName") as HTMLInputElement ;
     if(name?.value!=''){
-      this.folders.addFolder(name?.value)
+      this.emailService.addFolder(name?.value)
       let click = document.getElementById("NewFolder");
       click!.style.display = "none";
     }
@@ -49,20 +56,31 @@ export class EmailComponent {
     }
   }
 
-  setOpenedEmail(id: number) { this.emailDataService.setOpenedEmail(this.shownEmails[id]) }
+  setOpenedEmail(id: number) {
+    console.log(this.shownEmails)
+    this.emailService.setOpenedEmail(this.shownEmails[id])
+  }
 
-  // logout() { this.loggingService.logout() }
+  getUserName(): string { return this.emailService.getUser().getFirstName().concat(" " + this.emailService.getUser().getLastName()) }
 
-  getUserName(): string { return this.userService.getUser().getFirstName().concat(" " + this.userService.getUser().getLastName()) }
+  getUserEmail(): string { return this.emailService.getUser().getEmail() }
 
-  getUserEmail(): string { return this.userService.getUser().getEmail() }
+  filter(criteria: string) {
+    this.httpService.filter(criteria, 'Neso').subscribe(res => {
+      console.log("sent successfully")
+      this.shownEmails = []
+      for(let i = 0; i < res.length; i++) {
+        this.shownEmails.push(res[i]);
+        console.log(res[i])
+      }
+    })
+  }
 
-  // search(search: string) {  }
+  sort(sort: string) { this.emailService.sort(this.emailService.getCurrentFolder(), sort) }
 
-  sort(sort: string) { this.emailDataService.sort(this.folders.getCurrentFolder(), sort) }
+  getUser(): User { return this.httpService.getUser() }
 
-  ///////////////////////////////////////////
-  //Put this on arrows for navigation:
-  // (click)="pagesNavigate('next')"
-  // (click)="pagesNavigate('previouse')"
+  getContact(): Contact { return this.httpService.getContact() }
+
+
 }

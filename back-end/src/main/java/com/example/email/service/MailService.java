@@ -71,21 +71,28 @@ public class MailService {
     }
 
     public List<Email> filter(String criteria, String value) {
+        List<Email> emails = new ArrayList<>();
         if(criteria.equalsIgnoreCase("subject")) {
-            return cretiriaSubject.meetCriteria(mailManager.getCurrentEmails() ,value);
+            iterator.setAllEmails(cretiriaSubject.meetCriteria(mailManager.getCurrentEmails(), value));
+            return iterator.getCurrentPage();
         }
-        else if(criteria.equalsIgnoreCase("Sender")){
-            return cretiriaSender.meetCriteria(mailManager.getCurrentEmails(), value);
+        else if(criteria.equalsIgnoreCase("sender")){
+            iterator.setAllEmails(cretiriaSender.meetCriteria(mailManager.getCurrentEmails(), value));
+            return iterator.getCurrentPage();
         }
         return null;
     }
 
-    public List<Email> pageNavigate(String direction) {
+    public List<Email> pageNavigate(String folder, String direction) {
         if(iterator.hasNextPage() && direction.equalsIgnoreCase("next")) {
+            System.out.println("next");
             return iterator.getNextPage();
         } else if(iterator.hasPreviousPage() && direction.equalsIgnoreCase(("Previous"))) {
-            return  iterator.getPreviousPage();
-        } else return iterator.getCurrentPage();
+            System.out.println("previous");
+            return iterator.getPreviousPage();
+        } else{
+            return iterator.getCurrentPage();
+        }
     }
 
 }
