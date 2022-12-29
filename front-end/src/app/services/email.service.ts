@@ -73,7 +73,7 @@ export class EmailService {
       - next: gets next page
       - previouse: gets previous page
     */
-    getPageEmails(state: string): Email[] { return this.httpService.getEMails(this.getCurrentFolder(), state) }
+    getPageEmails(state: string) { return this.httpService.getEMails(this.getCurrentFolder(), state) }
 
     setOpenedEmail(email: Email) { this.openedEmail = email }
 

@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { Contact } from '../model/Contact';
 import { Email } from '../model/Email';
@@ -58,8 +57,8 @@ export class EmailHttpService{
     getUser(): User { return new User("Rowaina", "Abdelnaser", "Rowainaabdelnasser@gmail.com", "Rowaina20000") }
 
     //gets current page of the passed folder
-    getEMails(folder: string, state: string): Email[] { return [new Email("Rokii", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG","critical", []), new Email("Neso", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", "critical", []),
-                                                new Email("Sara", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", "critical", []), new Email("Mariam", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", "critical",[])]
+    getEMails(folder: string, state: string){
+      return this.http.post<Email[]>(this.mailUrl + "getMails/" + folder + '/' + state, httpOptions);
     }
 
                                         //gets current page of the passed folder

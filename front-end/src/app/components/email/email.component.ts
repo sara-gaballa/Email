@@ -21,7 +21,13 @@ export class EmailComponent implements OnInit{
   constructor(private httpService: EmailHttpService, private emailService: EmailService) {
     this.shownFolders = emailService.getFolders()
     console.log(this.shownFolders + "hhhhhhhhhhhhh")
-    this.shownEmails = emailService.getPageEmails('current')
+    this.shownEmails = []
+    emailService.getPageEmails('current').subscribe((res)=> {
+      for(let i = 0; i < res.length; i++) {
+        this.shownEmails.push(new Email(res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]));
+        console.log(res[i])
+      }
+    })
   }
 
   ngOnInit(): void {
@@ -32,10 +38,16 @@ export class EmailComponent implements OnInit{
 
   foldersNavigate(folder: string) {
     this.emailService.setCurrentFolder(folder)
-    this.emailService.getPageEmails('current')
+    this.pagesNavigate('current')
   }
 
-  pagesNavigate(state: string) { this.emailService.getPageEmails(state) }
+  pagesNavigate(state: string) {
+    this.emailService.getPageEmails(state).subscribe((res)=> {
+    for(let i = 0; i < res.length; i++) {
+      this.shownEmails.push(new Email(res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]));
+      console.log(res[i])
+    }})
+  }
 
   addfolder(){
     let name = document.getElementById("FolderName") as HTMLInputElement ;
@@ -70,7 +82,7 @@ export class EmailComponent implements OnInit{
       console.log("sent successfully")
       this.shownEmails = []
       for(let i = 0; i < res.length; i++) {
-        this.shownEmails.push(res[i]);
+        this.shownEmails.push(new Email(res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]));
         console.log(res[i])
       }
     })
