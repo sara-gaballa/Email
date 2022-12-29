@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Email } from 'src/app/model/Email';
-import { Folder } from 'src/app/model/Folder';
-import { ContactService } from 'src/app/services/contact.service';
+import { Folder } from 'src/app/model/folder';
 import { EMailDataService } from 'src/app/services/email-data.service';
 import { FolderManagerService } from 'src/app/services/folder-manager.service';
 import { LoggingService } from 'src/app/services/logging.service';
@@ -19,7 +18,7 @@ export class EmailComponent {
   shownFolders: Folder[] = []
   shownEmails: Email[] = []
 
-  constructor(private folders: FolderManagerService, private userService: UserService, private contaceService: ContactService,
+  constructor(private folders: FolderManagerService, private userService: UserService,
               private navigationService: LoggingService, private emailDataService: EMailDataService) {
     this.shownFolders = folders.getFolders()
     this.shownEmails = emailDataService.getPageEmails('current')

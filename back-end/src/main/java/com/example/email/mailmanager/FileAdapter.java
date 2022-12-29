@@ -84,4 +84,9 @@ public class FileAdapter implements MailManager {
         }
         return matchEmails;
     }
+
+    @Override
+    public List<Email> getCurrentEmails() {
+        return currentEmails;
+    }
 }

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { DraftEmail } from 'src/app/model/DraftEmail';
-import { Folder } from 'src/app/model/Folder';
 import { EmailHttpService } from 'src/app/controller/EmailFacade';
-import {Email} from "../../model/Email";
+import { DraftEmail } from 'src/app/model/DraftEmail';
+import { Email } from 'src/app/model/Email';
+import { Folder } from 'src/app/model/folder'
+import { FolderManagerService } from 'src/app/services/folder-manager.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-compose-email',
@@ -17,8 +19,11 @@ export class ComposeEmailComponent implements OnInit {
   private draftFolder: Folder
   private email:Email;
   date:any;
-  constructor(private httpService: EmailHttpService) {
-    this.date=new Date().toLocaleString();
+
+  constructor(private httpService: EmailHttpService, private userService: UserService, folderManager: FolderManagerService) {
+    this.folders = folderManager.getFolders()
+    this.draftFolder = this.folders[3]
+    this.draftFolder.addEmail(this.composingEmail)
   }
 
 
@@ -35,22 +40,23 @@ export class ComposeEmailComponent implements OnInit {
     //remove from draft here and back
     this.draftFolder.removeEmail(this.composingEmail)
     this.folders[1].addEmail(this.composingEmail)
+    this.httpService.sendEmail(new Email('0', this.userService.getUser().getEmail(), to, '25/8/2002', '5:04', subject, emailBody, []))
   }
   composeEmail() { //facade
     let to = document.getElementById("to") as HTMLInputElement;
     let from = this.httpService.getUser().getEmail();
     let priority = document.getElementById("priority") as HTMLInputElement;
     let sentDate = new Date();
-    let time=sentDate.getHours()+":"+sentDate.getMinutes()+":"+sentDate.getSeconds();
+    let time = sentDate.getHours()+":"+sentDate.getMinutes()+":"+sentDate.getSeconds();
     let subject = document.getElementById("subject") as HTMLInputElement;
     let body = document.getElementById("body") as HTMLInputElement;
     let attach = document.getElementById("attachments") as HTMLInputElement; //cant send more than one?
-    let attachments:string[]=new Array(attach.files.length)
+    let attachments: string[] = new Array(attach.files.length)
     for(let i=0;i<attach.files.length;i++){
-    attachments[i]=(attach.files[i].name)
+      attachments[i]=(attach.files[i].name)
     }
     console.log(attachments)
-    this.email= new Email(from, to.value,sentDate.toLocaleDateString(),time,subject.value,body.value,priority.value,attachments)
+    this.email = new Email(from, to.value, sentDate.toLocaleDateString(), time,subject.value, body.value, priority.value, attachments)
     this.httpService.sendEmail(this.email);
   }
 

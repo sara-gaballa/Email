@@ -12,9 +12,7 @@ import { FolderManagerService } from './services/folder-manager.service';
 import { ComposeEmailComponent } from './components/compose-email/compose-email.component';
 import { HttpClient, HttpClientModule} from '@angular/common/http';
 import { UserService } from './services/user.service';
-import { ContactService } from './services/contact.service';
 import { LoggingService } from './services/logging.service';
-import { ComposeService } from './services/compose.service';
 
 @NgModule({
   declarations: [
@@ -35,9 +33,7 @@ import { ComposeService } from './services/compose.service';
     FolderManagerService,
     HttpClient,
     UserService,
-    ContactService,
-    LoggingService,
-    ComposeService
+    LoggingService
   ],
   bootstrap: [AppComponent]
 })

@@ -28,4 +28,6 @@ public interface MailManager {//TODO: write email
 
     //String getCurrentFolder();
     List<Email> searchMails(String[] attributes, String value);
+
+    List<Email> getCurrentEmails();
 }

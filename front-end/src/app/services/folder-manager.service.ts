@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EmailHttpService } from '../controller/EmailFacade';
-import { Folder } from '../model/Folder';
+import { Folder } from '../model/folder';
 
 //observer
 @Injectable({

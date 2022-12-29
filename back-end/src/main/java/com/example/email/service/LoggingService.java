@@ -38,4 +38,8 @@ public class LoggingService implements Logging {
     public User getCurrentUser() {
         return this.user;
     }
+
+    public User getUser() {
+        return user;
+    }
 }

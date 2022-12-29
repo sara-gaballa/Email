@@ -19,11 +19,13 @@ export class EmailHttpService{
     constructor(private http: HttpClient) {
       this.mailUrl = 'http://localhost:8084/mail/';
     }
+
     public signUp(user: User){ //done
       console.log("Sending request...");
       console.log(user);
       return this.http.post<void>(this.mailUrl + "signUp",user, httpOptions).subscribe();
     }
+
     public signIn(email: string, password: string){ //done
       console.log("Sending request...");
       console.log("email:"+email+"pass:"+password);
@@ -36,27 +38,26 @@ export class EmailHttpService{
       return this.http.get<void>(this.mailUrl + "addFolder",{params:{name}}).subscribe();
     }
 
-
-
     public getFolders() {
       console.log("Sending request...");
       console.log("name of the folder: "+name);
       return this.http.get<string[]>(this.mailUrl + "getFolders",httpOptions);
     }
 
-     sendEmail(email: Email) {
+    sendEmail(email: Email) {
       console.log("Sending request...");
       console.log(email);
       return this.http.post<void>(this.mailUrl + "compose",email, httpOptions).subscribe();
 
     } //sends email on compose
+
     getContact(): Contact { return new Contact("Rowaina", "rowainaabdelnasser@gmail.com", ["Sara", "Nancy", "Mariam"]) }
 
     getUser(): User { return new User("Rowaina", "Abdelnaser", "Rowainaabdelnasser@gmail.com", "Rowaina20000") }
 
     //gets current page of the passed folder
-    getEMails(folder: string, state: string): Email[] { return [new Email("Rokii", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG","high",[]), new Email( "Neso", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG","high",[]),
-                                                new Email( "Sara", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG","high",[]), new Email( "Mariam", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG","high",[])]
+    getEMails(folder: string, state: string): Email[] { return [new Email("111", "Rokii", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", []), new Email("112", "Neso", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", []),
+                                                new Email("113", "Sara", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", []), new Email("111", "Mariam", "SaraNancyMariam", "12/27/2022", "11:50AM", "Project is on fire", "GG", [])]
                                         }
 
 
