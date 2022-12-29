@@ -49,7 +49,7 @@ export class ComposeEmailComponent implements OnInit {
     this.httpService.sendEmail(this.email);
   }
 
-
+//ToDO make the draft if it is not sent
 
 
 
