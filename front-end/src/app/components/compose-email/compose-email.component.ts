@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { EmailHttpService } from 'src/app/controller/EmailFacade';
+import { EmailHttpService } from 'src/app/services/http.service';
 import { DraftEmail } from 'src/app/model/DraftEmail';
 import { Email } from 'src/app/model/Email';
 import { Folder } from 'src/app/model/folder'
-import { FolderManagerService } from 'src/app/services/folder-manager.service';
-import { UserService } from 'src/app/services/user.service';
+import { EmailService } from 'src/app/services/email.service';
 
 @Component({
   selector: 'app-compose-email',
@@ -14,37 +13,29 @@ import { UserService } from 'src/app/services/user.service';
 
 export class ComposeEmailComponent implements OnInit {
 
-  private composingEmail: DraftEmail
+  private sentEmail: DraftEmail = new DraftEmail('rowaina;dkfvkdv', '', '', '', '', '', '', [])
   private folders: Folder[]
   private draftFolder: Folder
   private email:Email;
   date:any;
 
-  constructor(private httpService: EmailHttpService, private userService: UserService, folderManager: FolderManagerService) {
-    this.folders = folderManager.getFolders()
+  constructor(private httpService: EmailHttpService, private emailService: EmailService) {
+    this.folders = emailService.getFolders()
     this.draftFolder = this.folders[3]
-    this.draftFolder.addEmail(this.composingEmail)
+    this.draftFolder.addEmail(this.sentEmail)
   }
-
-
 
   ngOnInit(): void {}
 
-  changeTo(to: string) { this.composingEmail.setTo(to); console.log(to) }
+  changeTo(to: any) { this.sentEmail.setTo(to.target.value); }
 
-  changeSubject(subject: string) { this.composingEmail.setSubject(subject) }
+  changeSubject(subject: any) { this.sentEmail.setSubject(subject.target.value) }
 
-  changeBody(body: string) { this.composingEmail.setBody(body) }
+  changeBody(body: any) { this.sentEmail.setBody(body.target.value) }
 
-  sendComposedEmail(to: string, subject: string, emailBody: string) {
-    //remove from draft here and back
-    this.draftFolder.removeEmail(this.composingEmail)
-    this.folders[1].addEmail(this.composingEmail)
-    this.httpService.sendEmail(new Email('0', this.userService.getUser().getEmail(), to, '25/8/2002', '5:04', subject, emailBody, []))
-  }
   composeEmail() { //facade
     let to = document.getElementById("to") as HTMLInputElement;
-    let from = this.httpService.getUser().getEmail();
+    let from = this.emailService.getUser().getEmail();
     let priority = document.getElementById("priority") as HTMLInputElement;
     let sentDate = new Date();
     let time = sentDate.getHours()+":"+sentDate.getMinutes()+":"+sentDate.getSeconds();
@@ -57,7 +48,7 @@ export class ComposeEmailComponent implements OnInit {
     }
     console.log(attachments)
     this.email = new Email(from, to.value, sentDate.toLocaleDateString(), time,subject.value, body.value, priority.value, attachments)
-    this.httpService.sendEmail(this.email);
+    this.httpService.sendEmail(this.email, [to.value]);
   }
 
 //ToDO make the draft if it is not sent

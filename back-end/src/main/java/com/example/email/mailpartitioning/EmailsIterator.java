@@ -19,7 +19,7 @@ public class EmailsIterator implements IMailIterator {
 
     @Override
     public boolean hasNextPage() {
-        if (nextEmails.size() != 0) return true;
+        if (nextEmails != null) return true;
         else return false;
     }
 
@@ -40,7 +40,7 @@ public class EmailsIterator implements IMailIterator {
 
     @Override
     public boolean hasPreviousPage() {
-        if (previousEmails.size() != 0) return true;
+        if (previousEmails != null) return true;
         else return false;
     }
 
@@ -64,6 +64,7 @@ public class EmailsIterator implements IMailIterator {
 
     public void setAllEmails(List<Email> allEmails) {
         this.allEmails = allEmails;
+        this.previousEmails = null;
         //8 should be parameter
         if (allEmails.size() <= 8) {
             this.currentEmails = allEmails;
@@ -72,7 +73,7 @@ public class EmailsIterator implements IMailIterator {
                 currentEmails.add(allEmails.get(i));
             }
             for (int i = 8; i < 16; i++) {
-                if (allEmails.get(i) != null) {
+                if (allEmails.size() > i) {
                     nextEmails.add(allEmails.get(i));
                 } else return;
             }

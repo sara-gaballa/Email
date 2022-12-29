@@ -6,13 +6,10 @@ import { AppComponent } from './app.component';
 import { StartPageComponent } from './components/start-page/start-page.component';
 import { EmailComponent } from './components/email/email.component';
 import { MailBoxComponent } from './components/mail-box/mail-box.component';
-import { EmailHttpService } from './controller/EmailFacade';
-import { EMailDataService } from './services/email-data.service';
-import { FolderManagerService } from './services/folder-manager.service';
+import { EmailHttpService } from './services/http.service';
 import { ComposeEmailComponent } from './components/compose-email/compose-email.component';
 import { HttpClient, HttpClientModule} from '@angular/common/http';
-import { UserService } from './services/user.service';
-import { LoggingService } from './services/logging.service';
+import { EmailService } from './services/email.service';
 
 @NgModule({
   declarations: [
@@ -29,11 +26,8 @@ import { LoggingService } from './services/logging.service';
   ],
   providers: [
     EmailHttpService,
-    EMailDataService,
-    FolderManagerService,
     HttpClient,
-    UserService,
-    LoggingService
+    EmailService
   ],
   bootstrap: [AppComponent]
 })

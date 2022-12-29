@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Email } from 'src/app/model/Email';
-import { EMailDataService } from 'src/app/services/email-data.service';
+import { EmailService } from 'src/app/services/email.service';
 
 @Component({
   selector: 'app-mail-box',
@@ -10,11 +10,11 @@ import { EMailDataService } from 'src/app/services/email-data.service';
 
 export class MailBoxComponent implements OnInit {
 
-  constructor(private emailDataService: EMailDataService) { }
+  constructor(private emailService: EmailService) { }
 
   ngOnInit(): void {
   }
 
-  getOpenedEmail(): Email { return this.emailDataService.getOpenedEmail() }
+  getOpenedEmail(): Email { return this.emailService.getOpenedEmail() }
 
 }

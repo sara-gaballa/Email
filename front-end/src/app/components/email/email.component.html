@@ -70,13 +70,13 @@
                         <input type="checkbox" class="material-symbols-outlined">
                         <select class="List" name="List">//filter
                           <option value="1">Filter</option>
-                          <option value="2">Subject</option>
-                          <option value="3">Sender</option>
+                          <option value="2" (click)="filter('subject')">Subject</option>
+                          <option value="3" (click)="filter('sender')">Sender</option>
                         </select>
                         <select class="List" name="List">//filter//sort
                           <option value="1">sort</option>
-                          <option value="2" (click)="sort('subject')" >Subject</option>
-                          <option value="3" (click)="sort('sender')" >Sender</option>
+                          <option value="subject" (click)="sort('subject')" >Subject</option>
+                          <option value="sender" (click)="sort('sender')" >Sender</option>
                         </select>
                         <span class="material-symbols-outlined">Refresh</span>
                     </div>
@@ -95,8 +95,8 @@
                     </div>
 
                     <div class="emailList_settingsRight">
-                        <span class="material-symbols-outlined">chevron_left</span>
-                        <span class="material-symbols-outlined">chevron_right</span>
+                        <span class="material-symbols-outlined" (click)="filter('sender')">chevron_left</span>
+                        <span class="material-symbols-outlined" (click)="pagesNavigate('next')">chevron_right</span>
                     </div>
                 </div>
                 <!-- sections end -->
@@ -108,11 +108,15 @@
 </body>
 
 <div class="mails">
-    <button class="email" *ngFor="let email of shownEmails; let i = index" (click)="setOpenedEmail(i)" routerLink="/mail-box">
-      <span class = "material-symbols-outlined" >mail</span>
-    </button>
-</div>
+    <span class="email" *ngFor="let email of shownEmails; let i = index">
+      <button class = "material-symbols-outlined" style="position: relative; bottom:-20px; left:20px" (click)="setOpenedEmail(i)" routerLink="/mail-box"  >mail</button>
+      <div style="position: relative; left:45px; top: 25px; font-size: 17px;" id="read"> here Name</div>
+      <div style="position: relative; left:550px; top: 10px; font-size: 17px;" id="read"> here Name</div>
+      <button class="material-symbols-outlined" (click)="setOpenedEmail(i)" style="position: relative; left:1230px; bottom: 20px" >delete</button>
+      <button class="material-symbols-outlined" (click)="setOpenedEmail(i)" style="position: relative; left:1130px; bottom: 20px" >open_with</button>
+    </span>
 
+</div>
 <!-- <div class="mails"> -->
 <!-- <button class="email" (click)="setOpenedEmail(0)" routerLink="/mail-box"> -->
 <!-- <span class = "material-symbols-outlined" >mail</span> -->

@@ -16,7 +16,6 @@ import java.util.PriorityQueue;
 public class FileAdapter implements MailManager {
     private static ObjectMapper objectMapper = new ObjectMapper();
     IComparatorFactory comparatorFactory = new MailComparatorFactory();
-
     private List<Email> currentEmails = new ArrayList<>();
 
     // return all mails in specific folder
