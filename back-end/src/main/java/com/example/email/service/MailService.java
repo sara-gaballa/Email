@@ -83,6 +83,7 @@ public class MailService {
     }
 
     public List<Email> pageNavigate(String folder, String direction) {
+<<<<<<< Updated upstream
         if (iterator.hasNextPage() && direction.equalsIgnoreCase("next")) {
             System.out.println("next");
             return iterator.getNextPage();
@@ -92,6 +93,18 @@ public class MailService {
         } else {
             return iterator.getCurrentPage();
         }
+=======
+//        if(iterator.hasNextPage() && direction.equalsIgnoreCase("next")) {
+//            System.out.println("next");
+//            return iterator.getNextPage();
+//        } else if(iterator.hasPreviousPage() && direction.equalsIgnoreCase(("Previous"))) {
+//            System.out.println("previous");
+//            return iterator.getPreviousPage();
+//        } else{
+//            return iterator.getCurrentPage();
+//        }
+        return this.mailManager.getCurrentEmails();
+>>>>>>> Stashed changes
     }
 
     public List<Email> sort(String attribute) {

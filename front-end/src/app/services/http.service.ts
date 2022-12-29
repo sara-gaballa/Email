@@ -61,7 +61,7 @@ export class EmailHttpService{
       return this.http.post<Email[]>(this.mailUrl + "getMails/" + folder + '/' + state, httpOptions);
     }
 
-                                        //gets current page of the passed folder
+    //gets current page of the passed folder
     filter(criteria: string, value: string): Observable<Email[]> {
       console.log("Sending request...");
       console.log("criteria:"+criteria+" value:"+value);
