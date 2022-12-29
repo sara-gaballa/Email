@@ -44,8 +44,13 @@ export class ComposeEmailComponent implements OnInit {
     let time=sentDate.getHours()+":"+sentDate.getMinutes()+":"+sentDate.getSeconds();
     let subject = document.getElementById("subject") as HTMLInputElement;
     let body = document.getElementById("body") as HTMLInputElement;
-    // let attachments = document.getElementById("attachments") as HTMLInputElement; //cant send more than one?
-    this.email= new Email(from, to.value,sentDate.toLocaleDateString(),time,subject.value,body.value,priority.value)
+    let attach = document.getElementById("attachments") as HTMLInputElement; //cant send more than one?
+    let attachments:string[]=new Array(attach.files.length)
+    for(let i=0;i<attach.files.length;i++){
+    attachments[i]=(attach.files[i].name)
+    }
+    console.log(attachments)
+    this.email= new Email(from, to.value,sentDate.toLocaleDateString(),time,subject.value,body.value,priority.value,attachments)
     this.httpService.sendEmail(this.email);
   }
 

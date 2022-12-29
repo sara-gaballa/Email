@@ -2,9 +2,9 @@
 <!-- start of main compose -->
 <div class="compose-email">
   <form>
-    <input class="inputfolder" type="text"  id="to" >
+    <input class="inputfolder"  id="to" >
     <label for="to" style="left: 15px">To</label>
-    <input class="inputfolder" type="text"  id="subject" >
+    <input class="inputfolder"   id="subject" >
     <label for="subject">Subject</label>
     <select id="priority" name="List" >
       <option value="CRITICAL">Critical</option>
@@ -16,7 +16,6 @@
 <!--    <time>{{this.date}}</time>-->
     <textarea id="body" rows="14" cols="113" style="overflow: scroll; left: 5px;bottom:50px;position: absolute;font-size: 20px;" placeholder="Email body" ></textarea>
     <button id="logout"  routerLink="/emails" (click)="composeEmail()">Sent <span class="material-symbols-outlined" style="position: absolute; left:60px; bottom:4px ">send</span></button>
-    <label class="file" for="attachments"><span class="material-symbols-outlined" style="position: absolute; left:8px;">attachment</span></label>
-    <input type="file" id="attachments" style="display:none">
+    <input type="file" id="attachments" style="position: relative;top: 335px;width: 500px;left: 6px"  multiple="multiple">
   </form>
 </div>

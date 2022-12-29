@@ -10,7 +10,7 @@ import { FolderManagerService } from './folder-manager.service';
 export class EMailDataService {
 
   //initial opened email and changes when user chooses the desired email
-  openedEmail: Email = new Email("Rowaina", "SaraNancyMariam", "12/27/2022", "11:50AM", "The Project is on fire", "GG","high")
+  openedEmail: Email = new Email("Rowaina", "SaraNancyMariam", "12/27/2022", "11:50AM", "The Project is on fire", "GG","high",[])
 
   constructor(private httpService: EmailHttpService, private folderManager: FolderManagerService) {}
 
