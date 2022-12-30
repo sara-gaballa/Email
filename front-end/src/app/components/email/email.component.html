@@ -9,7 +9,7 @@
 
             <div class="header-left">
                 <!-- <span class = "material-symbols-outlined">menu</span> -->
-                <img src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png">
+                <img alt="gege" src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png">
             </div>
 
             <div class="header-right">
@@ -22,17 +22,33 @@
                   <span  title="add contacts" class="material-symbols-outlined" style="position: absolute; left: 165px; color:#0a406b;"> add </span>
                   <span title="sort contacts"class="material-symbols-outlined" style="position: absolute; left: 200px; color:#0a406b;"> sort </span>
                   <div class="contact_list">
-                  <section class="single_contact">
+                  <section class="single_contact" (click)="showDetails()">
                     <span  class="material-symbols-outlined" style=" color:#0a406b;" > account_circle </span>
-                    <h1>Sara</h1>
-                    <span  title="add email to contact" class="material-symbols-outlined"  style="position: absolute; left: 170px; color:#0a406b;" > add </span>
-                    <span  title="edit contact" class="material-symbols-outlined"  style="position: absolute; left: 200px; color:#0a406b;"> edit </span>
+                    <h1 >Sara</h1>
                   </section>
 
 
+
                   </div>
+
                 </div>
 
+              </div>
+              <div class="editList" id="contactDetails" style="display: none">
+                <input type="text" placeholder=Add style="background-color: white; position: absolute; left: 0px;width: 180px"/>
+                <button title="add email to contact" class="material-symbols-outlined"  style="position: absolute; left: 200px; color:#0a406b;
+                     width: 30px;height: 38px; padding: 1px " > add </button>
+                <h1  (input)="edit()" contenteditable="true"  id="name" style="position: absolute; top: 28px;left: 50px">sara</h1>
+                <label for=name style="position: absolute; top: 40px">Name:</label>
+<!--                <span  class="material-symbols-outlined" style=" color:#0a406b;position: absolute;left: 80px;bottom: 128px" >edit </span>-->
+                <section class="EmailContact">
+                  <span  class="material-symbols-outlined" style=" color:#0a406b;" >mail </span>
+                  <h1  (click)="edit()" contenteditable="true" id="email">Sara@galaxy.com</h1>
+<!--                  <span (click)="edit()"  class="material-symbols-outlined" style=" color:#0a406b;" >edit </span>-->
+                  <span  id="done"class="material-symbols-outlined" style=" color:#0a406b;position: absolute; left: 170px; display: none " >done </span>
+                  <span  class="material-symbols-outlined" style=" color:#0a406b; position: absolute; left: 200px; " >delete </span>
+                </section>
+                <!--    <span  title="edit contact" class="material-symbols-outlined"  style="position: absolute; lef   t: 200px; color:#0a406b;"> edit </span>-->
               </div>
                 <div class="profile">
                     <button title="profile" class="material-symbols-outlined" (click)="showWindow('profile-content')">account_circle</button>
@@ -68,7 +84,15 @@
                                 <button style="top:45px">priority</button>
                             </div>
                         </ng-template>
-
+                      <ng-template [ngIf]="folder.getName()!='inbox' && folder.getName()!='draft' && folder.getName()!='trash' && folder.getName()!='sent'">
+                        <button class="material-symbols-outlined" (click)="showNewFolder(folder.getName())" >arrow_drop_down</button>
+                        <div id={{folder.getName()}} class="newFoler" style="display:none; position:absolute;">
+                          <input class="FFolder" type="text" #rename_id placeholder="rename">
+                          <button (click)="rename(folder,rename_id)" class="FFFolder">Enter</button>
+                          <button class="material-symbols-outlined" >Delete</button>
+                          <button class="material-symbols-outlined" >Open_with</button>
+                        </div>
+                      </ng-template>
                     </div>
                 </div>
 

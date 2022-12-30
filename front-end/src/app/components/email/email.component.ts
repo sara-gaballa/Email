@@ -12,7 +12,7 @@ import { EmailService } from 'src/app/services/email.service';
   templateUrl: './email.component.html',
   styleUrls: ['./email.component.css']
 })
-export class EmailComponent implements OnInit{
+export class EmailComponent implements OnInit {
   search: string = 'Search'
   click: string = ''
   shownFolders: Folder[] = []
@@ -22,8 +22,8 @@ export class EmailComponent implements OnInit{
     this.shownFolders = emailService.getFolders()
     console.log(this.shownFolders + "hhhhhhhhhhhhh")
     this.shownEmails = []
-    emailService.getPageEmails('current').subscribe((res)=> {
-      for(let i = 0; i < res.length; i++) {
+    emailService.getPageEmails('current').subscribe((res) => {
+      for (let i = 0; i < res.length; i++) {
         this.shownEmails.push(new Email(res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]));
         console.log(res[i])
       }
@@ -34,7 +34,9 @@ export class EmailComponent implements OnInit{
 
   }
 
-  changeSearchLabel(s:string):void { this.search = s; }
+  changeSearchLabel(s: string): void {
+    this.search = s;
+  }
 
   foldersNavigate(folder: string) {
     this.emailService.setCurrentFolder(folder)
@@ -42,64 +44,116 @@ export class EmailComponent implements OnInit{
   }
 
   pagesNavigate(state: string) {
-    this.emailService.getPageEmails(state).subscribe((res)=> {
-    for(let i = 0; i < res.length; i++) {
-      this.shownEmails.push(new Email(res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]));
-      console.log(res[i])
-    }})
-  }
-
-  addfolder(){
-    let name = document.getElementById("FolderName") as HTMLInputElement ;
-    if(name?.value!=''){
-      this.emailService.addFolder(name?.value)
-      let click = document.getElementById("NewFolder");
-      click!.style.display = "none";
-    }
-    name.value='';
-  }
-
-  showWindow(window: string){
-    let click = document.getElementById(window);
-    if(click != null && click.style.display === "none") {
-      click.style.display = "block";
-    } else if(click != null) {
-      click.style.display = "none";
-    }
-  }
- showContacts(){
-   let click = document.getElementById("contacts");
-   if(click != null && click.style.display === "none") {
-     click.style.display = "block";
-   } else if(click != null) {
-     click.style.display = "none";
-   }
- }
-  setOpenedEmail(id: number) {
-    console.log(this.shownEmails)
-    this.emailService.setOpenedEmail(this.shownEmails[id])
-  }
-
-  getUserName(): string { return this.emailService.getUser().getFirstName().concat(" " + this.emailService.getUser().getLastName()) }
-
-  getUserEmail(): string { return this.emailService.getUser().getEmail() }
-
-  filter(criteria: string) {
-    this.httpService.filter(criteria, 'Neso').subscribe(res => {
-      console.log("sent successfully")
-      this.shownEmails = []
-      for(let i = 0; i < res.length; i++) {
+    this.emailService.getPageEmails(state).subscribe((res) => {
+      for (let i = 0; i < res.length; i++) {
         this.shownEmails.push(new Email(res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]));
         console.log(res[i])
       }
     })
   }
 
-  sort(sort: string) { this.emailService.sort(this.emailService.getCurrentFolder(), sort) }
+  addfolder() {
+    let name = document.getElementById("FolderName") as HTMLInputElement;
+    if (name?.value != '') {
+      this.emailService.addFolder(name?.value)
+      let click = document.getElementById("NewFolder");
+      click!.style.display = "none";
+    }
+    name.value = '';
+  }
 
-  getUser(): User { return this.httpService.getUser() }
+  showWindow(window: string) {
+    let click = document.getElementById(window);
+    if (click != null && click.style.display === "none") {
+      click.style.display = "block";
+    } else if (click != null) {
+      click.style.display = "none";
+    }
+  }
 
-  getContact(): Contact { return this.httpService.getContact() }
 
+  setOpenedEmail(id: number) {
+    console.log(this.shownEmails)
+    this.emailService.setOpenedEmail(this.shownEmails[id])
+  }
+
+  getUserName(): string {
+    return this.emailService.getUser().getFirstName().concat(" " + this.emailService.getUser().getLastName())
+  }
+
+  getUserEmail(): string {
+    return this.emailService.getUser().getEmail()
+  }
+
+  filter(criteria: string) {
+    this.httpService.filter(criteria, 'Neso').subscribe(res => {
+      console.log("sent successfully")
+      this.shownEmails = []
+      for (let i = 0; i < res.length; i++) {
+        this.shownEmails.push(new Email(res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]));
+        console.log(res[i])
+      }
+    })
+  }
+
+  sort(sort: string) {
+    this.emailService.sort(this.emailService.getCurrentFolder(), sort)
+  }
+
+  getUser(): User {
+    return this.httpService.getUser()
+  }
+
+  getContact(): Contact {
+    return this.httpService.getContact()
+  }
+
+  showNewFolder(foler: string) {
+    let click = document.getElementById(foler);
+    if (click != null && click.style.display === "none") {
+      click.style.display = "block";
+    } else if (click != null) {
+      click.style.display = "none";
+    }
+  }
+  delete(folder: Folder){
+    this.emailService.deleteFolder(folder.getName());
+  }
+  rename(window: Folder,id:HTMLInputElement) {
+    id.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        if(id.value!=''){
+          window.setName(id.value);}
+      }
+    });
+  }
+
+
+  showContacts() {
+    let click = document.getElementById("contacts");
+    let details = document.getElementById("contactDetails");
+    if (click != null && click.style.display === "none") {
+      click.style.display = "block";
+      details.style.display="none";
+    } else if (click != null) {
+      click.style.display = "none";
+      details.style.display="none";
+    }
+  }
+
+  showDetails(){
+    let click = document.getElementById("contactDetails");
+    if (click != null && click.style.display === "none") {
+      click.style.display = "block";
+    } else if (click != null) {
+      click.style.display = "none";
+    }
+  }
+  edit(){
+    let click = document.getElementById("name") ;
+    console.log(click.innerText)
+
+  }
 
 }
