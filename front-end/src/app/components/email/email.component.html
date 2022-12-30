@@ -13,9 +13,29 @@
             </div>
 
             <div class="header-right">
-                <span class="material-symbols-outlined">notifications</span>
+              <span title="contacts" class="material-symbols-outlined" (click)="showContacts()" >contacts</span>
+              <div class="contacts"  id="contacts"  style="display: none">
+               <!--   search bar-->
+                <div class="search_contacts">
+                  <span class="material-symbols-outlined" style="position: absolute; left: 1px"> search </span>
+                  <input type="text" placeholder={{search}}/>
+                  <span  title="add contacts" class="material-symbols-outlined" style="position: absolute; left: 165px; color:#0a406b;"> add </span>
+                  <span title="sort contacts"class="material-symbols-outlined" style="position: absolute; left: 200px; color:#0a406b;"> sort </span>
+                  <div class="contact_list">
+                  <section class="single_contact">
+                    <span  class="material-symbols-outlined" style=" color:#0a406b;" > account_circle </span>
+                    <h1>Sara</h1>
+                    <span  title="add email to contact" class="material-symbols-outlined"  style="position: absolute; left: 170px; color:#0a406b;" > add </span>
+                    <span  title="edit contact" class="material-symbols-outlined"  style="position: absolute; left: 200px; color:#0a406b;"> edit </span>
+                  </section>
+
+
+                  </div>
+                </div>
+
+              </div>
                 <div class="profile">
-                    <button class="material-symbols-outlined" (click)="showWindow('profile-content')">account_circle</button>
+                    <button title="profile" class="material-symbols-outlined" (click)="showWindow('profile-content')">account_circle</button>
                     <div id="profile-content" style="display: none; position:absolute;">
                         <img id="img" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" style="width:50px; height:50px; position:relative; left: 100px; top:20px">
                         <label for="img" style=" position:relative; top: 20px; left: 95px; color:whitesmoke"><br>{{ getUserName() }}</label>
@@ -48,6 +68,7 @@
                                 <button style="top:45px">priority</button>
                             </div>
                         </ng-template>
+
                     </div>
                 </div>
 

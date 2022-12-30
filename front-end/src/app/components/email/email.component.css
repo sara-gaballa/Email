@@ -447,3 +447,85 @@ h1 {
     border-color: rgb(140, 137, 232);
     cursor: pointer;
 }
+.contacts{
+  position: absolute;
+  background-image: linear-gradient(to bottom, rgb(207, 218, 239), rgb(125, 156, 227)), url("https://wallpapercave.com/wp/KSnFrMw.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 8px;
+  border: 2px solid rgb(140, 137, 232);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  z-index: 1;
+  /*overflow: scroll;*/
+  height: 200px;
+  width: 250px;
+  right: 80px;
+  top: 50px;
+
+}
+.search_contacts{
+  display: flex;
+  flex: 0.7;
+  align-items: center;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid rgb(140, 137, 232);
+  width: 150px;
+  height: 10px;
+
+}
+
+.search_contacts input {
+  border: none;
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  font-size: medium;
+  background-color: transparent;
+  font-size: 15px;
+  position: absolute;
+  left: 30px;
+}
+.contact_list{
+  position: absolute;
+  top: 40px;
+  right: 1px;
+  width: 100%;
+  height: 80%;
+  align-items: center;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-base-color: #6d44b8;
+
+}
+.single_contact{
+  background-image: linear-gradient(to bottom, rgb(255, 255, 255), rgb(231, 184, 239)), url("https://wallpapercave.com/wp/KSnFrMw.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  width:100% ;
+  height: 30%;
+  background-size: cover;
+  display: flex;
+  /*right: 5px;*/
+  border-radius: 5px;
+}
+.single_contact h1{
+font-size:14px ;
+  color: #0a406b;
+  align-content: center;
+}
+

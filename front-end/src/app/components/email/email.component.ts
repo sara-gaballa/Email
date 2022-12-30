@@ -67,7 +67,14 @@ export class EmailComponent implements OnInit{
       click.style.display = "none";
     }
   }
-
+ showContacts(){
+   let click = document.getElementById("contacts");
+   if(click != null && click.style.display === "none") {
+     click.style.display = "block";
+   } else if(click != null) {
+     click.style.display = "none";
+   }
+ }
   setOpenedEmail(id: number) {
     console.log(this.shownEmails)
     this.emailService.setOpenedEmail(this.shownEmails[id])

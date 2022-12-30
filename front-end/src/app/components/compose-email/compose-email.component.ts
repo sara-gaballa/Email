@@ -33,7 +33,7 @@ export class ComposeEmailComponent implements OnInit {
 
   changeBody(body: any) { this.sentEmail.setBody(body.target.value) }
 
-  composeEmail() { //facade
+  composeEmail(operation: string) { //facade
     let to = document.getElementById("to") as HTMLInputElement;
     let from = this.emailService.getUser().getEmail();
     let priority = document.getElementById("priority") as HTMLInputElement;
@@ -48,8 +48,15 @@ export class ComposeEmailComponent implements OnInit {
     }
     console.log(attachments)
     this.email = new Email(from, to.value, sentDate.toLocaleDateString(), time,subject.value, body.value, priority.value, attachments)
+    if(operation==='send'){
     this.httpService.sendEmail(this.email, [to.value]);
+    }
+    else if(operation==='draft'){
+      // this.httpService.sendEmail(this.email, [to.value]);   >> Draft
+    }
+
   }
+
 
 //ToDO make the draft if it is not sent
 

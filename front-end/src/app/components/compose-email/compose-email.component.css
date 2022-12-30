@@ -53,7 +53,7 @@ button {
     border-radius: 20px;
     color: rgb(246, 246, 246);
     text-decoration: none;
-    padding: 10px;
+    padding: 6px;
     z-index: 1;
     cursor: pointer;
     text-align: left;
@@ -112,4 +112,16 @@ select{
   top: 15px;
   left: 2px;
 
+}
+#back{
+  background-image: linear-gradient(to bottom, rgb(243, 244, 250), rgb(231, 211, 238)), url("https://wallpapercave.com/wp/KSnFrMw.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute; border-radius: 10px; width: 20px;height:35px ; left: 0px;
+  top:10px; padding: 2px;
+  color: #000000;
 }

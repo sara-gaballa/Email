@@ -2,20 +2,23 @@
 <!-- start of main compose -->
 <div class="compose-email">
     <form>
-        <input class="inputfolder" id="to" (keypress)="changeTo($event)">
-        <label for="to" style="left: 15px">To</label>
-        <input class="inputfolder" id="subject" (keypress)="changeSubject($event)">
+        <button routerLink="/emails" (click)="composeEmail('draft')" id="back" class="material-symbols-outlined"  title="back">arrow_back_ios</button>
+        <input class="inputfolder" id="to" style=" top: 10px ">
+        <label for="to" style="left: 25px; bottom: 20px">To</label>
+        <input class="inputfolder" id="subject">
         <label for="subject">Subject</label>
         <select id="priority" name="List">
-      <option value="CRITICAL">Critical</option>
-      <option value="HIGH">High</option>
-      <option value="MEDIUM">Medium</option>
-      <option value="LOW">Low</option>
+          <option value="MEDIUM">Default</option>
+          <option value="CRITICAL">Critical</option>
+          <option value="HIGH">High</option>
+          <option value="MEDIUM">Medium</option>
+         <option value="LOW">Low</option>
     </select>
         <label for="priority" style="top: 15px;position: relative;right: 168px">Priority</label>
         <!--    <time>{{this.date}}</time>-->
-        <textarea id="body" (keypress)="changeBody($event)" rows="14" cols="113" style="overflow: scroll; left: 5px;bottom:50px;position: absolute;font-size: 20px;" placeholder="Email body"></textarea>
-        <button id="logout" routerLink="/emails" (click)="composeEmail()">Sent <span class="material-symbols-outlined" style="position: absolute; left:60px; bottom:4px ">send</span></button>
+        <textarea id="body" rows="14" cols="113" style="overflow: scroll; left: 5px;bottom:50px;position: absolute;font-size: 20px;" placeholder="Email body"></textarea>
+        <button id="logout" routerLink="/emails" (click)="composeEmail('send')">Sent <span class="material-symbols-outlined" style="position: absolute; left:60px; bottom:7px ">send</span></button>
+        <button id="save_as_draft" routerLink="/emails" (click)="composeEmail('draft')" style=" position: absolute; left: 1000px; top:495px; width:160px">Save as draft <span class="material-symbols-outlined" style="position: absolute; left:120px; bottom:7px ">save</span></button>
         <input type="file" id="attachments" style="position: relative;top: 335px;width: 500px;left: 6px" multiple="multiple">
     </form>
 </div>
