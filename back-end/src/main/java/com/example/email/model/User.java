@@ -55,12 +55,26 @@ public class User {
         return contacts;
     }
 
-    public Contact getContact(int index) {
-        return contacts.get(index);
+    public Contact getContact(String name) {
+        for (Contact contact : contacts) {
+            if (contact.getName().equals(name))
+                return contact;
+        }
+        return null;
     }
 
     public void setContacts(List<Contact> contacts) {
         this.contacts = contacts;
+    }
+
+    public void setContact(String name, Contact newContact) {
+        Contact contact = this.getContact(name);
+        contact = newContact;
+    }
+
+    public void deleteContact(String name) {
+        Contact contact = this.getContact(name);
+        this.contacts.remove(contact);
     }
 
     public void addContact(Contact contact) {

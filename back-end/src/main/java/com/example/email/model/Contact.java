@@ -2,7 +2,7 @@ package com.example.email.model;
 
 import java.util.List;
 
-public class Contact {
+public class Contact implements Comparable<Contact> {
     private String name;
     private List<String> emails;
 
@@ -29,5 +29,29 @@ public class Contact {
 
     public void addEmail(String email) {
         this.emails.add(email);
+    }
+
+    public boolean search(String attribute, String value) {
+        boolean found = false;
+        switch (attribute) {
+            case "email":
+                for (String email : this.emails)
+                    found |= email.toLowerCase().contains(value.toLowerCase());
+                break;
+            case "name":
+                found = this.name.toLowerCase().contains(value.toLowerCase());
+                break;
+            case "All":
+                found = this.name.toLowerCase().contains(value.toLowerCase());
+                if (found) break;
+                for (String email : this.emails)
+                    found |= email.toLowerCase().contains(value.toLowerCase());
+                break;
+        }
+        return found;
+    }
+
+    public int compareTo(Contact o) {
+        return this.name.compareTo(o.getName());
     }
 }
