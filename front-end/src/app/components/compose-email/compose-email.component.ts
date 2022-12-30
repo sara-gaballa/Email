@@ -46,10 +46,11 @@ export class ComposeEmailComponent implements OnInit {
     for(let i=0;i<attach.files.length;i++){
       attachments[i]=(attach.files[i].name)
     }
-    console.log(attachments)
+    let to_arr=to.value.split('+');
+    console.log(to_arr)
     this.email = new Email(from, to.value, sentDate.toLocaleDateString(), time,subject.value, body.value, priority.value, attachments)
     if(operation==='send'){
-    this.httpService.sendEmail(this.email, [to.value]);
+    this.httpService.sendEmail(this.email, to_arr);
     }
     else if(operation==='draft'){
       // this.httpService.sendEmail(this.email, [to.value]);   >> Draft
