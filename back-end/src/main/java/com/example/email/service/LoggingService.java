@@ -8,7 +8,7 @@ import java.util.List;
 
 public class LoggingService implements Logging {
     private List<User> accounts;
-    private User user;
+    private User user = new User("Mariam", "Hossam", "m.hossam@galaxy.com", "mariam123");
 
     public LoggingService() {
         accounts = new ArrayList<>();
@@ -21,10 +21,11 @@ public class LoggingService implements Logging {
     }
 
     @Override
-    public List<String> signIn(String email, String password) {
-        User user = findUser(email);
-        this.user = user;
-        return user.getUserFolders();
+    public User signIn(String email, String password) {
+        accounts.add(this.user);
+        //User user = findUser(email);
+        //this.user = user;
+        return this.user;
     }
 
     public User findUser(String email) {

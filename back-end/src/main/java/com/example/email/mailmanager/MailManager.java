@@ -3,6 +3,7 @@ package com.example.email.mailmanager;
 import com.example.email.model.Email;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
 public interface MailManager {//TODO: write email
@@ -20,9 +21,9 @@ public interface MailManager {//TODO: write email
     void addMail(String path, String fileName, Email email) throws IOException;
 
     // TODO : add ID
-    void deleteMails(String path, String[] ids);
+    void deleteMails(String userFolder, String folder, List<String> ids);
 
-    void moveMails(String fromPath, String toPath, String[] ids);
+    void moveMails(String fromPath, String toPath, List<String> ids);
 
     //void setCurrentFolder(String currentFolder);
 
@@ -30,4 +31,6 @@ public interface MailManager {//TODO: write email
     List<Email> getCurrentEmails();
 
     void setCurrentEmails(List<Email> emails);
+
+    void updateTrash(String userFolder) throws IOException, ParseException;
 }

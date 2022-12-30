@@ -68,6 +68,9 @@ public class MailUtility {
 
     public List<Email> sort(String attribute, List<Email> currentEmails) {
         Collections.sort(currentEmails, comparatorFactory.getComparator(attribute));
+        System.out.println(attribute);
+        System.out.println(currentEmails.get(0).getBody());
+
         return currentEmails;
     }
 

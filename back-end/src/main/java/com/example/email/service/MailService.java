@@ -11,6 +11,7 @@ import com.example.email.utilities.MailUtility;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -29,7 +30,8 @@ public class MailService {
     public List<Email> getAllMails(User user, String folder) throws IOException {
         FileManager.setCurrentFolder(folder);
         iterator.setAllEmails(mailManager.getCurrentEmails());
-        return mailManager.getAllMails(user.getFolder() + "/" + folder);
+        System.out.println(user.getFolder().concat("/").concat(folder));
+        return mailManager.getAllMails(user.getFolder().concat("/").concat(folder));
     }
 
     public void sendMail(User user, Email email, Queue<String> toEmail) throws IOException {
@@ -42,11 +44,11 @@ public class MailService {
 
     }
 
-    public void deleteMails(User user, String folder, String[] ids) {
-        mailManager.deleteMails(user.getFolder() + "/" + folder, ids);
+    public void deleteMails(User user, String folder, List<String> ids) {
+        mailManager.deleteMails(user.getFolder(), folder, ids);
     }
 
-    public void moveMails(User user, String fromFolder, String toFolder, String[] ids) {
+    public void moveMails(User user, String fromFolder, String toFolder, List<String> ids) {
         String fromPath = user.getFolder() + "/" + fromFolder;
         String toPath = user.getFolder() + "/" + toFolder;
         mailManager.moveMails(fromPath, toPath, ids);
@@ -83,6 +85,10 @@ public class MailService {
 
     public PriorityQueue<Email> sortByPriority() {
         return this.utility.sortByPriority(mailManager.getCurrentEmails());
+    }
+
+    public void updateTrash(User user) throws IOException, ParseException {
+        this.mailManager.updateTrash(user.getFolder());
     }
 
 }

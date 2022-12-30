@@ -2,6 +2,7 @@ package com.example.email.mailmanager;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class FileManager {
     private final static String parentFolder = FoldersName.PARENT;
@@ -30,7 +31,8 @@ public class FileManager {
     }
 
     public static File[] getAllFiles(String path) {
-        File file = new File(parentFolder + "/" + path);
+        File file = new File(parentFolder + "\\" + path);
+        System.out.println(file.toPath());
         return file.listFiles();
     }
 
@@ -40,16 +42,16 @@ public class FileManager {
     }
 
     // delete files move them to trash folder
-    public static void deleteFiles(String path, String[] fileNames) {
-        String folder = parentFolder + "/" + path;
-        moveFiles(folder, parentFolder + "/" + FoldersName.TRASH, fileNames);
-        /*List<File> deletedFiles = new ArrayList<>();
+    public static void deleteFiles(String userFolder, String mailFolder, List<String> fileNames) {
+        moveFiles(userFolder + "\\" + mailFolder, userFolder + "\\" + FoldersName.TRASH, fileNames);
+    }
+
+    // used for trash mails which exceeded 30 days
+    public static void deletePermanently(String path, List<String> fileNames) {
         for (String name : fileNames) {
-            File file = new File(folder + "/" + name);
-            deletedFiles.add(file);
+            File file = new File(parentFolder + "\\" + path + "\\" + name);
             file.delete();
         }
-        return deletedFiles;*/
     }
 
     public static File addFile(String path, String fileName) throws IOException {
@@ -59,12 +61,16 @@ public class FileManager {
         return file;
     }
 
-    public static File[] moveFiles(String fromPath, String toPath, String[] fileNames) {
-        String fromFolder = parentFolder + "/" + fromPath;
-        String toFolder = parentFolder + "/" + toPath;
+    public static File[] moveFiles(String fromPath, String toPath, List<String> fileNames) {
+        String fromFolder = parentFolder + "\\" + fromPath;
+        String toFolder = parentFolder + "\\" + toPath;
+
         for (String name : fileNames) {
-            File file = new File(fromFolder + "/" + name);
-            file.renameTo(new File(toFolder + "/" + name));
+            File file = new File(fromFolder + "\\" + name);
+            if (file.renameTo(new File(toFolder + "\\" + name)))
+                file.delete();
+            else
+                System.out.println(toFolder + "\\" + name);
         }
         return new File(toFolder).listFiles();
     }

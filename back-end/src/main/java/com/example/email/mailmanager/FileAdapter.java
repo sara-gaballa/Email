@@ -6,7 +6,10 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class FileAdapter implements MailManager {
@@ -35,11 +38,11 @@ public class FileAdapter implements MailManager {
 
     // delete all mails with the given named from the given folder
     @Override
-    public void deleteMails(String path, String[] fileNames) {
-        for (String name : fileNames) {
-            name = name.concat(".json");
+    public void deleteMails(String userFolder, String folder, List<String> fileNames) {
+        for (int i = 0; i < fileNames.size(); i++) {
+            fileNames.set(i, fileNames.get(i).concat(".json"));
         }
-        FileManager.deleteFiles(path, fileNames);
+        FileManager.deleteFiles(userFolder, folder, fileNames);
     }
 
     // add mail to the given path
@@ -55,9 +58,10 @@ public class FileAdapter implements MailManager {
 
     // move mails from one folder to another
     @Override
-    public void moveMails(String fromPath, String toPath, String[] fileNames) {
-        for (String name : fileNames) {
-            name = name.concat(".json");
+    public void moveMails(String fromPath, String toPath, List<String> fileNames) {
+
+        for (int i = 0; i < fileNames.size(); i++) {
+            fileNames.set(i, fileNames.get(i).concat(".json"));
         }
         FileManager.moveFiles(fromPath, toPath, fileNames);
     }
@@ -81,5 +85,25 @@ public class FileAdapter implements MailManager {
 
     public void setCurrentEmails(List<Email> emails) {
         this.currentEmails = emails;
+    }
+
+    @Override
+    public void updateTrash(String userFolder) throws IOException, ParseException {
+        String path = userFolder + "\\" + FoldersName.TRASH;
+        File[] files = FileManager.getAllFiles(path);
+        List<String> deletedIds = new ArrayList<>();
+        for (File file : files) {
+            System.out.println(file.toPath());
+            Email email = getMail(path, file.getName());
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            Date d1 = new SimpleDateFormat("dd-MM-yyyy").parse(formatter.format(new Date()));
+            Date d2 = new SimpleDateFormat("dd-MM-yyyy").parse(email.getDate());
+            long diff = d1.getTime() - d2.getTime();
+            System.out.println(diff);
+            if (diff / (1000 * 60 * 60 * 24) > 30) {
+                deletedIds.add(file.getName());
+            }
+        }
+        FileManager.deletePermanently(path, deletedIds);
     }
 }

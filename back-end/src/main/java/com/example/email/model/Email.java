@@ -1,6 +1,6 @@
 package com.example.email.model;
 
-public class Email {
+public class Email implements Comparable<Email> {
     private String id;
     private String from;
     private String[] to;// TODO : convert 'to' to queue or list
@@ -21,6 +21,10 @@ public class Email {
         this.body = body;
         this.priority = priority;
         this.attachments = attachments;
+    }
+
+    public Email() {
+
     }
 
     public String getId() {
@@ -100,4 +104,7 @@ public class Email {
         return false;
     }
 
+    public int compareTo(Email o) {
+        return 0;
+    }
 }

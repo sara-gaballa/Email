@@ -3,7 +3,6 @@ package com.example.email.service;
 import com.example.email.model.User;
 
 import java.io.IOException;
-import java.util.List;
 
 public class LoggingProxy implements Logging {
 
@@ -20,12 +19,13 @@ public class LoggingProxy implements Logging {
     }
 
     @Override
-    public List<String> signIn(String email, String password) {
-        User user = this.service.findUser(email);
+    public User signIn(String email, String password) {
+        /*User user = this.service.findUser(email);
         if (user == null)
             throw new RuntimeException("Email address not found");
         if (!user.getPassword().equals(password))
             throw new RuntimeException("Incorrect password");
+        */
         return this.service.signIn(email, password);
     }
 

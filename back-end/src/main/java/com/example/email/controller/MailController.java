@@ -8,9 +8,8 @@ import com.example.email.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.io.IOException;
+import java.util.*;
 
 @RestController
 @CrossOrigin("http://localhost:4200/")
@@ -31,9 +30,11 @@ public class MailController {
     }
 
     @GetMapping("/signIn")
-    public List<String> signIn(@RequestParam String email, @RequestParam String password) {
+    public User signIn(@RequestParam String email, @RequestParam String password) {
         try {
-            return logging.signIn(email, password);
+            User user = logging.signIn(email, password);
+            service.updateTrash(user); // update trash by deleting emails exceeding 30 days
+            return user;
         } catch (Exception e) {
             return null;
         }
@@ -43,6 +44,11 @@ public class MailController {
     public List<Email> getEmails(@PathVariable("folder") String folder,
                                  @PathVariable("direction") String direction) {
         return service.pageNavigate(folder, direction);
+    }
+
+    @GetMapping("/getAll")
+    public List<Email> getEmails(@RequestParam String folder) throws IOException {
+        return this.service.getAllMails(logging.getCurrentUser(), folder);
     }
 
     @GetMapping("/addFolder")
@@ -55,23 +61,48 @@ public class MailController {
         }
     }
 
-    @RequestMapping("/send")
-    public void send() {
-        User mockUser = new User("a", "b", "c", "d");
-        Queue<String> q = new PriorityQueue<>();
-        q.add("mariam@yahoo.com");
-        Email email = new Email("menna@yahoo.com", new String[]{"mariam@yahoo.com"}, "12/26/22", "8:31", "test",
-                "did that arrive?", null, null);
+    @PutMapping("/renameFolder")
+    public void renameFolder(@RequestParam String oldName, @RequestParam String newName) {
         try {
-            this.service.sendMail(mockUser, email, q);
+            service.renameFolder(logging.getCurrentUser(), oldName, newName);
+            System.out.println(logging.getCurrentUser().getFirstName() + " has renamed " + oldName + " to " + newName + " folder.");
+        } catch (Exception e) {
+            System.out.println("something happened");
+        }
+    }
+
+    @DeleteMapping("/deleteFolder")
+    public void deleteFolder(@RequestParam String name) {
+        try {
+            service.deleteFolder(logging.getCurrentUser(), name);
+            System.out.println(logging.getCurrentUser().getFirstName() + " has deleted " + name + " folder.");
+        } catch (Exception e) {
+            System.out.println("something happened");
+        }
+    }
+
+    @PostMapping("/send")
+    public void send(@RequestBody Email email) {
+        Queue<String> q = new PriorityQueue<>();
+        q.addAll(Arrays.asList(email.getTo()));
+
+        try {
+            this.service.sendMail(logging.getCurrentUser(), email, q);
         } catch (Exception e) {
         }
         // System.out.println(mockUser.getEmail());
     }
 
+    @DeleteMapping("/delete")
+    public void deleteMail(@RequestParam String folder, @RequestParam String id) {
+        List<String> ids = new ArrayList<>();
+        ids.add(id);
+        this.service.deleteMails(logging.getCurrentUser(), folder, ids);
+    }
+
     @GetMapping("/search")
-    public List<Email> search(@RequestParam String[] attributes, @RequestParam String value) {
-        return this.service.search(attributes, value);
+    public List<Email> search(@RequestParam String attributes, @RequestParam String value) {
+        return this.service.search(new String[]{attributes}, value);
     }
 
     @GetMapping("/sort")
@@ -82,6 +113,12 @@ public class MailController {
     @GetMapping("/priority")
     public PriorityQueue<Email> sortByPriority() {
         return this.service.sortByPriority();
+    }
+
+    @PutMapping("/move")
+    public void move(@RequestParam String from, @RequestParam String to,
+                     @RequestParam List<String> ids) {
+        this.service.moveMails(logging.getCurrentUser(), from, to, ids);
     }
 
     @PostMapping(value = "/filter/{criteria}/{value}", consumes = {"application/json"})
