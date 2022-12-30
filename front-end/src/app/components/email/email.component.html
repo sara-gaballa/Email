@@ -84,15 +84,15 @@
                                 <button style="top:45px">priority</button>
                             </div>
                         </ng-template>
-                      <ng-template [ngIf]="folder.getName()!='inbox' && folder.getName()!='draft' && folder.getName()!='trash' && folder.getName()!='sent'">
-                        <button class="material-symbols-outlined" (click)="showNewFolder(folder.getName())" >arrow_drop_down</button>
-                        <div id={{folder.getName()}} class="newFoler" style="display:none; position:absolute;">
-                          <input class="FFolder" type="text" #rename_id placeholder="rename">
-                          <button (click)="rename(folder,rename_id)" class="FFFolder">Enter</button>
-                          <button class="material-symbols-outlined" >Delete</button>
-                          <button class="material-symbols-outlined" >Open_with</button>
-                        </div>
-                      </ng-template>
+                      <div class="n">
+                        <ng-template [ngIf]="folder.getName()!='inbox' && folder.getName()!='draft' && folder.getName()!='trash' && folder.getName()!='sent'">
+                          <button class="material-symbols-outlined" (click)="showNewFolder(folder.getName())" >arrow_drop_down</button>
+                          <div id={{folder.getName()}} class="newFoler" style="display:none; position:absolute;">
+                            <input class="FFolder" (click)="rename(folder,rename_id)" type="text" #rename_id placeholder="rename">
+                            <button class="material-symbols-outlined" (click)="delete(folder)">Delete</button>
+                          </div>
+                        </ng-template>
+                      </div>
                     </div>
                 </div>
 
@@ -160,8 +160,21 @@
       <button class="material-symbols-outlined" (click)="setOpenedEmail(i)" style="position: relative; left:1230px; bottom: 20px" >delete</button>
       <button class="material-symbols-outlined" (click)="setOpenedEmail(i)" style="position: relative; left:1130px; bottom: 20px" >open_with</button>
     </span>
-
 </div>
+<!--<form action="/tutorial/fileupload.html" class="mails">-->
+<!--  <select multiple style="height: 100%; overflow:hidden">-->
+<!--    <option class="email" *ngFor="let email of shownEmails; let i = index">-->
+<!--      <button class = "material-symbols-outlined" multiple style="position: relative; bottom:-20px; left:20px" (click)="setOpenedEmail(i)" routerLink="/mail-box"  >mail</button>-->
+<!--      <div style="position: relative; left:45px; top: 25px; font-size: 17px;" id="read">{{email.getFrom()}}</div>-->
+<!--      <div style="position: relative; left:550px; top: 10px; font-size: 17px;" id="read">{{email.getSubject()}}</div>-->
+<!--      <button class="material-symbols-outlined" (click)="setOpenedEmail(i)" style="position: relative; left:1230px; bottom: 20px" >delete</button>-->
+<!--      <button class="material-symbols-outlined" (click)="setOpenedEmail(i)" style="position: relative; left:1130px; bottom: 20px" >open_with</button>-->
+<!--    </option>-->
+<!--  </select>-->
+<!--</form>-->
+
+
+
 <!-- <div class="mails"> -->
 <!-- <button class="email" (click)="setOpenedEmail(0)" routerLink="/mail-box"> -->
 <!-- <span class = "material-symbols-outlined" >mail</span> -->

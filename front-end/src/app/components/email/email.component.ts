@@ -116,19 +116,6 @@ export class EmailComponent implements OnInit {
       click.style.display = "none";
     }
   }
-  delete(folder: Folder){
-    this.emailService.deleteFolder(folder.getName());
-  }
-  rename(window: Folder,id:HTMLInputElement) {
-    id.addEventListener("keypress", function(event) {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        if(id.value!=''){
-          window.setName(id.value);}
-      }
-    });
-  }
-
 
   showContacts() {
     let click = document.getElementById("contacts");
@@ -154,6 +141,23 @@ export class EmailComponent implements OnInit {
     let click = document.getElementById("name") ;
     console.log(click.innerText)
 
+  }
+  rename(window: Folder,id:HTMLInputElement) {
+    id.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        if(id.value!=''){
+          window.setName(id.value);}
+        else{
+          //nothing
+        }
+      }
+    });
+  }
+
+  delete(folder: Folder){
+    if (confirm('The folder will be deleted permanently')) {
+      this.emailService.deleteFolder(folder.getName());}
   }
 
 }
