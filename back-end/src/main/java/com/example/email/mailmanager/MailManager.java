@@ -4,7 +4,6 @@ import com.example.email.model.Email;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.PriorityQueue;
 
 public interface MailManager {//TODO: write email
     // TODO : get folders on sign in
@@ -28,11 +27,7 @@ public interface MailManager {//TODO: write email
     //void setCurrentFolder(String currentFolder);
 
     //String getCurrentFolder();
-    List<Email> searchMails(String[] attributes, String value);
-
     List<Email> getCurrentEmails();
 
-    List<Email> sort(String attribute);
-
-    PriorityQueue<Email> sortByPriority();
+    void setCurrentEmails(List<Email> emails);
 }

@@ -1,7 +1,5 @@
 package com.example.email.mailmanager;
 
-import com.example.email.comparators.IComparatorFactory;
-import com.example.email.comparators.MailComparatorFactory;
 import com.example.email.model.Email;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -9,13 +7,11 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.PriorityQueue;
 
 public class FileAdapter implements MailManager {
     private static ObjectMapper objectMapper = new ObjectMapper();
-    IComparatorFactory comparatorFactory = new MailComparatorFactory();
+
     private List<Email> currentEmails = new ArrayList<>();
 
     // return all mails in specific folder
@@ -79,32 +75,11 @@ public class FileAdapter implements MailManager {
     }*/
 
     @Override
-    public List<Email> searchMails(String[] attributes, String value) {
-        if (currentEmails.isEmpty())// check for empty list to avoid null pointer exception
-            return null;
-        List<Email> matchEmails = new ArrayList<>();
-        for (Email email : currentEmails) {
-            if (email.search(attributes, value))
-                matchEmails.add(email);
-        }
-        return matchEmails;
-    }
-
-    @Override
     public List<Email> getCurrentEmails() {
         return currentEmails;
     }
 
-    public List<Email> sort(String attribute) {
-        Collections.sort(currentEmails, comparatorFactory.getComparator(attribute));
-        return currentEmails;
-    }
-
-    public PriorityQueue<Email> sortByPriority() {
-        PriorityQueue que = new PriorityQueue(currentEmails.size(), comparatorFactory.getComparator("priority"));
-        for (Email email : currentEmails) {
-            que.add(email);
-        }
-        return que;
+    public void setCurrentEmails(List<Email> emails) {
+        this.currentEmails = emails;
     }
 }

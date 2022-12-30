@@ -4,26 +4,25 @@ import com.example.email.mailmanager.FileAdapter;
 import com.example.email.mailmanager.FileManager;
 import com.example.email.mailmanager.FoldersName;
 import com.example.email.mailmanager.MailManager;
-import com.example.email.mailpartitioning.CriteriaSender;
-import com.example.email.mailpartitioning.CriteriaSubject;
 import com.example.email.mailpartitioning.EmailsIterator;
-import com.example.email.mailpartitioning.ICriteria;
 import com.example.email.model.Email;
 import com.example.email.model.User;
+import com.example.email.utilities.MailUtility;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.UUID;
 
 @Service
 public class MailService {
     MailManager mailManager = new FileAdapter();
 
-    ICriteria cretiriaSubject = new CriteriaSubject();
-
-    ICriteria cretiriaSender = new CriteriaSender();
-
     EmailsIterator iterator = new EmailsIterator();
+
+    MailUtility utility = new MailUtility();
 
 
     // sign in / send / add folder / rename folder/ delete folder/ delete mails/ get all mails / move mails
@@ -67,52 +66,23 @@ public class MailService {
     }
 
     public List<Email> search(String[] attributes, String value) {
-        return this.mailManager.searchMails(attributes, value);
+        return this.utility.searchMails(attributes, value, mailManager.getCurrentEmails());
     }
 
     public List<Email> filter(String criteria, String value) {
-        List<Email> emails = new ArrayList<>();
-        if (criteria.equalsIgnoreCase("subject")) {
-            iterator.setAllEmails(cretiriaSubject.meetCriteria(mailManager.getCurrentEmails(), value));
-            return iterator.getCurrentPage();
-        } else if (criteria.equalsIgnoreCase("sender")) {
-            iterator.setAllEmails(cretiriaSender.meetCriteria(mailManager.getCurrentEmails(), value));
-            return iterator.getCurrentPage();
-        }
-        return null;
+        return this.utility.filter(criteria, value, mailManager.getCurrentEmails());
     }
 
     public List<Email> pageNavigate(String folder, String direction) {
-<<<<<<< Updated upstream
-        if (iterator.hasNextPage() && direction.equalsIgnoreCase("next")) {
-            System.out.println("next");
-            return iterator.getNextPage();
-        } else if (iterator.hasPreviousPage() && direction.equalsIgnoreCase(("Previous"))) {
-            System.out.println("previous");
-            return iterator.getPreviousPage();
-        } else {
-            return iterator.getCurrentPage();
-        }
-=======
-//        if(iterator.hasNextPage() && direction.equalsIgnoreCase("next")) {
-//            System.out.println("next");
-//            return iterator.getNextPage();
-//        } else if(iterator.hasPreviousPage() && direction.equalsIgnoreCase(("Previous"))) {
-//            System.out.println("previous");
-//            return iterator.getPreviousPage();
-//        } else{
-//            return iterator.getCurrentPage();
-//        }
-        return this.mailManager.getCurrentEmails();
->>>>>>> Stashed changes
+        return this.utility.pageNavigate(folder, direction);
     }
 
     public List<Email> sort(String attribute) {
-        return mailManager.sort(attribute);
+        return this.utility.sort(attribute, mailManager.getCurrentEmails());
     }
 
     public PriorityQueue<Email> sortByPriority() {
-        return mailManager.sortByPriority();
+        return this.utility.sortByPriority(mailManager.getCurrentEmails());
     }
 
 }
