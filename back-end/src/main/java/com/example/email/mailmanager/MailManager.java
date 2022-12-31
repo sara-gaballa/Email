@@ -1,9 +1,9 @@
 package com.example.email.mailmanager;
 
 import com.example.email.model.Email;
+import com.example.email.model.User;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 
 public interface MailManager {//TODO: write email
@@ -32,5 +32,9 @@ public interface MailManager {//TODO: write email
 
     void setCurrentEmails(List<Email> emails);
 
-    void updateTrash(String userFolder) throws IOException, ParseException;
+    void updateTrash(String path, List<String> fileNames);
+
+    void addUser(User user) throws IOException;
+
+    List<User> getUsers() throws IOException;
 }

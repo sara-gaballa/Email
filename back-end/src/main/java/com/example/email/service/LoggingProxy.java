@@ -8,7 +8,7 @@ public class LoggingProxy implements Logging {
 
     private LoggingService service = new LoggingService();
 
-    public LoggingProxy() {
+    public LoggingProxy() throws IOException {
     }
 
     @Override
@@ -20,12 +20,12 @@ public class LoggingProxy implements Logging {
 
     @Override
     public User signIn(String email, String password) {
-        /*User user = this.service.findUser(email);
+        User user = this.service.findUser(email);
         if (user == null)
             throw new RuntimeException("Email address not found");
         if (!user.getPassword().equals(password))
             throw new RuntimeException("Incorrect password");
-        */
+
         return this.service.signIn(email, password);
     }
 
@@ -34,7 +34,13 @@ public class LoggingProxy implements Logging {
         return service.findUser(email);
     }
 
+    @Override
     public User getCurrentUser() {
         return service.getCurrentUser();
+    }
+
+    @Override
+    public void signOut() throws IOException {
+        service.signOut();
     }
 }

@@ -1,15 +1,13 @@
 package com.example.email.mailmanager;
 
 import com.example.email.model.Email;
+import com.example.email.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class FileAdapter implements MailManager {
@@ -88,22 +86,30 @@ public class FileAdapter implements MailManager {
     }
 
     @Override
-    public void updateTrash(String userFolder) throws IOException, ParseException {
-        String path = userFolder + "\\" + FoldersName.TRASH;
-        File[] files = FileManager.getAllFiles(path);
-        List<String> deletedIds = new ArrayList<>();
-        for (File file : files) {
-            System.out.println(file.toPath());
-            Email email = getMail(path, file.getName());
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-            Date d1 = new SimpleDateFormat("dd-MM-yyyy").parse(formatter.format(new Date()));
-            Date d2 = new SimpleDateFormat("dd-MM-yyyy").parse(email.getDate());
-            long diff = d1.getTime() - d2.getTime();
-            System.out.println(diff);
-            if (diff / (1000 * 60 * 60 * 24) > 30) {
-                deletedIds.add(file.getName());
-            }
+    public void updateTrash(String path, List<String> fileNames) {
+        for (int i = 0; i < fileNames.size(); i++) {
+            fileNames.set(i, fileNames.get(i).concat(".json"));
         }
-        FileManager.deletePermanently(path, deletedIds);
+        FileManager.deletePermanently(path, fileNames);
     }
+
+    public void addUser(User user) throws IOException {
+        File file = FileManager.addFile(FoldersName.ACCOUNTS, user.getEmail() + ".json");
+        //configure objectMapper for pretty input
+        objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+
+        //write email object to json file
+        objectMapper.writeValue(file, user);
+    }
+
+    public List<User> getUsers() throws IOException {
+        File[] files = FileManager.getAllFiles(FoldersName.ACCOUNTS);
+        List<User> users = new ArrayList<>();
+        if (files.length == 0) return users; // check for null pointer exception
+        for (File file : files) {
+            users.add(objectMapper.readValue(file, User.class));
+        }
+        return users;
+    }
+
 }

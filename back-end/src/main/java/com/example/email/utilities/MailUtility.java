@@ -4,7 +4,6 @@ import com.example.email.comparators.IComparatorFactory;
 import com.example.email.comparators.MailComparatorFactory;
 import com.example.email.mailpartitioning.CriteriaSender;
 import com.example.email.mailpartitioning.CriteriaSubject;
-import com.example.email.mailpartitioning.EmailsIterator;
 import com.example.email.mailpartitioning.ICriteria;
 import com.example.email.model.Email;
 
@@ -16,43 +15,18 @@ import java.util.PriorityQueue;
 public class MailUtility {
     IComparatorFactory comparatorFactory = new MailComparatorFactory();
 
-    ICriteria cretiriaSubject = new CriteriaSubject();
+    ICriteria criteriaSubject = new CriteriaSubject();
 
-    ICriteria cretiriaSender = new CriteriaSender();
-
-    EmailsIterator iterator = new EmailsIterator();
+    ICriteria criteriaSender = new CriteriaSender();
 
     public List<Email> filter(String criteria, String value, List<Email> currentEmails) {
         List<Email> emails = new ArrayList<>();
         if (criteria.equalsIgnoreCase("subject")) {
-            iterator.setAllEmails(cretiriaSubject.meetCriteria(currentEmails, value));
-            return iterator.getCurrentPage();
+            return criteriaSubject.meetCriteria(currentEmails, value);
         } else if (criteria.equalsIgnoreCase("sender")) {
-            iterator.setAllEmails(cretiriaSender.meetCriteria(currentEmails, value));
-            return iterator.getCurrentPage();
+            return criteriaSender.meetCriteria(currentEmails, value);
         }
         return null;
-    }
-
-    public List<Email> pageNavigate(String folder, String direction) {
-        if (iterator.hasNextPage() && direction.equalsIgnoreCase("next")) {
-            System.out.println("next");
-            return iterator.getNextPage();
-        } else if (iterator.hasPreviousPage() && direction.equalsIgnoreCase(("Previous"))) {
-            System.out.println("previous");
-            return iterator.getPreviousPage();
-        } else {
-            return iterator.getCurrentPage();
-        }
-//        if(iterator.hasNextPage() && direction.equalsIgnoreCase("next")) {
-//            System.out.println("next");
-//            return iterator.getNextPage();
-//        } else if(iterator.hasPreviousPage() && direction.equalsIgnoreCase(("Previous"))) {
-//            System.out.println("previous");
-//            return iterator.getPreviousPage();
-//        } else{
-//            return iterator.getCurrentPage();
-//        }
     }
 
     public List<Email> searchMails(String[] attributes, String value, List<Email> currentEmails) {

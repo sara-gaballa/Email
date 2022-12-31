@@ -12,4 +12,6 @@ public interface Logging {
     User findUser(String email);
 
     User getCurrentUser();
+
+    void signOut() throws IOException;
 }

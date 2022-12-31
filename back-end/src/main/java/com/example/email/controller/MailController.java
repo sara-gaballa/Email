@@ -1,7 +1,9 @@
 package com.example.email.controller;
 
+import com.example.email.model.Contact;
 import com.example.email.model.Email;
 import com.example.email.model.User;
+import com.example.email.service.ContactService;
 import com.example.email.service.Logging;
 import com.example.email.service.LoggingProxy;
 import com.example.email.service.MailService;
@@ -9,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 @RestController
 @CrossOrigin("http://localhost:4200/")
@@ -17,14 +22,18 @@ import java.util.*;
 public class MailController {
     @Autowired
     MailService service = new MailService();
+    ContactService contactService = new ContactService();
     Logging logging = new LoggingProxy();
+
+    public MailController() throws IOException {
+    }
 
     @PostMapping("/signUp")
     public void signUp(@RequestBody User user) {
         try {
             logging.signUp(user);
         } catch (Exception e) {
-            System.out.println(user.getEmail());
+            System.out.println("Email is taken");
         }
         System.out.println(user.getEmail());
     }
@@ -36,14 +45,9 @@ public class MailController {
             service.updateTrash(user); // update trash by deleting emails exceeding 30 days
             return user;
         } catch (Exception e) {
-            return null;
+            e.printStackTrace();
         }
-    }
-
-    @PostMapping("/getMails/{folder}/{direction}")
-    public List<Email> getEmails(@PathVariable("folder") String folder,
-                                 @PathVariable("direction") String direction) {
-        return service.pageNavigate(folder, direction);
+        return null;
     }
 
     @GetMapping("/getAll")
@@ -87,16 +91,14 @@ public class MailController {
         q.addAll(Arrays.asList(email.getTo()));
 
         try {
-            this.service.sendMail(logging.getCurrentUser(), email, q);
+            this.service.sendMail(email, q);
         } catch (Exception e) {
         }
         // System.out.println(mockUser.getEmail());
     }
 
     @DeleteMapping("/delete")
-    public void deleteMail(@RequestParam String folder, @RequestParam String id) {
-        List<String> ids = new ArrayList<>();
-        ids.add(id);
+    public void deleteMail(@RequestParam String folder, @RequestParam List<String> ids) {
         this.service.deleteMails(logging.getCurrentUser(), folder, ids);
     }
 
@@ -126,5 +128,26 @@ public class MailController {
                               @PathVariable("value") String value) {
         return this.service.filter(criteria, value);
     }
+
+    @PostMapping("/addContact")
+    public void addContact(@RequestBody Contact contact) {
+        this.contactService.addContact(logging.getCurrentUser(), contact);
+    }
+
+    @PutMapping("/editContact/{name}")
+    public void editContact(@PathVariable("name") String name, @RequestBody Contact contact) {
+        this.contactService.editContact(logging.getCurrentUser(), name, contact);
+    }
+
+    @DeleteMapping("/deleteContact/{name}")
+    public void deleteContact(@PathVariable("name") String name) {
+        this.contactService.deleteContact(logging.getCurrentUser(), name);
+    }
+
+    @RequestMapping("signOut")
+    public void signOut() throws IOException {
+        this.logging.signOut();
+    }
+
 
 }
