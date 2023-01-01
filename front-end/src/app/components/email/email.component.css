@@ -587,3 +587,31 @@ font-size:14px ;
   left: 30px;
   border-radius: 10px;
 }
+.n .newFoler{
+    position: relative;
+    z-index: 1;
+  }
+  .n .material-symbols-outlined{
+    background-color: transparent;
+    border: none;
+  }
+  .FFolder{
+    width: 90px;
+    height: 20px;
+    background-color:whitesmoke;
+  }
+  .n .newFoler button{
+    border-radius: 5px;
+    width: 100px;
+    height: 30px;
+    display: block;
+    background-color: 2px solid rgb(241, 240, 255);
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+  }
+  .newFoler .material-symbols-outlined{
+    background-color: rgb(173, 173, 247);
+  }
+  .newFoler .material-symbols-outlined:hover{
+    background-color: rgb(140, 137, 232);
+  }

@@ -1,169 +1,175 @@
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 
 <body>
-    <div class="image">
-        <!-- header starts -->
-        <div class="header">
+  <div class="image">
+      <!-- header starts -->
+      <div class="header">
 
-            <div class="header-left">
-                <!-- <span class = "material-symbols-outlined">menu</span> -->
-                <img alt="gege" src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png">
+          <div class="header-left">
+              <!-- <span class = "material-symbols-outlined">menu</span> -->
+              <img alt="gege" src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png">
+          </div>
+
+          <div class="header-right">
+            <span title="contacts" class="material-symbols-outlined" (click)="showContacts()" >contacts</span>
+            <div class="contacts"  id="contacts"  style="display: none">
+             <!--   search bar-->
+              <div class="search_contacts">
+                <span class="material-symbols-outlined" style="position: absolute; left: 1px"> search </span>
+                <input type="text" placeholder={{search}}/>
+                <span  title="add contacts" class="material-symbols-outlined" style="position: absolute; left: 165px; color:#0a406b;"> add </span>
+                <span title="sort contacts"class="material-symbols-outlined" style="position: absolute; left: 200px; color:#0a406b;"> sort </span>
+                
+                
+                <div class="contact_list">
+                <section class="single_contact" (click)="showDetails()">
+                  <span  class="material-symbols-outlined" style=" color:#0a406b;" > account_circle </span>
+                  <h1 >Sara</h1>
+                </section>
+                </div>
+              </div>
+          </div>
+            <div class="editList" id="contactDetails" style="display: none">
+              <input type="text" placeholder=Add style="background-color: white; position: absolute; left: 0px;width: 180px"/>
+              <button title="add email to contact" class="material-symbols-outlined"  style="position: absolute; left: 200px; color:#0a406b;width: 30px;height: 38px; padding: 1px " > add </button>
+              <h1  (input)="edit()" contenteditable="true"  id="name" style="position: absolute; top: 28px;left: 50px">sara</h1>
+              <label for=name style="position: absolute; top: 40px">Name:</label>
+
+              <section class="EmailContact">
+                <span  class="material-symbols-outlined" style=" color:#0a406b;">mail </span>
+                <h1  (click)="edit()" contenteditable="true" id="email">Sara@galaxy.com</h1>
+                <span  id="done"class="material-symbols-outlined" style=" color:#0a406b;position: absolute; left: 170px; display: none"> done </span>
+                <span  class="material-symbols-outlined" style=" color:#0a406b; position: absolute; left: 200px;" >delete </span>
+              </section>
+           
             </div>
+              <div class="profile">
+                  <button title="profile" class="material-symbols-outlined" (click)="showWindow('profile-content')">account_circle</button>
+                  <div id="profile-content" style="display: none; position:absolute;">
+                      <img id="img" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" style="width:50px; height:50px; position:relative; left: 100px; top:20px">
+                      <label for="img" style=" position:relative; top: 20px; left: 95px; color:whitesmoke"><br>{{ getUserName() }}</label>
+                      <label for="img" style=" position:relative; top: 40px; right: 20px; color:whitesmoke">{{ getUserEmail() }}</label>
+                      <button id="logout" routerLink="/">Sign Out</button>
+                      <span class="material-symbols-outlined" style=" position:relative; top: 40px; left: 150px; color: white" routerLink="/">logout</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- header ends -->
 
-            <div class="header-right">
-                <span title="contacts" class="material-symbols-outlined" (click)="showContacts()">contacts</span>
-                <div class="contacts" id="contacts" style="display: none">
-                    <!--   search bar-->
-                    <div class="search_contacts">
-                        <span class="material-symbols-outlined" style="position: absolute; left: 1px"> search </span>
-                        <input type="text" placeholder={{search}}/>
-                        <span title="add contacts" class="material-symbols-outlined" style="position: absolute; left: 165px; color:#0a406b;"> add </span>
-                        <span title="sort contacts" class="material-symbols-outlined" style="position: absolute; left: 200px; color:#0a406b;"> sort </span>
-                        <div class="contact_list">
-                            <section class="single_contact" (click)="showWindow('contactDetails')">
-                                <span class="material-symbols-outlined" style=" color:#0a406b;"> account_circle </span>
-                                <h1>Sara</h1>
-                            </section>
-
-
-
-                        </div>
-
-                    </div>
-
-                </div>
-                <div class="editList" id="contactDetails" style="display: none">
-                    <input type="text" placeholder=Add style="background-color: white; position: absolute; left: 0px;width: 180px" />
-                    <button title="add email to contact" class="material-symbols-outlined" style="position: absolute; left: 200px; color:#0a406b; width: 30px;height: 38px; padding: 1px "> add </button>
-                    <h1 (input)="edit()" contenteditable="true" id="name" style="position: absolute; top: 28px;left: 50px">sara</h1>
-                    <label for=name style="position: absolute; top: 40px">Name:</label>
-                    <!--                <span  class="material-symbols-outlined" style=" color:#0a406b;position: absolute;left: 80px;bottom: 128px" >edit </span>-->
-                    <section class="EmailContact">
-                        <span class="material-symbols-outlined" style=" color:#0a406b;">mail </span>
-                        <h1 (click)="edit()" contenteditable="true" id="email">Sara@galaxy.com</h1>
-                        <!--                  <span (click)="edit()"  class="material-symbols-outlined" style=" color:#0a406b;" >edit </span>-->
-                        <span id="done" class="material-symbols-outlined" style=" color:#0a406b;position: absolute; left: 170px; display: none ">done </span>
-                        <span class="material-symbols-outlined" style=" color:#0a406b; position: absolute; left: 200px; ">delete </span>
-                    </section>
-                    <!--    <span  title="edit contact" class="material-symbols-outlined"  style="position: absolute; lef   t: 200px; color:#0a406b;"> edit </span>-->
-                </div>
-                <div class="profile">
-                    <button title="profile" class="material-symbols-outlined" (click)="showWindow('profile-content')">account_circle</button>
-                    <div id="profile-content" style="display: none; position:absolute;">
-                        <img id="img" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" style="width:50px; height:50px; position:relative; left: 100px; top:20px">
-                        <label for="img" style=" position:relative; top: 20px; left: 95px; color:whitesmoke"><br>{{ getUserName() }}</label>
-                        <label for="img" style=" position:relative; top: 40px; right: 20px; color:whitesmoke">{{ getUserEmail() }}</label>
-                        <button id="logout" routerLink="/">Sign Out</button>
-                        <span class="material-symbols-outlined" style=" position:relative; top: 40px; left: 150px; color: white" routerLink="/">logout</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- header ends -->
-
-        <!-- main body start -->
-        <div class="main_body">
-            <!-- side bar section start  -->
-            <div class="sidebar">
-                <button class="sidebar_compose" routerLink="/compose">
+      <!-- main body start -->
+      <div class="main_body">
+          <!-- side bar section start  -->
+          <div class="sidebar">
+              <button class="sidebar_compose" routerLink="/compose">
               <span class="material-symbols-outlined" >add</span>
               Compose
             </button>
 
-                <div class="sidebaroption sidebaroption_active" routerLink='/emails' *ngFor="let folder of shownFolders" (click)="foldersNavigate(folder.getName())">
-                    <span class="material-symbols-outlined">{{ folder.getIcon() }}</span>
-                    <h3> {{ folder.getName() }} </h3>
-                    <div class="default-prioprity">
-                        <ng-template [ngIf]="folder.getName()=='inbox'">
-                            <button class="material-symbols-outlined" (click)="showWindow('inbox')">arrow_drop_down</button>
-                            <div id="inbox" class="de-pr" style="display:none; position:absolute;">
-                                <button>default</button>
-                                <button style="top:45px">priority</button>
-                            </div>
-                        </ng-template>
-
-                        <div class="n">
-                            <ng-template [ngIf]="folder.getName()!='inbox' && folder.getName()!='draft' && folder.getName()!='trash' && folder.getName()!='sent'">
-                                <button class="material-symbols-outlined" (click)="showWindow(folder.getName())">arrow_drop_down</button>
-                                <div id={{folder.getName()}} class="newFoler" style="display:none; position:absolute;">
-                                    <input class="FFolder" (click)="rename(folder,rename_id)" type="text" #rename_id placeholder="rename">
-                                    <button class="material-symbols-outlined" (click)="delete(folder)">Delete</button>
-                                </div>
-                            </ng-template>
+              <div class="sidebaroption sidebaroption_active" routerLink='/emails' *ngFor="let folder of shownFolders" (click)="foldersNavigate(folder.getName())">
+                  <span class="material-symbols-outlined">{{ folder.getIcon() }}</span>
+                  <h3> {{ folder.getName() }} </h3>
+                  <div class="default-prioprity">
+                      <ng-template [ngIf]="folder.getName()=='inbox'">
+                          <button class="material-symbols-outlined" (click)="showWindow('inbox')">arrow_drop_down</button>
+                          <div id="inbox" class="de-pr" style="display:none; position:absolute;">
+                              <button>default</button>
+                              <button style="top:45px">priority</button>
+                          </div>
+                      </ng-template>
+                    <div class="n">
+                      <ng-template [ngIf]="folder.getName()!='inbox' && folder.getName()!='draft' && folder.getName()!='trash' && folder.getName()!='sent'">
+                        <button class="material-symbols-outlined" (click)="showNewFolder(folder.getName())" >arrow_drop_down</button>
+                        <div id={{folder.getName()}} class="newFoler" style="display:none; position:absolute;">
+                          <input class="FFolder" (click)="rename(folder,rename_id)" type="text" #rename_id placeholder="rename">
+                          <button class="material-symbols-outlined" (click)="delete(folder)">Delete</button>
                         </div>
-
-
+                      </ng-template>
                     </div>
-                </div>
+                  </div>
+              </div>
 
-                <button class="sidebar_addfolder" (click)="showWindow('NewFolder')">
+              <button class="sidebar_addfolder" (click)="showWindow('NewFolder')">
               <span class="material-symbols-outlined">create_new_folder</span>
               add new folder
             </button>
-                <div class="addNewFolder" id="NewFolder" style="display: none;">
-                    <input class="inputfolder" type="text" id="FolderName" placeholder="Folder name">
-                    <button (click)="addfolder()" class="showfolder">Add</button>
-                    <span (click)="addfolder()" class="material-symbols-outlined" style=" position:relative; bottom: 70px; left: 105px;">add_circle</span>
-                </div>
-            </div>
-            <!-- side bar section ends  -->
+              <div class="addNewFolder" id="NewFolder" style="display: none;">
+                  <input class="inputfolder" type="text" id="FolderName" placeholder="Folder name">
+                  <button (click)="addfolder()" class="showfolder">Add</button>
+                  <span (click)="addfolder()" class="material-symbols-outlined" style=" position:relative; bottom: 70px; left: 105px;">add_circle</span>
+              </div>
+          </div>
+          <!-- side bar section ends  -->
 
-            <!-- email body starts -->
-            <div class="emailList">
-                <div class="emailList_settings">
-                    <div class="emailList_settingsLeft">
-                        <input type="checkbox" class="material-symbols-outlined">
-                        <select class="List" name="List">//filter
+          <!-- email body starts -->
+          <div class="emailList">
+              <div class="emailList_settings">
+                  <div class="emailList_settingsLeft">
+                      <input type="checkbox" class="material-symbols-outlined">
+                      <select class="List" name="List">//filter
                         <option value="1">Filter</option>
                         <option value="2" (click)="filter('subject')">Subject</option>
                         <option value="3" (click)="filter('sender')">Sender</option>
                       </select>
-                        <select class="List" name="List">//filter//sort
+                      <select class="List" name="List">//filter//sort
                         <option value="1">sort</option>
-                        <option value="subject" (click)="sort('subject')" >Subject</option>
-                        <option value="sender" (click)="sort('sender')" >Sender</option>
+                        <!-- <option value="subject" (click)="sort('subject')" >Subject</option>
+                        <option value="sender" (click)="sort('sender')" >Sender</option> -->
                       </select>
-                        <span class="material-symbols-outlined">Refresh</span>
-                    </div>
-                    <!-- sections start -->
-                    <div class="emailList_sections">
-                        <span class="material-symbols-outlined"> search </span>
-                        <input type="text" placeholder={{search}}/>
-                        <div class="dropdown">
-                            <span class="material-symbols-outlined">arrow_drop_down</span>
-                            <div class="dropdown-content">
-                                <a (click)="changeSearchLabel('Search All Mail')" value="All">All</a>
-                                <a (click)="changeSearchLabel('Search Subject Mail')" value="Subject">Subject</a>
-                                <a (click)="changeSearchLabel('Search Sender Mail')" value="Sender">Sender</a>
-                            </div>
-                        </div>
-                    </div>
+                      <span class="material-symbols-outlined">Refresh</span>
+                  </div>
+                  <!-- sections start -->
+                  <div class="emailList_sections">
+                      <span class="material-symbols-outlined"> search </span>
+                      <input type="text" placeholder={{search}}/>
+                      <div class="dropdown">
+                          <span class="material-symbols-outlined">arrow_drop_down</span>
+                          <div class="dropdown-content">
+                              <a (click)="changeSearchLabel('Search All Mail')" value="All">All</a>
+                              <a (click)="changeSearchLabel('Search Subject Mail')" value="Subject">Subject</a>
+                              <a (click)="changeSearchLabel('Search Sender Mail')" value="Sender">Sender</a>
+                          </div>
+                      </div>
+                  </div>
 
-                    <div class="emailList_settingsRight">
-                        <span class="material-symbols-outlined" (click)="pagesNavigate('previous')">chevron_left</span>
-                        <span class="material-symbols-outlined" (click)="pagesNavigate('next')">chevron_right</span>
-                    </div>
-                </div>
-                <!-- sections end -->
-            </div>
-            <!-- email body ends -->
-        </div>
-        <!-- main body ends -->
-    </div>
+                  <div class="emailList_settingsRight">
+                      <!-- <span class="material-symbols-outlined" (click)="pagesNavigate('previous')">chevron_left</span>
+                      <span class="material-symbols-outlined" (click)="pagesNavigate('next')">chevron_right</span> -->
+                  </div>
+              </div>
+              <!-- sections end -->
+          </div>
+          <!-- email body ends -->
+      </div>
+      <!-- main body ends -->
+  </div>
 </body>
 
 <div class="mails">
-    <span class="email" *ngFor="let email of shownEmails; let i = index">
+  <span class="email" *ngFor="let email of shownEmails; let i = index">
     <button class = "material-symbols-outlined" style="position: relative; bottom:-20px; left:20px" (click)="setOpenedEmail(i)" routerLink="/mail-box"  >mail</button>
     <div style="position: relative; left:45px; top: 25px; font-size: 17px;" id="read">{{email.getFrom()}}</div>
     <div style="position: relative; left:550px; top: 10px; font-size: 17px;" id="read">{{email.getSubject()}}</div>
     <button class="material-symbols-outlined" (click)="setOpenedEmail(i)" style="position: relative; left:1230px; bottom: 20px" >delete</button>
     <button class="material-symbols-outlined" (click)="setOpenedEmail(i)" style="position: relative; left:1130px; bottom: 20px" >open_with</button>
   </span>
-
 </div>
+<!--<form action="/tutorial/fileupload.html" class="mails">-->
+<!--  <select multiple style="height: 100%; overflow:hidden">-->
+<!--    <option class="email" *ngFor="let email of shownEmails; let i = index">-->
+<!--      <button class = "material-symbols-outlined" multiple style="position: relative; bottom:-20px; left:20px" (click)="setOpenedEmail(i)" routerLink="/mail-box"  >mail</button>-->
+<!--      <div style="position: relative; left:45px; top: 25px; font-size: 17px;" id="read">{{email.getFrom()}}</div>-->
+<!--      <div style="position: relative; left:550px; top: 10px; font-size: 17px;" id="read">{{email.getSubject()}}</div>-->
+<!--      <button class="material-symbols-outlined" (click)="setOpenedEmail(i)" style="position: relative; left:1230px; bottom: 20px" >delete</button>-->
+<!--      <button class="material-symbols-outlined" (click)="setOpenedEmail(i)" style="position: relative; left:1130px; bottom: 20px" >open_with</button>-->
+<!--    </option>-->
+<!--  </select>-->
+<!--</form>-->
+
+
+
 <!-- <div class="mails"> -->
 <!-- <button class="email" (click)="setOpenedEmail(0)" routerLink="/mail-box"> -->
 <!-- <span class = "material-symbols-outlined" >mail</span> -->
