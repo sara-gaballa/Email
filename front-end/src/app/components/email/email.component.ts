@@ -144,6 +144,19 @@ export class EmailComponent implements OnInit {
     }
     //TODO for loop to change style
   }
+  // delete(folder: Folder){
+  //   this.emailService.deleteFolder(folder.getName());
+  // }
+  // rename(window: Folder,id:HTMLInputElement) {
+  //   id.addEventListener("keypress", function(event) {
+  //     if (event.key === "Enter") {
+  //       event.preventDefault();
+  //       if(id.value!=''){
+  //         window.setName(id.value);}
+  //     }
+  //   });
+  // }
+
 
    //TODO add to select all button
   unSelectAll() {
@@ -166,6 +179,7 @@ export class EmailComponent implements OnInit {
     //TODO send to back
   }
 
+
   rename(window: Folder, id:HTMLInputElement) {
     id.addEventListener("keypress", function(event) {
       if (event.key === "Enter") {
@@ -181,10 +195,23 @@ export class EmailComponent implements OnInit {
 
   delete(folder: Folder){
     if (confirm('The folder will be deleted permanently')) {
-      this.emailService.deleteFolder(folder.getName());}
+      this.emailService.deleteFolder(folder.getName());}}
+
+  showDetails(){
+    let click = document.getElementById("contactDetails");
+    if (click != null && click.style.display === "none") {
+      click.style.display = "block";
+    } else if (click != null) {
+      click.style.display = "none";
+    }
+  }
+  edit(){
+    let click = document.getElementById("name") ;
+    console.log(click.innerText)
+
+
   }
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   showContacts() {
     let click = document.getElementById("contacts");
@@ -198,8 +225,6 @@ export class EmailComponent implements OnInit {
     }
   }
 
-  edit(){
-    let click = document.getElementById("name") ;
-    console.log(click.innerText)
-  }
+
+
 }

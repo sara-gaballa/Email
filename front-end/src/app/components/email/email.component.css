@@ -529,6 +529,16 @@ font-size:14px ;
   align-content: center;
 }
 
+
+.FFolder{
+  background-color: red;
+}
+.FFFolder{
+  background-color: green;
+  width: 100%;
+  height: 30px;
+}
+
 .editList{
   position: absolute;
   background-image: linear-gradient(to bottom, rgb(207, 218, 239), rgb(125, 156, 227)), url("https://wallpapercave.com/wp/KSnFrMw.jpg");
@@ -576,31 +586,4 @@ font-size:14px ;
   position: absolute;
   left: 30px;
   border-radius: 10px;
-}
-.n .newFoler{
-  position: relative;
-  z-index: 1;
-}
-.n .material-symbols-outlined{
-  background-color: transparent;
-  border: none;
-}
-.FFolder{
-  width: 90px;
-  height: 20px;
-}
-.n .newFoler button{
-  border-radius: 5px;
-  width: 100px;
-  height: 30px;
-  display: block;
-  background-color: 2px solid rgb(241, 240, 255);
-  color: rgb(0, 0, 0);
-  cursor: pointer;
-}
-.newFoler .material-symbols-outlined{
-  background-color: rgb(173, 173, 247);
-}
-.newFoler .material-symbols-outlined:hover{
-  background-color: rgb(140, 137, 232);
 }
