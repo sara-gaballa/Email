@@ -1,6 +1,7 @@
 package com.example.email.model;
 
 import com.example.email.mailmanager.FileManager;
+import com.example.email.mailmanager.FoldersName;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,8 +10,9 @@ import java.util.List;
 public class User {
     private String firstName;
     private String lastName;
-    private final String email;
+    private String email;
     private String password;
+    private String folder;
     private List<Contact> contacts;
     private List<String> userFolders = new ArrayList<>();
 
@@ -20,7 +22,13 @@ public class User {
         this.email = email;
         this.password = password;
         this.contacts = new ArrayList<>();
+        this.folder = email;
         FileManager.addFolder(email);
+        FileManager.addFolder(email + "\\" + FoldersName.TRASH);
+    }
+
+    public User() {
+
     }
 
     public String getFirstName() {
@@ -55,12 +63,26 @@ public class User {
         return contacts;
     }
 
-    public Contact getContact(int index) {
-        return contacts.get(index);
+    public Contact getContact(String name) {
+        for (Contact contact : contacts) {
+            if (contact.getName().equals(name))
+                return contact;
+        }
+        return null;
     }
 
     public void setContacts(List<Contact> contacts) {
         this.contacts = contacts;
+    }
+
+    public void setContact(String name, Contact newContact) {
+        Contact contact = this.getContact(name);
+        contact = newContact;
+    }
+
+    public void deleteContact(String name) {
+        Contact contact = this.getContact(name);
+        this.contacts.remove(contact);
     }
 
     public void addContact(Contact contact) {
@@ -68,7 +90,7 @@ public class User {
     }
 
     public String getFolder() {
-        return this.email;
+        return this.folder;
     }
 
     public List<String> getUserFolders() {

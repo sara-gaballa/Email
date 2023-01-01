@@ -1,6 +1,7 @@
 package com.example.email.comparators;
 
 import com.example.email.model.Email;
+import com.example.email.model.EmailKeys;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,19 +14,19 @@ public class MailComparatorFactory implements IComparatorFactory {
         attribute = attribute.toLowerCase();
 
         switch (attribute) {
-            case "sender":
+            case EmailKeys.SENDER:
                 return new SenderComparator();
-            case "receiver":
+            case EmailKeys.RECEIVERS:
                 return new ReceiversComparator();
-            case "date":
+            case EmailKeys.DATE:
                 return new DateComparator();
-            case "subject":
+            case EmailKeys.SUBJECT:
                 return new SubjectComparator();
-            case "body":
+            case EmailKeys.BODY:
                 return new BodyComparator();
-            case "priority":
+            case EmailKeys.PRIORITY:
                 return new PriorityComparator();
-            case "attachment":
+            case EmailKeys.ATTACHMENTS:
                 return new AttachmentComparator();
         }
         return null;
@@ -69,8 +70,8 @@ class BodyComparator implements Comparator<Email> {
 class DateComparator implements Comparator<Email> {
     public int compare(Email email1, Email email2) {
         try {
-            Date date1 = new SimpleDateFormat("dd-MM-yyyy").parse(email1.getDate());
-            Date date2 = new SimpleDateFormat("dd-MM-yyyy").parse(email2.getDate());
+            Date date1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(email1.getDate() + " " + email1.getTime());
+            Date date2 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(email2.getDate() + " " + email2.getTime());
             System.out.println(date1);
             System.out.println(date1.compareTo(date2));
             return date1.compareTo(date2);
@@ -78,12 +79,6 @@ class DateComparator implements Comparator<Email> {
             e.printStackTrace();
         }
         return 0;// they are equal
-    }
-}
-
-class TimeComparator implements Comparator<Email> {
-    public int compare(Email email1, Email email2) {
-        return email1.getBody().compareTo(email2.getBody());
     }
 }
 

@@ -1,6 +1,7 @@
 package com.example.email.mailpartitioning;
 
 import com.example.email.model.Email;
+import com.example.email.model.EmailKeys;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ public class CriteriaSender implements ICriteria {
         List<Email> filteredEmails = new ArrayList<>();
 
         for (Email email : emails) {
-            if (email.getFrom().equalsIgnoreCase(sender)) {
+            if (email.search(new String[]{EmailKeys.FROM}, sender)) {
                 filteredEmails.add(email);
             }
         }

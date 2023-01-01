@@ -1,6 +1,7 @@
 package com.example.email.mailmanager;
 
 import com.example.email.model.Email;
+import com.example.email.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
@@ -35,11 +36,11 @@ public class FileAdapter implements MailManager {
 
     // delete all mails with the given named from the given folder
     @Override
-    public void deleteMails(String path, String[] fileNames) {
-        for (String name : fileNames) {
-            name = name.concat(".json");
+    public void deleteMails(String userFolder, String folder, List<String> fileNames) {
+        for (int i = 0; i < fileNames.size(); i++) {
+            fileNames.set(i, fileNames.get(i).concat(".json"));
         }
-        FileManager.deleteFiles(path, fileNames);
+        FileManager.deleteFiles(userFolder, folder, fileNames);
     }
 
     // add mail to the given path
@@ -55,9 +56,10 @@ public class FileAdapter implements MailManager {
 
     // move mails from one folder to another
     @Override
-    public void moveMails(String fromPath, String toPath, String[] fileNames) {
-        for (String name : fileNames) {
-            name = name.concat(".json");
+    public void moveMails(String fromPath, String toPath, List<String> fileNames) {
+
+        for (int i = 0; i < fileNames.size(); i++) {
+            fileNames.set(i, fileNames.get(i).concat(".json"));
         }
         FileManager.moveFiles(fromPath, toPath, fileNames);
     }
@@ -82,4 +84,36 @@ public class FileAdapter implements MailManager {
     public void setCurrentEmails(List<Email> emails) {
         this.currentEmails = emails;
     }
+
+    @Override
+    public void updateTrash(String path, List<String> fileNames) {
+        for (int i = 0; i < fileNames.size(); i++) {
+            fileNames.set(i, fileNames.get(i).concat(".json"));
+        }
+        FileManager.deletePermanently(path, fileNames);
+    }
+
+    public void addUser(User user) throws IOException {
+        File file = FileManager.addFile(FoldersName.ACCOUNTS, user.getEmail() + ".json");
+        //configure objectMapper for pretty input
+        objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+
+        //write email object to json file
+        objectMapper.writeValue(file, user);
+    }
+
+    public List<User> getUsers() throws IOException {
+        File[] files = FileManager.getAllFiles(FoldersName.ACCOUNTS);
+        List<User> users = new ArrayList<>();
+        if (files.length == 0) return users; // check for null pointer exception
+        for (File file : files) {
+            users.add(objectMapper.readValue(file, User.class));
+        }
+        return users;
+    }
+
+    public void openAttachment(String name) throws IOException {
+        FileManager.openFile(FoldersName.ATTACHMENTS + "\\" + name);
+    }
+
 }

@@ -37,7 +37,9 @@ export class EmailComponent implements OnInit {
     }
   }
 
-  changeSearchLabel(s:string):void { this.search = s; }
+  changeSearchLabel(s: string): void {
+    this.search = s;
+  }
 
   foldersNavigate(folder: string) {
     this.unSelectAll()
@@ -65,14 +67,6 @@ export class EmailComponent implements OnInit {
     name.value='';
   }
 
-  showWindow(window: string){
-    let click = document.getElementById(window);
-    if(click != null && click.style.display === "none") {
-      click.style.display = "block";
-    } else if(click != null) {
-      click.style.display = "none";
-    }
-  }
 
   setOpenedEmail(id: number) {5
     console.log(this.shownEmails)
@@ -105,9 +99,15 @@ export class EmailComponent implements OnInit {
     })
   }
 
-  getUser(): User { return this.httpService.getUser() }
+  showWindow(window: string) {
+    let click = document.getElementById(window);
+    if (click != null && click.style.display === "none") {
+      click.style.display = "block";
+    } else if (click != null) {
+      click.style.display = "none";
+    }
+  }
 
-  getContact(): Contact { return this.httpService.getContact() }
 
   //move one email
   moveEmailToFolder(id: number, folder: string) {
