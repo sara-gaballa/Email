@@ -1,26 +1,33 @@
 import { Injectable } from '@angular/core';
 import { EmailHttpService } from './http.service';
-import { Contact } from '../model/Contact';
 import { Email } from '../model/Email';
 import { Folder } from '../model/folder';
 import { User } from '../model/User';
+import { EmailIterator } from './email-iterator/EmailItirator';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmailService {
+
     //Email folders
+    //singleton
     private folders: Folder[] = []
 
+    //singleton
     currentFolder: string = 'inbox'
 
-    //names of folders
-    private names: string[] = ['inbox', 'sent', 'draft', 'trash'];
+    //singleton
+    public names: string[] = ['inbox', 'sent', 'draft', 'trash']; //only used to access folder not more or less
 
-    openedEmail: Email = new Email("Rowaina", "SaraNancyMariam", "12/27/2022", "11:50AM", "The Project is on fire", "GG","high",[])
+    //singleton
+    openedEmail: Email = new Email("" ,"Rowaina", "SaraNancyMariam", "12/27/2022", "11:50AM", "The Project is on fire", "GG","high",[])
 
-    private user: User = new User("Rowaina", "Abdelanser", "Rowainaabdelansser@gamil.com", "dfvbkvfdkjvb") //current user
+    //singleton
+    private user: User = new User("Rowaina", "Abdelanser", "Rowainaabdelansser@gamil.com", "dfvbkvfdkjvb", []) //current user
 
+    //singleton
+    public emailIterator: EmailIterator
 
     constructor(private httpService: EmailHttpService) {
       for(let i = 0; i < 4; i++) {
@@ -65,23 +72,23 @@ export class EmailService {
 
     setCurrentFolder(currentFolder: string) {
       this.currentFolder = currentFolder
-      //TODO send to back to take the required mails
+      if(this.folders[this.names.indexOf(currentFolder)].getEmails().length == 0) {/*TODO send to back to take the required mails*/}
     }
 
-    /*state:
-      - current: no navigation yet ie first page view
-      - next: gets next page
-      - previouse: gets previous page
-    */
-    getPageEmails(state: string) { return this.httpService.getEMails(this.getCurrentFolder(), state) }
+    getAllEmails(folder: string): Email[] {
+      return this.folders[this.names.indexOf(folder)].getEmails()
+    }
+
+    getPageEmails(state: string): Email[] {
+      if(state === 'current') {
+        return this.emailIterator.getCurrentPage()
+      }
+      return this.folders[this.names.indexOf(this.currentFolder)].getEmails()
+    }
 
     setOpenedEmail(email: Email) { this.openedEmail = email }
 
     getOpenedEmail(): Email { return this.openedEmail }
-
-    sort(folder: string, sort: string) { this.httpService.sort(folder, sort) }
-
-    getContact(): Contact { return this.httpService.getContact() }
 
     setUser(user: User) { this.user = user }
 

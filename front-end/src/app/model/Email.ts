@@ -18,15 +18,16 @@ export class Email {
 
   protected attachments: string[] = [];
 
-  constructor(from: string, to: string, date: string, time: string, subject: string, body: string, priority:string,attachments:string[]) {
+  constructor(id: string, from: string, to: string, date: string, time: string, subject: string, body: string, priority:string,attachments:string[]) {
     this.from = from
     this.to = to
     this.date = date
     this.time = time
     this.subject = subject
     this.body = body
-    this.Priority=priority;
-    this.attachments=attachments;
+    this.Priority=priority
+    this.id = id
+    this.attachments=attachments
   }
 
   getDate(): string { return this.date }

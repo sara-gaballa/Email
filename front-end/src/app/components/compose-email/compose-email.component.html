@@ -2,8 +2,8 @@
 <!-- start of main compose -->
 <div class="compose-email">
     <form>
-        <button routerLink="/emails" (click)="composeEmail('draft')" id="back" class="material-symbols-outlined"  title="back">arrow_back_ios</button>
-        <input class="inputfolder" id="to" style=" top: 10px ">
+        <button routerLink="/emails" (click)="composeEmail('draft')" id="back" class="material-symbols-outlined" title="back">arrow_back_ios</button>
+        <input class="inputfolder" id="to" style=" top: 10px " multiple="multiple">
         <label for="to" style="left: 25px; bottom: 20px">To</label>
         <input class="inputfolder" id="subject">
         <label for="subject">Subject</label>
@@ -12,7 +12,7 @@
           <option value="CRITICAL">Critical</option>
           <option value="HIGH">High</option>
           <option value="MEDIUM">Medium</option>
-         <option value="LOW">Low</option>
+          <option value="LOW">Low</option>
     </select>
         <label for="priority" style="top: 15px;position: relative;right: 168px">Priority</label>
         <!--    <time>{{this.date}}</time>-->

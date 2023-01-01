@@ -48,17 +48,16 @@ export class EmailHttpService{
     sendEmail(email: Email, to: string[]) {
       console.log("Sending request...");
       console.log(email);
-      return this.http.post<void>(this.mailUrl + "compose",email, httpOptions).subscribe();
-
+      return this.http.post<Email>(this.mailUrl + "send", email, httpOptions);
     } //sends email on compose
 
     getContact(): Contact { return new Contact("Rowaina", "rowainaabdelnasser@gmail.com", ["Sara", "Nancy", "Mariam"]) }
 
-    getUser(): User { return new User("Rowaina", "Abdelnaser", "Rowainaabdelnasser@gmail.com", "Rowaina20000") }
+    getUser(): User { return new User("Rowaina", "Abdelnaser", "Rowainaabdelnasser@gmail.com", "Rowaina20000", []) }
 
     //gets current page of the passed folder
-    getEMails(folder: string, state: string){
-      return this.http.post<Email[]>(this.mailUrl + "getMails/" + folder + '/' + state, httpOptions);
+    getEMails(folder: string){
+      return this.http.post<Email[]>(this.mailUrl + "getMails/" + folder, httpOptions);
     }
 
     //gets current page of the passed folder
@@ -76,6 +75,8 @@ export class EmailHttpService{
 
     updateEmail(action: string, id: string) {} //add or delete email
 
-    sort(folder: string, sort: string) {} //filter is the same so prameter will handel both
+    sort(folder: string, sort: string) {
+      return this.http.post<Email[]>(this.mailUrl + "filter/" + folder + "/" + sort, httpOptions)
+    } //filter is the same so prameter will handel both
 
 }

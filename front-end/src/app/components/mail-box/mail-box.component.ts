@@ -15,6 +15,11 @@ export class MailBoxComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getOpenedEmail(): Email { return this.emailService.getOpenedEmail() }
+  getOpenedEmail(): Email {
+    if(this.emailService.getCurrentFolder() === 'draft') {
+    //TODO Draft
+    }
+    return this.emailService.getOpenedEmail()
+  }
 
 }

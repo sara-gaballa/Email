@@ -13,7 +13,7 @@ import { EmailService } from 'src/app/services/email.service';
 
 export class ComposeEmailComponent implements OnInit {
 
-  private sentEmail: DraftEmail = new DraftEmail('rowaina;dkfvkdv', '', '', '', '', '', '', [])
+  private sentEmail: DraftEmail = new DraftEmail('', 'rowaina;dkfvkdv', '', '', '', '', '', '', [])
   private folders: Folder[]
   private draftFolder: Folder
   private email:Email;
@@ -46,21 +46,19 @@ export class ComposeEmailComponent implements OnInit {
     for(let i=0;i<attach.files.length;i++){
       attachments[i]=(attach.files[i].name)
     }
-    console.log(attachments)
-    this.email = new Email(from, to.value, sentDate.toLocaleDateString(), time,subject.value, body.value, priority.value, attachments)
+    let to_arr=to.value.split('+');
+    console.log(to_arr)
+    this.email = new Email('', from, to.value, sentDate.toLocaleDateString(), time,subject.value, body.value, priority.value, attachments)
     if(operation==='send'){
-    this.httpService.sendEmail(this.email, [to.value]);
+      let index = this.emailService.names.indexOf('sent')
+      this.folders[index].addEmail(this.email)
+      //TODO send to back
     }
     else if(operation==='draft'){
-      // this.httpService.sendEmail(this.email, [to.value]);   >> Draft
+      let index = this.emailService.names.indexOf('draft')
+      this.folders[index].addEmail(this.email)
+      //TODO send to back
     }
 
   }
-
-
-//ToDO make the draft if it is not sent
-
-
-
-
 }
