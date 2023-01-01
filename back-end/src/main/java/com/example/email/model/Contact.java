@@ -11,6 +11,10 @@ public class Contact implements Comparable<Contact> {
         this.emails = emails;
     }
 
+    public Contact() {
+        
+    }
+
     public String getName() {
         return name;
     }

@@ -12,7 +12,7 @@ public class LoggingProxy implements Logging {
     }
 
     @Override
-    public void signUp(User user) throws IOException {
+    public void signUp(User user) {
         if (this.service.findUser(user.getEmail()) != null)
             throw new RuntimeException("Email address already exists!");
         this.service.signUp(user);

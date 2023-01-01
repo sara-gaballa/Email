@@ -90,7 +90,7 @@ public class User {
     }
 
     public String getFolder() {
-        return this.email;
+        return this.folder;
     }
 
     public List<String> getUserFolders() {

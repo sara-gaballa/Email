@@ -5,6 +5,7 @@ import com.example.email.mailmanager.FileManager;
 import com.example.email.mailmanager.FoldersName;
 import com.example.email.mailmanager.MailManager;
 import com.example.email.model.Email;
+import com.example.email.model.EmailKeys;
 import com.example.email.model.User;
 import com.example.email.utilities.MailUtility;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class MailService {
         FileManager.setCurrentFolder(folder);
         System.out.println(user.getFolder().concat("/").concat(folder));
         mailManager.getAllMails(user.getFolder().concat("/").concat(folder));
-        List<Email> emails = this.sort("date");
+        List<Email> emails = this.sort(EmailKeys.DATE);
         Collections.reverse(emails);
         mailManager.setCurrentEmails(emails);
         return emails;// return emails sorted by date from newest to oldest
@@ -50,6 +51,10 @@ public class MailService {
         String fromPath = user.getFolder() + "/" + fromFolder;
         String toPath = user.getFolder() + "/" + toFolder;
         mailManager.moveMails(fromPath, toPath, ids);
+    }
+
+    public void openAttachment(String name) throws IOException {
+        mailManager.openAttachment(name);
     }
 
     public void addFolder(User user, String folderName) {

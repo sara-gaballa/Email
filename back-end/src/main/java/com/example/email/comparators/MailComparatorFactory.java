@@ -1,6 +1,7 @@
 package com.example.email.comparators;
 
 import com.example.email.model.Email;
+import com.example.email.model.EmailKeys;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,19 +14,19 @@ public class MailComparatorFactory implements IComparatorFactory {
         attribute = attribute.toLowerCase();
 
         switch (attribute) {
-            case "sender":
+            case EmailKeys.SENDER:
                 return new SenderComparator();
-            case "receiver":
+            case EmailKeys.RECEIVERS:
                 return new ReceiversComparator();
-            case "date":
+            case EmailKeys.DATE:
                 return new DateComparator();
-            case "subject":
+            case EmailKeys.SUBJECT:
                 return new SubjectComparator();
-            case "body":
+            case EmailKeys.BODY:
                 return new BodyComparator();
-            case "priority":
+            case EmailKeys.PRIORITY:
                 return new PriorityComparator();
-            case "attachment":
+            case EmailKeys.ATTACHMENTS:
                 return new AttachmentComparator();
         }
         return null;

@@ -73,28 +73,28 @@ public class Email implements Comparable<Email> {
         boolean found = false;
         for (String attribute : attributes) {
             switch (attribute) {
-                case "to":
-                    for (String receiver : to)
+                case EmailKeys.TO:
+                    for (String receiver : this.to)
                         found |= receiver.toLowerCase().contains(value.toLowerCase());
                     break;
-                case "from":
+                case EmailKeys.FROM:
                     found = this.from.toLowerCase().contains(value.toLowerCase());
                     break;
-                case "date":
+                case EmailKeys.DATE:
                     found = this.date.toLowerCase().contains(value.toLowerCase());
                     break;
-                case "time":
+                case EmailKeys.TIME:
                     found = this.time.toLowerCase().contains(value.toLowerCase());
                     break;
-                case "subject":
+                case EmailKeys.SUBJECT:
                     found = this.subject.toLowerCase().contains(value.toLowerCase());
                     break;
-                case "body":
+                case EmailKeys.BODY:
                     found = this.body.toLowerCase().contains(value.toLowerCase());
                     break;
-                case "priority":
+                case EmailKeys.PRIORITY:
                     found = this.priority.name().toLowerCase().contains(value.toLowerCase());
-                case "attachments":
+                case EmailKeys.ATTACHMENTS:
                     for (String attachment : attachments)
                         found |= attachment.toLowerCase().contains(value.toLowerCase());
             }

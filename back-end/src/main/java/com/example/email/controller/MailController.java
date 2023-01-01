@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -30,24 +31,15 @@ public class MailController {
 
     @PostMapping("/signUp")
     public void signUp(@RequestBody User user) {
-        try {
-            logging.signUp(user);
-        } catch (Exception e) {
-            System.out.println("Email is taken");
-        }
+        logging.signUp(user);
         System.out.println(user.getEmail());
     }
 
     @GetMapping("/signIn")
-    public User signIn(@RequestParam String email, @RequestParam String password) {
-        try {
-            User user = logging.signIn(email, password);
-            service.updateTrash(user); // update trash by deleting emails exceeding 30 days
-            return user;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    public User signIn(@RequestParam String email, @RequestParam String password) throws IOException, ParseException {
+        User user = logging.signIn(email, password);
+        service.updateTrash(user); // update trash by deleting emails exceeding 30 days
+        return user;
     }
 
     @GetMapping("/getAll")
@@ -57,32 +49,20 @@ public class MailController {
 
     @GetMapping("/addFolder")
     public void addFolder(@RequestParam String name) {
-        try {
-            service.addFolder(logging.getCurrentUser(), name);
-            System.out.println(logging.getCurrentUser().getFirstName() + " has added " + name + " folder.");
-        } catch (Exception e) {
-            System.out.println("something happened");
-        }
+        service.addFolder(logging.getCurrentUser(), name);
+        System.out.println(logging.getCurrentUser().getFirstName() + " has added " + name + " folder.");
     }
 
     @PutMapping("/renameFolder")
     public void renameFolder(@RequestParam String oldName, @RequestParam String newName) {
-        try {
-            service.renameFolder(logging.getCurrentUser(), oldName, newName);
-            System.out.println(logging.getCurrentUser().getFirstName() + " has renamed " + oldName + " to " + newName + " folder.");
-        } catch (Exception e) {
-            System.out.println("something happened");
-        }
+        service.renameFolder(logging.getCurrentUser(), oldName, newName);
+        System.out.println(logging.getCurrentUser().getFirstName() + " has renamed " + oldName + " to " + newName + " folder.");
     }
 
     @DeleteMapping("/deleteFolder")
     public void deleteFolder(@RequestParam String name) {
-        try {
-            service.deleteFolder(logging.getCurrentUser(), name);
-            System.out.println(logging.getCurrentUser().getFirstName() + " has deleted " + name + " folder.");
-        } catch (Exception e) {
-            System.out.println("something happened");
-        }
+        service.deleteFolder(logging.getCurrentUser(), name);
+        System.out.println(logging.getCurrentUser().getFirstName() + " has deleted " + name + " folder.");
     }
 
     @PostMapping("/send")
@@ -144,9 +124,14 @@ public class MailController {
         this.contactService.deleteContact(logging.getCurrentUser(), name);
     }
 
-    @RequestMapping("signOut")
+    @RequestMapping("/signOut")
     public void signOut() throws IOException {
         this.logging.signOut();
+    }
+
+    @GetMapping("/open")
+    public void openAttachment(@RequestParam String name) throws IOException {
+        this.service.openAttachment(name);
     }
 
 

@@ -5,7 +5,7 @@ import com.example.email.model.User;
 import java.io.IOException;
 
 public interface Logging {
-    void signUp(User user) throws IOException;
+    void signUp(User user);
 
     User signIn(String email, String password);
 

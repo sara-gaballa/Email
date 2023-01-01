@@ -20,7 +20,6 @@ public class MailUtility {
     ICriteria criteriaSender = new CriteriaSender();
 
     public List<Email> filter(String criteria, String value, List<Email> currentEmails) {
-        List<Email> emails = new ArrayList<>();
         if (criteria.equalsIgnoreCase("subject")) {
             return criteriaSubject.meetCriteria(currentEmails, value);
         } else if (criteria.equalsIgnoreCase("sender")) {

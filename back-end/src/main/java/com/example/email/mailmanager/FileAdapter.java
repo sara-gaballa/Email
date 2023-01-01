@@ -112,4 +112,8 @@ public class FileAdapter implements MailManager {
         return users;
     }
 
+    public void openAttachment(String name) throws IOException {
+        FileManager.openFile(FoldersName.ATTACHMENTS + "\\" + name);
+    }
+
 }

@@ -37,4 +37,6 @@ public interface MailManager {//TODO: write email
     void addUser(User user) throws IOException;
 
     List<User> getUsers() throws IOException;
+
+    void openAttachment(String name) throws IOException;
 }
