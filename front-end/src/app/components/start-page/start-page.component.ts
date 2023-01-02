@@ -18,8 +18,8 @@ export class StartPageComponent implements OnInit {
   ngOnInit(): void {}
 
   signUp(firstName: string, lastName: string, email: string, password: string) {
-    this.httpService.signUp(new User(firstName, lastName, email, password)).subscribe(() => {
-      this.emailService.setUser(new User(firstName, lastName, email, password))
+    this.httpService.signUp(new User(firstName, lastName, email, password, [])).subscribe(() => {
+      this.emailService.setUser(new User(firstName, lastName, email, password, []))
     })
     // this.emailService.setUser(new User(firstName, lastName, email, password))
   }

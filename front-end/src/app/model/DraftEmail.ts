@@ -6,6 +6,10 @@ export class DraftEmail extends Email {
 
   setBody(body: string) { super.body = body }
 
-  setTo(to: string) { super.to = to }
+  setTo(to: string[]) { super.to = to }
 
 }
+
+//TODO all actions in front as if comming from back
+//TODO navigation folders --> done
+//TODO navigation pages

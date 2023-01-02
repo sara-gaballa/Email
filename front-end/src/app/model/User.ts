@@ -1,18 +1,20 @@
+import { Contact } from "./Contact";
+
 export class User {
 
   private firstName: string;
   private lastName: string;
   private email: string;
   private password: string;
-  private contacts: string[];
+  private contacts: Contact[] = [new Contact( []) ];
   private userFolders: string[] = [];
 
-  constructor(firstName: string, lastName: string, email: string, password: string) {
+  constructor(firstName: string, lastName: string, email: string, password: string, contacts: Contact[]) {
       this.firstName = firstName;
       this.lastName = lastName;
       this.email = email;
       this.password = password;
-      this.contacts = [];
+      // this.contacts = contacts;
   }
 
   getFirstName(): string { return this.firstName }
@@ -23,7 +25,7 @@ export class User {
 
   getPassword(): string { return this.password }
 
-  getContacts(): string[] { return this.contacts }
+  getContacts(): Contact[] { return this.contacts }
 
   getUserFolders(): string[] { return this.userFolders }
 
@@ -33,7 +35,7 @@ export class User {
 
   setPasswordName(password: string) { this.password = password }
 
-  setContacts(contacts: string[]) { this.contacts = contacts }
+  setContacts(contacts: Contact[]) { this.contacts = contacts }
 
   setUserFolders(userFolders: string[]) { this.userFolders = userFolders }
 
