@@ -1,0 +1,11 @@
+{
+  "id" : "0b5eb4f1-bf8e-4214-9036-671518284993",
+  "from" : "m.hossam@galaxy.com",
+  "to" : [ "m.hossam@galaxy.com" ],
+  "date" : "30-12-2022",
+  "time" : "18:06:30",
+  "subject" : "second send",
+  "body" : "I want the vacation to come as soon as possible....as possible",
+  "priority" : "HIGH",
+  "attachments" : null
+}

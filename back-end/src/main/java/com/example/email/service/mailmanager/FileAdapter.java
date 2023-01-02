@@ -1,4 +1,4 @@
-package com.example.email.mailmanager;
+package com.example.email.service.mailmanager;
 
 import com.example.email.model.Email;
 import com.example.email.model.User;
@@ -81,6 +81,7 @@ public class FileAdapter implements MailManager {
         FileManager.deletePermanently(path, fileNames);
     }
 
+    @Override
     public void addUser(User user) throws IOException {
         File file = FileManager.addFile(FoldersName.ACCOUNTS, user.getEmail() + ".json");
         //configure objectMapper for pretty input
@@ -90,6 +91,7 @@ public class FileAdapter implements MailManager {
         objectMapper.writeValue(file, user);
     }
 
+    @Override
     public List<User> getUsers() throws IOException {
         File[] files = FileManager.getAllFiles(FoldersName.ACCOUNTS);
         List<User> users = new ArrayList<>();
@@ -100,6 +102,7 @@ public class FileAdapter implements MailManager {
         return users;
     }
 
+    @Override
     public void openAttachment(String name) throws IOException {
         FileManager.openFile(FoldersName.ATTACHMENTS + "\\" + name);
     }

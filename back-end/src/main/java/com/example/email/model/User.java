@@ -1,7 +1,7 @@
 package com.example.email.model;
 
-import com.example.email.mailmanager.FileManager;
-import com.example.email.mailmanager.FoldersName;
+import com.example.email.service.mailmanager.FileManager;
+import com.example.email.service.mailmanager.FoldersName;
 
 import java.util.ArrayList;
 import java.util.Collections;

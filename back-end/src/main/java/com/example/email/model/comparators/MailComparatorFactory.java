@@ -1,4 +1,4 @@
-package com.example.email.comparators;
+package com.example.email.model.comparators;
 
 import com.example.email.model.Email;
 import com.example.email.model.EmailKeys;

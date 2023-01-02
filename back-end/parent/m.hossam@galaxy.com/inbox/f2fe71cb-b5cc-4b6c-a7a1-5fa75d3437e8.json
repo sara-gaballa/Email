@@ -1,0 +1,13 @@
+{
+  "id": "f2fe71cb-b5cc-4b6c-a7a1-5fa75d3437e8",
+  "from": "m.hossam@galaxy.com",
+  "to": [
+    "m.hossam@galaxy.com"
+  ],
+  "date": "30-12-2022",
+  "time": "10:07:30",
+  "subject": "Third send",
+  "body": "I want to read and listen to my books",
+  "priority": "MEDIUM",
+  "attachments": null
+}

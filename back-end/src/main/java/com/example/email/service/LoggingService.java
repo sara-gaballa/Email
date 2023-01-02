@@ -1,8 +1,8 @@
 package com.example.email.service;
 
-import com.example.email.mailmanager.FileAdapter;
-import com.example.email.mailmanager.MailManager;
 import com.example.email.model.User;
+import com.example.email.service.mailmanager.FileAdapter;
+import com.example.email.service.mailmanager.MailManager;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,0 +1,12 @@
+{
+  "firstName" : "Sara",
+  "lastName" : "Gaballa",
+  "email" : "sara@galaxy.com",
+  "password" : "sara123",
+  "folder" : "sara@galaxy.com",
+  "contacts" : [ {
+    "name" : "Nancy",
+    "emails" : [ "neso@galaxy.com", "nancy@galaxy.com" ]
+  } ],
+  "userFolders" : [ "saba7ooo" ]
+}

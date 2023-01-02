@@ -1,0 +1,11 @@
+{
+  "id" : "cd0f0f6f-0cdc-4db9-b543-647aff719a09",
+  "from" : "m.hossam@galaxy.com",
+  "to" : [ "m.hossam@galaxy.com" ],
+  "date" : "30-12-2022",
+  "time" : "18:03:30",
+  "subject" : "first send",
+  "body" : "I want the vacation to come as soon as possible....",
+  "priority" : "CRITICAL",
+  "attachments" : null
+}

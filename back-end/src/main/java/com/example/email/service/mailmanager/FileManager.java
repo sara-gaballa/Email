@@ -1,4 +1,4 @@
-package com.example.email.mailmanager;
+package com.example.email.service.mailmanager;
 
 import java.io.File;
 import java.io.IOException;

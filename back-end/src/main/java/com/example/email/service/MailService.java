@@ -1,13 +1,13 @@
 package com.example.email.service;
 
-import com.example.email.mailmanager.FileAdapter;
-import com.example.email.mailmanager.FileManager;
-import com.example.email.mailmanager.FoldersName;
-import com.example.email.mailmanager.MailManager;
 import com.example.email.model.Email;
 import com.example.email.model.EmailKeys;
 import com.example.email.model.User;
-import com.example.email.utilities.MailUtility;
+import com.example.email.service.mailmanager.FileAdapter;
+import com.example.email.service.mailmanager.FileManager;
+import com.example.email.service.mailmanager.FoldersName;
+import com.example.email.service.mailmanager.MailManager;
+import com.example.email.service.utilities.MailUtility;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.schema.JsonSchema;

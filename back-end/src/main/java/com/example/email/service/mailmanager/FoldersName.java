@@ -1,4 +1,4 @@
-package com.example.email.mailmanager;
+package com.example.email.service.mailmanager;
 
 public class FoldersName {
     public static final String INBOX = "inbox";

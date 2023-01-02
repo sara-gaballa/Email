@@ -1,8 +1,8 @@
-package com.example.email.utilities;
+package com.example.email.service.utilities;
 
-import com.example.email.comparators.IComparatorFactory;
-import com.example.email.comparators.MailComparatorFactory;
 import com.example.email.model.Email;
+import com.example.email.model.comparators.IComparatorFactory;
+import com.example.email.model.comparators.MailComparatorFactory;
 import com.example.email.model.filter.CriteriaSender;
 import com.example.email.model.filter.CriteriaSubject;
 import com.example.email.model.filter.ICriteria;
