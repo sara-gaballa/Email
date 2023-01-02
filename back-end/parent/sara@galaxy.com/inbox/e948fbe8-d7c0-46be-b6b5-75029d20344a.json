@@ -1,0 +1,11 @@
+{
+  "id" : "e948fbe8-d7c0-46be-b6b5-75029d20344a",
+  "from" : "sara@galaxy.com",
+  "to" : [ "sara@galaxy.com", "nancy@galaxy", "rowaina@galaxy", "mariam@galaxy " ],
+  "date" : "1/2/2023",
+  "time" : "21:57:48",
+  "subject" : "new",
+  "body" : "newwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+  "priority" : "MEDIUM",
+  "attachments" : [ "CheatSheet.pdf", "Screenshot (52).png" ]
+}

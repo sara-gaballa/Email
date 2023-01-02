@@ -86,7 +86,7 @@
               Compose
             </button>
 
-                <div class="sidebaroption sidebaroption_active" routerLink='/emails' *ngFor="let folder of shownFolders" (click)="foldersNavigate(folder.getName())">
+                <div class="sidebaroption sidebaroption_active"  *ngFor="let folder of shownFolders" (click)="getPageEmails(folder.getName())">
                     <span class="material-symbols-outlined">{{ folder.getIcon() }}</span>
                     <h3> {{ folder.getName() }} </h3>
                     <div class="default-prioprity">
@@ -154,8 +154,8 @@
                     </div>
 
                     <div class="emailList_settingsRight">
-                        <!-- <span class="material-symbols-outlined" (click)="pagesNavigate('previous')">chevron_left</span>
-                      <span class="material-symbols-outlined" (click)="pagesNavigate('next')">chevron_right</span> -->
+                    <span class="material-symbols-outlined" (click)="pagesNavigate('previous')">chevron_left</span>
+                      <span class="material-symbols-outlined" (click)="pagesNavigate('next')">chevron_right</span>
                     </div>
                 </div>
                 <!-- sections end -->

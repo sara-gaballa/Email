@@ -70,8 +70,8 @@ class BodyComparator implements Comparator<Email> {
 class DateComparator implements Comparator<Email> {
     public int compare(Email email1, Email email2) {
         try {
-            Date date1 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(email1.getDate() + " " + email1.getTime());
-            Date date2 = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").parse(email2.getDate() + " " + email2.getTime());
+            Date date1 = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(email1.getDate() + " " + email1.getTime());
+            Date date2 = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").parse(email2.getDate() + " " + email2.getTime());
             System.out.println(date1);
             System.out.println(date1.compareTo(date2));
             return date1.compareTo(date2);

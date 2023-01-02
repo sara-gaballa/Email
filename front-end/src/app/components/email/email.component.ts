@@ -6,6 +6,7 @@ import { Folder } from 'src/app/model/folder';
 import { User } from 'src/app/model/User';
 import { EmailService } from 'src/app/services/email.service';
 import { EmailIterator } from 'src/app/services/email-iterator/EmailItirator';
+import {Router} from "@angular/router";
 
 //observable and all services observers except EmailHttpService is the facade for our program
 @Component({
@@ -24,7 +25,7 @@ export class EmailComponent implements OnInit {
   //singleton
   public emailIterator: EmailIterator
 
-  constructor(private httpService: EmailHttpService, private emailService: EmailService) {
+  constructor(private httpService: EmailHttpService, private emailService: EmailService,private  route:Router) {
     this.shownFolders = emailService.getFolders()
     // this.contacts=emailService.getUser().getContacts();
     console.log(this.shownFolders + "hhhhhhhhhhhhh")
@@ -46,7 +47,11 @@ export class EmailComponent implements OnInit {
 
 
 
-  getPageEmails(state: string) {
+  getPageEmails(folder: string) {
+    // this.allSelected = false
+    // this.selectAll()
+    this.emailService.setCurrentFolder(folder)
+    this.shownEmails=[];
     this.httpService.getEMails(this.emailService.getCurrentFolder()).subscribe( res=>{
       this.shownEmails=[];
       for (let i = 0; i < res.length; i++) {
@@ -55,8 +60,9 @@ export class EmailComponent implements OnInit {
         this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].addEmail(email)
       }
       console.log(this.shownEmails);
+      // this.pagesNavigate('current')
     })
-
+    this.route.navigate(["/emails"]);
   }
     //add folder (observer updated)
   addFolder(name: string) {
@@ -86,19 +92,9 @@ export class EmailComponent implements OnInit {
   }
 
   foldersNavigate(folder: string) {
-    this.allSelected = false
-    this.selectAll()
-    this.emailService.setCurrentFolder(folder)
-    this.pagesNavigate('current')
+
   }
 
-  pagesNavigate(state: string) {
-    if(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails().length == 0) { //load folder for the first time
-      //TODO send ro back
-    } else {
-      // this.shownEmails = this.getPageEmails(state)
-    }
-  }
 
   sort(sort: string) {}
 
@@ -307,4 +303,36 @@ contact():Contact[]{
     contact.style.display="none";
     add.style.display="block";
   }
+
+
+  pagesNavigate(state: string) {
+    let len = this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails().length;
+    let next = this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails().indexOf(this.shownEmails[this.shownEmails.length-1])
+    let prev = this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails().indexOf(this.shownEmails[0])
+    console.log("next: "+next);
+    if( ((len-1)-next)<=0 && (state == 'next') ||  prev==0 && (state == 'previous')){return;}
+
+    for(let i = 0; i < 10; i++){
+      this.shownEmails.pop();
+    }
+    if(state == 'current') {
+      for(let i = 0; i < 10; i++) {
+        if(i == len) return
+        this.shownEmails.push(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails()[i]);
+      }
+    }
+    if(state=='previous'){
+      for(let i = prev-10; i < prev ; i++){
+        if(i<0){break;}
+        this.shownEmails.push(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails()[i]);
+      }
+    }
+    if(state=='next'){
+      for(let i = next+1; i < next+11 ; i++){
+        if(i==len){break;}
+        this.shownEmails.push(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails()[i]);
+      }
+    }
+  }
+
 }

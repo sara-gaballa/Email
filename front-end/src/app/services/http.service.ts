@@ -61,7 +61,7 @@ export class EmailHttpService{
 
     //gets current page of the passed folder
     getEMails(folder: string){
-      return this.http.get<Email[]>(this.mailUrl + "getMails" + {params:{folder}});
+      return this.http.get<Email[]>(this.mailUrl + "getAll" , {params:{folder}});
     }
 
     deleteMails(folder: string, ids: string[]){

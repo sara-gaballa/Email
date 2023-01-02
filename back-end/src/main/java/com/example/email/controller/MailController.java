@@ -58,6 +58,7 @@ public class MailController {
 
     @GetMapping("/getAll")
     public List<Email> getEmails(@RequestParam String folder) throws IOException {
+        System.out.println("folderrrrrrr");
         return this.service.getAllMails(logging.getCurrentUser(), folder);
     }
 
