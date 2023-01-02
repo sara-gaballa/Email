@@ -8,11 +8,12 @@ import com.example.email.service.Logging;
 import com.example.email.service.LoggingProxy;
 import com.example.email.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -30,17 +31,25 @@ public class MailController {
     }
 
     @PostMapping("/signUp")
-    public void signUp(@RequestBody User user) {
-        logging.signUp(user);
-        //return response entity
-        System.out.println(user.getEmail());
+    public ResponseEntity<String> signUp(@RequestBody User user) {
+        try {
+            logging.signUp(user);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/signIn")
-    public User signIn(@RequestParam String email, @RequestParam String password) throws IOException, ParseException {
-        User user = logging.signIn(email, password);
-        service.updateTrash(user); // update trash by deleting emails exceeding 30 days
-        return user;
+    public ResponseEntity<User> signIn(@RequestParam String email, @RequestParam String password) throws IOException, ParseException {
+        try {
+            User user = logging.signIn(email, password);
+            service.updateTrash(user); // update trash by deleting emails exceeding 30 days
+            return new ResponseEntity<>(user, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
     }
 
     @GetMapping("/getAll")
@@ -69,7 +78,11 @@ public class MailController {
     @PostMapping("/send")
     public Email send(@RequestBody Email email) {
         Queue<String> q = new PriorityQueue<>();
-        q.addAll(Arrays.asList(email.getTo()));
+        for (String to : email.getTo()) {
+            if (logging.findUser(to) == null)
+                continue;
+            q.add(to);
+        }
 
         try {
             this.service.sendMail(email, q);
