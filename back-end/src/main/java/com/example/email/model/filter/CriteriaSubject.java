@@ -1,4 +1,4 @@
-package com.example.email.mailpartitioning;
+package com.example.email.model.filter;
 
 import com.example.email.model.Email;
 import com.example.email.model.EmailKeys;

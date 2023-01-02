@@ -84,9 +84,7 @@ public class FileManager {
     }
 
     public static void openFile(String path) throws IOException {
-        System.out.println("C:\\Users\\cyber\\Desktop\\email\\back-end\\" + path);
         java.awt.Desktop.getDesktop().open(new File(path));
-
     }
 
 

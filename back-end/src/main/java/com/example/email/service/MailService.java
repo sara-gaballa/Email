@@ -8,9 +8,17 @@ import com.example.email.model.Email;
 import com.example.email.model.EmailKeys;
 import com.example.email.model.User;
 import com.example.email.utilities.MailUtility;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.networknt.schema.JsonSchema;
+import com.networknt.schema.JsonSchemaFactory;
+import com.networknt.schema.SpecVersion;
+import com.networknt.schema.ValidationMessage;
 import org.springframework.stereotype.Service;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -36,11 +44,13 @@ public class MailService {
     public void sendMail(Email email, Queue<String> toEmail) throws IOException {
         String id = UUID.randomUUID().toString();
         email.setId(id);
-        mailManager.addMail(email.getFrom() + "/" + FoldersName.SENT, id, email);
+        mailManager.addMail(email.getFrom() + "\\" + FoldersName.SENT, id, email);
+        String path = FoldersName.PARENT + "\\" + email.getFrom() + "\\" + FoldersName.SENT + "\\" + id;
+        if (!validateMailWithSchema(path))
+            return;
         for (String to : toEmail) {
             mailManager.addMail(to + "/" + FoldersName.INBOX, id, email);
         }
-
     }
 
     public void deleteMails(User user, String folder, List<String> ids) {
@@ -64,10 +74,12 @@ public class MailService {
 
     public void renameFolder(User user, String oldName, String newName) {
         FileManager.renameFolder(user.getFolder() + "/" + oldName, user.getFolder() + "/" + newName);
+        user.renameFolder(oldName, newName);
     }
 
     public void deleteFolder(User user, String folderName) {
         FileManager.deleteFolder(user.getFolder() + "/" + folderName);
+        user.deleteFolder(folderName);
     }
 
     public List<Email> search(String[] attributes, String value) {
@@ -105,6 +117,27 @@ public class MailService {
             }
         }
         this.mailManager.updateTrash(user.getFolder() + "\\" + FoldersName.TRASH, deletedIds);
+    }
+
+    private boolean validateMailWithSchema(String path) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonSchemaFactory schemaFactory = JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V201909);
+        try {
+            InputStream jsonStream = new FileInputStream(path + ".json");
+            InputStream schemaStream = new FileInputStream("email_schema.json");
+            JsonNode json = objectMapper.readTree(jsonStream);
+            JsonSchema schema = schemaFactory.getSchema(schemaStream);
+            Set<ValidationMessage> validationResult = schema.validate(json);
+            if (validationResult.isEmpty()) {
+                System.out.println("There is no validation errors");
+                return true;
+            } else {
+                validationResult.forEach(vm -> System.out.println(vm.getMessage()));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

@@ -32,6 +32,7 @@ public class MailController {
     @PostMapping("/signUp")
     public void signUp(@RequestBody User user) {
         logging.signUp(user);
+        //return response entity
         System.out.println(user.getEmail());
     }
 
@@ -78,13 +79,13 @@ public class MailController {
     }
 
     @DeleteMapping("/delete")
-    public void deleteMail(@RequestParam String folder, @RequestParam List<String> ids) {
+    public void deleteMails(@RequestParam String folder, @RequestParam List<String> ids) {
         this.service.deleteMails(logging.getCurrentUser(), folder, ids);
     }
 
     @GetMapping("/search")
-    public List<Email> search(@RequestParam String attributes, @RequestParam String value) {
-        return this.service.search(new String[]{attributes}, value);
+    public List<Email> search(@RequestParam String[] attributes, @RequestParam String value) {
+        return this.service.search(attributes, value);
     }
 
     @GetMapping("/sort")
@@ -122,6 +123,16 @@ public class MailController {
     @DeleteMapping("/deleteContact/{name}")
     public void deleteContact(@PathVariable("name") String name) {
         this.contactService.deleteContact(logging.getCurrentUser(), name);
+    }
+
+    @GetMapping("/searchContact")
+    public List<Contact> searchContacts(@RequestParam String attribute, @RequestParam String value) {
+        return this.contactService.search(attribute, value);
+    }
+
+    @GetMapping("/sortContacts")
+    public List<Contact> sortContacts() {
+        return this.contactService.sort();
     }
 
     @RequestMapping("/signOut")

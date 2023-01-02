@@ -64,18 +64,6 @@ public class FileAdapter implements MailManager {
         FileManager.moveFiles(fromPath, toPath, fileNames);
     }
 
-    /*//set current folder's name
-    @Override
-    public void setCurrentFolder(String currentFolder) {
-        FileManager.setCurrentFolder(currentFolder);
-    }
-
-    //return current folder's name
-    @Override
-    public String getCurrentFolder() {
-        return FileManager.getCurrentFolder();
-    }*/
-
     @Override
     public List<Email> getCurrentEmails() {
         return currentEmails;

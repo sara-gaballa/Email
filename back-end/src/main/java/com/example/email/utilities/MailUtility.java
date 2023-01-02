@@ -2,10 +2,10 @@ package com.example.email.utilities;
 
 import com.example.email.comparators.IComparatorFactory;
 import com.example.email.comparators.MailComparatorFactory;
-import com.example.email.mailpartitioning.CriteriaSender;
-import com.example.email.mailpartitioning.CriteriaSubject;
-import com.example.email.mailpartitioning.ICriteria;
 import com.example.email.model.Email;
+import com.example.email.model.filter.CriteriaSender;
+import com.example.email.model.filter.CriteriaSubject;
+import com.example.email.model.filter.ICriteria;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,9 +41,6 @@ public class MailUtility {
 
     public List<Email> sort(String attribute, List<Email> currentEmails) {
         Collections.sort(currentEmails, comparatorFactory.getComparator(attribute));
-        System.out.println(attribute);
-        System.out.println(currentEmails.get(0).getBody());
-
         return currentEmails;
     }
 
