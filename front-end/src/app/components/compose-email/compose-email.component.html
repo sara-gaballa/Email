@@ -3,8 +3,9 @@
 <div class="compose-email">
     <form>
         <button routerLink="/emails" (click)="composeEmail('draft')" id="back" class="material-symbols-outlined" title="back">arrow_back_ios</button>
-        <input class="inputfolder" id="to" style=" top: 10px " multiple="multiple">
+        <input class="inputfolder" id="to" style=" top: 10px; width: 970px;" multiple="multiple">
         <label for="to" style="left: 25px; bottom: 20px">To</label>
+        <span  class="material-symbols-outlined" (click)="multipleTo()" id="mto"> add</span>
         <input class="inputfolder" id="subject">
         <label for="subject">Subject</label>
         <select id="priority" name="List">

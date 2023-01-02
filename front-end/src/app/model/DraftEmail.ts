@@ -6,7 +6,7 @@ export class DraftEmail extends Email {
 
   setBody(body: string) { super.body = body }
 
-  setTo(to: string) { super.to = to }
+  setTo(to: string[]) { super.to = to }
 
 }
 

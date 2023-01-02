@@ -21,7 +21,7 @@ export class EmailService {
     public names: string[] = ['inbox', 'sent', 'draft', 'trash']; //only used to access folder not more or less
 
     //singleton
-    openedEmail: Email = new Email("" ,"Rowaina", "SaraNancyMariam", "12/27/2022", "11:50AM", "The Project is on fire", "GG","high",[])
+    openedEmail: Email = new Email("" ,"Rowaina", [], "12/27/2022", "11:50AM", "The Project is on fire", "GG","high",[])
 
     //singleton
     private user: User = new User("Rowaina", "Abdelanser", "Rowainaabdelansser@gamil.com", "dfvbkvfdkjvb", []) //current user
@@ -67,7 +67,7 @@ export class EmailService {
       this.folders[index].setIcon()
       //TODO send to back to rename
     }
-     
+
     delete(){
 
     }

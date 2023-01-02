@@ -13,7 +13,7 @@ import { EmailService } from 'src/app/services/email.service';
 
 export class ComposeEmailComponent implements OnInit {
 
-  private sentEmail: DraftEmail = new DraftEmail('', 'rowaina;dkfvkdv', '', '', '', '', '', '', [])
+  private sentEmail: DraftEmail = new DraftEmail('', 'rowaina;dkfvkdv', [], '', '', '', '', '', [])
   private folders: Folder[]
   private draftFolder: Folder
   private email:Email;
@@ -26,12 +26,10 @@ export class ComposeEmailComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-
-  changeTo(to: any) { this.sentEmail.setTo(to.target.value); }
-
-  changeSubject(subject: any) { this.sentEmail.setSubject(subject.target.value) }
-
-  changeBody(body: any) { this.sentEmail.setBody(body.target.value) }
+  multipleTo(){
+    let to = document.getElementById("to") as HTMLInputElement;
+    to.value=to.value+", ";
+  }
 
   composeEmail(operation: string) { //facade
     let to = document.getElementById("to") as HTMLInputElement;
@@ -41,16 +39,17 @@ export class ComposeEmailComponent implements OnInit {
     let time = sentDate.getHours()+":"+sentDate.getMinutes()+":"+sentDate.getSeconds();
     let subject = document.getElementById("subject") as HTMLInputElement;
     let body = document.getElementById("body") as HTMLInputElement;
-    let attach = document.getElementById("attachments") as HTMLInputElement; //cant send more than one?
+    let attach = document.getElementById("attachments") as HTMLInputElement;
     let attachments: string[] = new Array(attach.files.length)
     for(let i=0;i<attach.files.length;i++){
       attachments[i]=(attach.files[i].name)
     }
-    let to_arr=to.value.split('+');
+    let to_arr=to.value.split(', ');
     console.log(to_arr)
-    this.email = new Email('', from, to.value, sentDate.toLocaleDateString(), time,subject.value, body.value, priority.value, attachments)
+    this.email = new Email('', from, to_arr, sentDate.toLocaleDateString(), time,subject.value, body.value, priority.value, attachments)
     if(operation==='send'){
       let index = this.emailService.names.indexOf('sent')
+      console.log(this.email)
       this.folders[index].addEmail(this.email)
       //TODO send to back
     }
