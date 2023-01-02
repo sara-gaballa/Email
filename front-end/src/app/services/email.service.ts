@@ -30,12 +30,13 @@ export class EmailService {
         let folder = new Folder(this.names[i])
         this.folders.push(folder)
       }
-      httpService.getFolders().subscribe((res)=>{
-        for (let i=0;i<res.length;i++){
-          this.folders.push(new Folder(res[i]))
-          this.names.push(res[i])
-        }
-      });
+
+      // httpService.getFolders().subscribe((res)=>{
+      //   for (let i=0;i<res.length;i++){
+      //     this.folders.push(new Folder(res[i]))
+      //     this.names.push(res[i])
+      //   }
+      // });
     }
 
     clear() {

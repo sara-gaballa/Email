@@ -23,7 +23,7 @@
         <input type="file" id="attachments" #attt style="position: relative;top: 335px;width: 90px;left: 6px" multiple="multiple" (change)="getatt()">
       <div class="files">
       <ul style="position: absolute;">
-        <li   *ngFor="let att of getatt();let i = index;" >{{att}}</li>
+        <li   *ngFor="let att of getatt();let i = index;" (click)="run(att)" >{{att}}</li>
       </ul>
       </div>
     </form>

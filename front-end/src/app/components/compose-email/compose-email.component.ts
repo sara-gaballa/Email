@@ -40,6 +40,12 @@ getatt():string[]{
   return attachments;
 
 }
+
+run(file:string){
+
+    let path="D:\\CSE25\\Second year\\programming 2\\email\\Email\\back-end\\attatchments\\";
+
+}
   composeEmail(operation: string) { //facade
     let to = document.getElementById("to") as HTMLInputElement;
     let from = this.emailService.getUser().getEmail();

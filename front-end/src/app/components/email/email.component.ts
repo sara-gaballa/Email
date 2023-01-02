@@ -31,17 +31,30 @@ export class EmailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+  }
+
+
+  initiateEmail(){
     this.emailService.setFolders()
     this.shownFolders = this.emailService.getFolders()
     console.log(this.shownFolders)
-    this.shownEmails = []
-    // this.contacts = this.emailService.getUser().getContacts()
-    this.pagesNavigate('current')
-    // this.emailIterator.setAllEMails(this.shownEmails)
   }
 
-  getPageEmails(state: string): Email[] {
-    return this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails()
+
+
+
+  getPageEmails(state: string) {
+    this.httpService.getEMails(this.emailService.getCurrentFolder()).subscribe( res=>{
+      this.shownEmails=[];
+      for (let i = 0; i < res.length; i++) {
+        let email=new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]);
+        this.shownEmails.push(email);
+        this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].addEmail(email)
+      }
+      console.log(this.shownEmails);
+    })
+
   }
     //add folder (observer updated)
   addFolder(name: string) {
@@ -81,7 +94,7 @@ export class EmailComponent implements OnInit {
     if(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails().length == 0) { //load folder for the first time
       //TODO send ro back
     } else {
-      this.shownEmails = this.getPageEmails(state)
+      // this.shownEmails = this.getPageEmails(state)
     }
   }
 
@@ -235,12 +248,12 @@ export class EmailComponent implements OnInit {
   moveEmailToFolder(id: number, folder: string) {
     if(this.emailService.getCurrentFolder() == 'trash') {
       this.shownFolders[this.emailService.names.indexOf('trash')].removeEmail(this.shownEmails[id])
-      this.pagesNavigate('current')
+      // this.pagesNavigate('current')
       //TODO delete permenantly
     }
     this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].removeEmail(this.shownEmails[id])
     this.shownFolders[this.emailService.names.indexOf(folder)].addEmail(this.shownEmails[id])
-    this.pagesNavigate('current')
+    // this.pagesNavigate('current')
   }
   backToContacts(){
     let contact = document.getElementById("contacts");

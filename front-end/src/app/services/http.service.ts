@@ -18,7 +18,7 @@ export class EmailHttpService{
   private mailUrl: string;
 
     constructor(private http: HttpClient) {
-      this.mailUrl = 'http://localhost:8084/mail/';
+      this.mailUrl = 'http://localhost:8085/mail/';
     }
 
     public signUp(user: User){ //done
@@ -39,11 +39,11 @@ export class EmailHttpService{
       return this.http.get<void>(this.mailUrl + "addFolder",{params:{name}}).subscribe();
     }
 
-    public getFolders() {
-      console.log("Sending request...");
-      console.log("name of the folder: "+name);
-      return this.http.get<string[]>(this.mailUrl + "getFolders",httpOptions);
-    }
+    // public getFolders() {
+    //   console.log("Sending request...");
+    //   console.log("name of the folder: "+name);
+    //   return this.http.get<string[]>(this.mailUrl + "getFolders",httpOptions);
+    // }
 
     sendEmail(email: Email, to: string[]) {
       console.log("Sending request...");
@@ -53,7 +53,7 @@ export class EmailHttpService{
 
     //gets current page of the passed folder
     getEMails(folder: string){
-      return this.http.post<Email[]>(this.mailUrl + "getMails/" + folder, httpOptions);
+      return this.http.get<Email[]>(this.mailUrl + "getMails/" + {params:{folder}});
     }
 
     //gets current page of the passed folder
