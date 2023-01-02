@@ -1,4 +1,5 @@
 import { Contact } from "./Contact";
+import { Folder } from "./folder";
 
 export class User {
 
@@ -6,15 +7,16 @@ export class User {
   private lastName: string;
   private email: string;
   private password: string;
-  private contacts: Contact[] = [new Contact( []) ];
+  private contacts: Contact[];
   private userFolders: string[] = [];
 
-  constructor(firstName: string, lastName: string, email: string, password: string, contacts: Contact[]) {
+  constructor(firstName: string, lastName: string, email: string, password: string, contacts: Contact[], folders: string[]) {
       this.firstName = firstName;
       this.lastName = lastName;
       this.email = email;
       this.password = password;
-      // this.contacts = contacts;
+      this.contacts = contacts;
+      this.userFolders = folders
   }
 
   getFirstName(): string { return this.firstName }

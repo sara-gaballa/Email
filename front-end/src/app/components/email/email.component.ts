@@ -19,7 +19,7 @@ export class EmailComponent implements OnInit {
   shownFolders: Folder[] = []
   shownEmails: Email[] = []
   selectedEmails: Email[] = []
-  contacts: Contact[] = [new Contact(["Rowainaabdelnasser@galaxy.com"])]
+  contacts: Contact[]
   allSelected: boolean = false
   //singleton
   public emailIterator: EmailIterator
@@ -28,47 +28,19 @@ export class EmailComponent implements OnInit {
     this.shownFolders = emailService.getFolders()
     console.log(this.shownFolders + "hhhhhhhhhhhhh")
     this.shownEmails = []
-  /*    emailService.getPageEmails('current').subscribe((res) => {
-      for (let i = 0; i < res.length; i++) {
-        this.shownEmails.push(new Email(res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]));
-        console.log(res[i])
-      }
-     }) */
   }
 
   ngOnInit(): void {
+    this.emailService.setFolders()
     this.shownFolders = this.emailService.getFolders()
     console.log(this.shownFolders)
-    this.contacts = this.emailService.getUser().getContacts()
-    for(let i = 0; i < 50; i++) {
-      this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].addEmail(new Email('', i + '', [], '10/10/2011', '10:10', 'hello', 'isdgcidshcjdscnskjc', 'mediunm', []))
-    }
-    this.shownEmails = this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails()
-    /* this.shownEmails = []
-    this.contacts = this.emailService.getUser().getContacts()
-    if(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails().length == 0) { //folder first loaded
-      //all files of the requenst
-      for(let i = 0; i < 50; i++) {
-        this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].addEmail(new Email('', i + '', [], '10/10/2011', '10:10', 'hello', 'isdgcidshcjdscnskjc', 'mediunm', []))
-      }
-      this.shownEmails = this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails()
-    } else {
-      this.shownEmails = this.getPageEmails('current')
-      console.log("current")
-    } */
+    this.shownEmails = []
+    // this.contacts = this.emailService.getUser().getContacts()
+    this.pagesNavigate('current')
+    // this.emailIterator.setAllEMails(this.shownEmails)
   }
 
   getPageEmails(state: string): Email[] {
-    /* if(state === 'current') {
-      this.emailIterator.setAllEMails(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails())
-      return this.emailIterator.getCurrentPage()
-    }
-    else if(state === 'previous' && this.emailIterator.hasPreviousPage())
-      return this.emailIterator.getPreviousPage()
-    else if(state === 'next' && this.emailIterator.hasNextPage())
-      return this.emailIterator.getNextPage()
-    else return [] */
-    console.log(this.emailIterator.setAllEMails(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails()))
     return this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails()
   }
     //add folder (observer updated)
@@ -102,18 +74,18 @@ export class EmailComponent implements OnInit {
     this.allSelected = false
     this.selectAll()
     this.emailService.setCurrentFolder(folder)
-    // this.pagesNavigate('current')
+    this.pagesNavigate('current')
   }
 
   pagesNavigate(state: string) {
     if(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails().length == 0) { //load folder for the first time
-      this.emailIterator.setAllEMails(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails())
-      this.shownEmails = this.getPageEmails(state)
-
+      //TODO send ro back
     } else {
       this.shownEmails = this.getPageEmails(state)
     }
   }
+
+  sort(sort: string) {}
 
   addfolder() {
     let name = document.getElementById("FolderName") as HTMLInputElement;
@@ -152,7 +124,6 @@ export class EmailComponent implements OnInit {
   getUserEmail(): string {
     return this.emailService.getUser().getEmail()
   }
-
 
   setOpenedEmail(id: number) {
     console.log(this.shownEmails)
@@ -204,15 +175,6 @@ export class EmailComponent implements OnInit {
   // sort(sort: string) {
   //   this.emailService.sort(this.emailService.getCurrentFolder(), sort)
   // }
-
-  getUser(): User {
-    return this.httpService.getUser()
-  }
-
-  getContact(): Contact {
-    return this.httpService.getContact()
-  }
-
   showNewFolder(foler: string) {
     let click = document.getElementById(foler);
     if (click != null && click.style.display === "none") {
@@ -222,19 +184,6 @@ export class EmailComponent implements OnInit {
     }
     this.allSelected = !this.allSelected
   }
-  // delete(folder: Folder){
-  //   this.emailService.deleteFolder(folder.getName());
-  // }
-  // rename(window: Folder,id:HTMLInputElement) {
-  //   id.addEventListener("keypress", function(event) {
-  //     if (event.key === "Enter") {
-  //       event.preventDefault();
-  //       if(id.value!=''){
-  //         window.setName(id.value);}
-  //     }
-  //   });
-  // }
-
 
   showContacts() {
     let click = document.getElementById("contacts");
@@ -251,7 +200,7 @@ export class EmailComponent implements OnInit {
     //TODO send to back
   }
 
-  showDetails(){
+  showDetails(id: number){
     let click = document.getElementById("contactDetails");
     if (click != null && click.style.display === "none") {
       click.style.display = "block";
@@ -299,11 +248,11 @@ export class EmailComponent implements OnInit {
     contact.style.display="block";
     details.style.display="none";
   }
-addName(){
-  let display = document.getElementById("enteredname");
-  let name = document.getElementById("nameofcontact") as HTMLInputElement;
-  display.textContent=name.value;
-}
+  addName(){
+    let display = document.getElementById("enteredname");
+    let name = document.getElementById("nameofcontact") as HTMLInputElement;
+    display.textContent = name.value;
+  }
   addEmail(){
     let display = document.getElementById("enteredemail");
     let name = document.getElementById("emailOfContact") as HTMLInputElement;
@@ -316,6 +265,7 @@ addName(){
     contact.style.display="block";
     add.style.display="none";
 
+    //TODO send contact to back
   }
   back(){
     let contact = document.getElementById("contacts");

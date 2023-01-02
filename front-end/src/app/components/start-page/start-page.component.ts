@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmailHttpService } from 'src/app/services/http.service';
 import { User } from 'src/app/model/User';
 import { EmailService } from 'src/app/services/email.service';
+import { EmailComponent } from '../email/email.component';
 
 @Component({
   selector: 'app-start-page',
@@ -18,15 +19,20 @@ export class StartPageComponent implements OnInit {
   ngOnInit(): void {}
 
   signUp(firstName: string, lastName: string, email: string, password: string) {
-    this.httpService.signUp(new User(firstName, lastName, email, password, [])).subscribe(() => {
-      this.emailService.setUser(new User(firstName, lastName, email, password, []))
+    this.httpService.signUp(new User(firstName, lastName, email, password, [], [])).subscribe(() => {
+      let user = new User(firstName, lastName, email, password, [], [])
+      this.emailService.clear()
+      this.emailService.setUser(user)
     })
-    // this.emailService.setUser(new User(firstName, lastName, email, password))
   }
 
   signIn(email: string, password: string) {
     this.httpService.signIn(email, password).subscribe((user) => {
-      this.emailService.setUser(user)
+      let userr = new User(user['firstName'], user['lastName'], user['email'], user['password'], user['contacts'], user['userFolders'])
+      this.emailService.setUser(userr)
+      this.emailService.clear()
+      let comp = new EmailComponent(this.httpService, this.emailService)
+      comp.ngOnInit()
     })
   }
 

@@ -21,10 +21,9 @@ export class EmailService {
     public names: string[] = ['inbox', 'sent', 'draft', 'trash']; //only used to access folder not more or less
 
     //singleton
-    openedEmail: Email = new Email("" ,"Rowaina", [], "12/27/2022", "11:50AM", "The Project is on fire", "GG","high",[])
-
+    openedEmail: Email
     //singleton
-    private user: User = new User("Rowaina", "Abdelanser", "Rowainaabdelansser@gamil.com", "dfvbkvfdkjvb", []) //current user
+    private user: User
 
     constructor(private httpService: EmailHttpService) {
       for(let i = 0; i < 4; i++) {
@@ -39,12 +38,31 @@ export class EmailService {
       });
     }
 
+    clear() {
+      this.folders = []
+      if(this.names.length > 4) {
+        for(let i = 4; i < this.names.length; i++)
+          this.names.pop()
+      }
+    }
+
     getAllEmails(folder: string): Email[] {
       return this.folders[this.names.indexOf(folder)].getEmails()
     }
 
+    setFolders() {
+      /* if(this.user.getUserFolders() != null){
+        for(let i = 4; i < this.user.getUserFolders().length; i++) {
+          let folder = new Folder(this.names[i])
+          this.folders.push(folder)
+        }
+      } */
+      console.log(this.user)
+    }
+
     //get updated folders
     getFolders(): Folder[] { return this.folders }
+
 
     getCurrentFolder() { return this.currentFolder }
 
@@ -57,7 +75,10 @@ export class EmailService {
 
     getOpenedEmail(): Email { return this.openedEmail }
 
-    setUser(user: User) { this.user = user }
+    setUser(user: User) {
+      console.log(user)
+      this.user = user
+    }
 
     getUser(): User { return this.user }
 
