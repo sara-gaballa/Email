@@ -15,7 +15,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./email.component.css']
 })
 export class EmailComponent implements OnInit {
-  search: string = 'Search'
+
   click: string = ''
   shownFolders: Folder[] = []
   shownEmails: Email[] = []
@@ -87,16 +87,25 @@ export class EmailComponent implements OnInit {
     //TODO send to back to rename
   }
 
-  changeSearchLabel(s: string): void {
-    this.search = s;
+  // changeSearchLabel(s: string): void {
+  //   this.search = s;
+  // }
+
+
+
+  sort() {
+    let sort= document.getElementById("sort") as HTMLInputElement;
+    this.shownEmails=[];
+    this.httpService.sort(sort.value).subscribe( res=>{
+      this.shownEmails=[];
+      for (let i = 0; i < res.length; i++) {
+        let email=new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]);
+        this.shownEmails.push(email);
+        this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].addEmail(email)
+      }
+      console.log(this.shownEmails);
+    })
   }
-
-  foldersNavigate(folder: string) {
-
-  }
-
-
-  sort(sort: string) {}
 
   addfolder() {
     let name = document.getElementById("FolderName") as HTMLInputElement;
@@ -119,14 +128,17 @@ export class EmailComponent implements OnInit {
     }
   }
 
-  filter(criteria: string) {
-    this.httpService.filter(criteria, 'Neso').subscribe(res => {
+  filter() {
+    let type = document.getElementById("filtertype") as HTMLInputElement;
+    let dest = document.getElementById("filterDest") as HTMLInputElement;
+    this.httpService.filter(type.value,dest.value ).subscribe(res => {
       console.log("sent successfully")
       this.shownEmails = []
       for (let i = 0; i < res.length; i++) {
         this.shownEmails.push(new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]));
         console.log(res[i])
       }
+      console.log(type.value,dest.value)
     })
   }
 
@@ -170,6 +182,23 @@ export class EmailComponent implements OnInit {
   }
 
 
+  search(){
+    let data = document.getElementById("searchData") as HTMLInputElement;
+    let type = document.getElementById("search") as HTMLFormElement;
+    let t: FormData;
+    t = new FormData(type);
+
+
+    this.httpService.search(t.getAll('type') as string[],data.value).subscribe(res => {
+      console.log("sent successfully")
+      this.shownEmails = []
+      for (let i = 0; i < res.length; i++) {
+        this.shownEmails.push(new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]));
+        console.log(res[i])
+      }
+    })
+    console.log(data.value, t.getAll('type'));
+  }
   //TODO add to select all button
   selectAll() {
     this.selectedEmails = []

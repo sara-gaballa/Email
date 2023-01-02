@@ -1,0 +1,11 @@
+{
+  "id" : "6cf119ef-6790-4f36-84dc-a778450b6b67",
+  "from" : "sara@galaxy.com",
+  "to" : [ "sara@galaxy.com" ],
+  "date" : "1/2/2023",
+  "time" : "23:28:45",
+  "subject" : "newwwwwwwwwwwwwwwwwwwwwwwwwwwwwww",
+  "body" : "dada",
+  "priority" : "MEDIUM",
+  "attachments" : [ "CheatSheet.pdf", "Screenshot (52).png" ]
+}
