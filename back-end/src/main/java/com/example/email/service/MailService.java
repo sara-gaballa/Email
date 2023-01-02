@@ -43,6 +43,13 @@ public class MailService {
         return email;
     }
 
+    public Email saveDraft(Email email) throws IOException {
+        String id = UUID.randomUUID().toString();
+        email.setId(id);
+        mailManager.addMail(email.getFrom() + "/" + FoldersName.DRAFT, id, email);
+        return email;
+    }
+
     public void deleteMails(User user, String folder, List<String> ids) {
         mailManager.deleteMails(user.getFolder(), folder, ids);
     }
@@ -71,23 +78,19 @@ public class MailService {
     }
 
     public List<Email> search(String[] attributes, String value) {
-        mailManager.setCurrentEmails(this.utility.searchMails(attributes, value, mailManager.getCurrentEmails()));
-        return mailManager.getCurrentEmails();
+        return this.utility.searchMails(attributes, value, mailManager.getCurrentEmails());
     }
 
     public List<Email> filter(String criteria, String value) {
-        mailManager.setCurrentEmails(this.utility.filter(criteria, value, mailManager.getCurrentEmails()));
-        return mailManager.getCurrentEmails();
+        return this.utility.filter(criteria, value, mailManager.getCurrentEmails());
     }
 
 
     public List<Email> sort(String attribute) {
-        mailManager.setCurrentEmails(this.utility.sort(attribute, mailManager.getCurrentEmails()));
-        return mailManager.getCurrentEmails();
+        return this.utility.sort(attribute, mailManager.getCurrentEmails());
     }
 
     public PriorityQueue<Email> sortByPriority() {
-        //TODO : check converting to list or not to set current emails
         return this.utility.sortByPriority(mailManager.getCurrentEmails());
     }
 

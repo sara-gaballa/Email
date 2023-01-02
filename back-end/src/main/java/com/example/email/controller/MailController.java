@@ -99,6 +99,18 @@ public class MailController {
         return email;
     }
 
+    @PostMapping("/saveDraft")
+    public Email saveDraft(@RequestBody Email email) {
+        try {
+            email = this.service.saveDraft(email);
+            System.out.println("ok");
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+        return email;
+    }
+
+
     @DeleteMapping("/delete")
     public void deleteMails(@RequestParam String folder, @RequestParam List<String> ids) {
         this.service.deleteMails(logging.getCurrentUser(), folder, ids);

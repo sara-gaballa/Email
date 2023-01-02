@@ -43,6 +43,10 @@ public class FileManager {
 
     // delete files move them to trash folder
     public static void deleteFiles(String userFolder, String mailFolder, List<String> fileNames) {
+        if (mailFolder.equals(FoldersName.TRASH)) {// deletion from trash is permanent
+            deletePermanently(userFolder + "\\" + FoldersName.TRASH, fileNames);
+            return;
+        }
         moveFiles(userFolder + "\\" + mailFolder, userFolder + "\\" + FoldersName.TRASH, fileNames);
     }
 
