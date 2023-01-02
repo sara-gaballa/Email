@@ -293,5 +293,40 @@ export class EmailComponent implements OnInit {
     this.shownFolders[this.emailService.names.indexOf(folder)].addEmail(this.shownEmails[id])
     this.pagesNavigate('current')
   }
+  backToContacts(){
+    let contact = document.getElementById("contacts");
+    let details = document.getElementById("contactDetails");
+    contact.style.display="block";
+    details.style.display="none";
+  }
+addName(){
+  let display = document.getElementById("enteredname");
+  let name = document.getElementById("nameofcontact") as HTMLInputElement;
+  display.textContent=name.value;
+}
+  addEmail(){
+    let display = document.getElementById("enteredemail");
+    let name = document.getElementById("emailOfContact") as HTMLInputElement;
+    display.textContent=display.textContent+name.value+", ";
+    name.value='';
+  }
+  addcontact(){
+    let contact = document.getElementById("contacts");
+    let add = document.getElementById("add_contacts");
+    contact.style.display="block";
+    add.style.display="none";
 
+  }
+  back(){
+    let contact = document.getElementById("contacts");
+    let add = document.getElementById("add_contacts");
+    contact.style.display="block";
+    add.style.display="none";
+  }
+  gotoadd(){
+    let add = document.getElementById("add_contacts");
+    let contact = document.getElementById("contacts");
+    contact.style.display="none";
+    add.style.display="block";
+  }
 }

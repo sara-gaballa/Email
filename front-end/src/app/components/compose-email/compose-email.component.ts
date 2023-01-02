@@ -18,7 +18,7 @@ export class ComposeEmailComponent implements OnInit {
   private draftFolder: Folder
   private email:Email;
   date:any;
-
+  public  f: string[]=["sara","nancy"]
   constructor(private httpService: EmailHttpService, private emailService: EmailService) {
     this.folders = emailService.getFolders()
     this.draftFolder = this.folders[3]
@@ -30,7 +30,16 @@ export class ComposeEmailComponent implements OnInit {
     let to = document.getElementById("to") as HTMLInputElement;
     to.value=to.value+", ";
   }
+getatt():string[]{
+  let attach = document.getElementById("attachments") as HTMLInputElement;
+  let attachments: string[] = new Array(attach.files.length)
+  for(let i=0;i<attach.files.length;i++){
+    attachments[i]=(attach.files[i].name)
+  }
+  console.log(attachments)
+  return attachments;
 
+}
   composeEmail(operation: string) { //facade
     let to = document.getElementById("to") as HTMLInputElement;
     let from = this.emailService.getUser().getEmail();

@@ -19,7 +19,7 @@
                     <div class="search_contacts">
                         <span class="material-symbols-outlined" style="position: absolute; left: 1px"> search </span>
                         <input type="text" placeholder={{search}}/>
-                        <span title="add contacts" class="material-symbols-outlined" style="position: absolute; left: 165px; color:#0a406b;"> add </span>
+                        <span title="add contacts" class="material-symbols-outlined" style="position: absolute; left: 165px; color:#0a406b;" (click)="gotoadd()"> add </span>
                         <span title="sort contacts" class="material-symbols-outlined" style="position: absolute; left: 200px; color:#0a406b;"> sort </span>
 
 
@@ -28,12 +28,21 @@
                                 <span class="material-symbols-outlined" style=" color:#0a406b;"> account_circle </span>
                                 <h1>Sara</h1>
                             </section>
+                          <section class="single_contact" (click)="showDetails()">
+                            <span class="material-symbols-outlined" style=" color:#0a406b;"> account_circle </span>
+                            <h1>Sara</h1>
+                          </section>
+                          <section class="single_contact" (click)="showDetails()">
+                            <span class="material-symbols-outlined" style=" color:#0a406b;"> account_circle </span>
+                            <h1>Sara</h1>
+                          </section>
                         </div>
                     </div>
                 </div>
                 <div class="editList" id="contactDetails" style="display: none">
-                    <input type="text" placeholder=Add style="background-color: white; position: absolute; left: 0px;width: 180px" />
-                    <button title="add email to contact" class="material-symbols-outlined" style="position: absolute; left: 200px; color:#0a406b;width: 30px;height: 38px; padding: 1px "> add </button>
+                  <span title="back to contacts list" class="material-symbols-outlined"style="position: absolute; left: -7px; color:#0a406b; " (click)="backToContacts()">arrow_back_ios</span>
+                    <input  type="text" placeholder=Add style="background-color: white; position: absolute; left: 22px;width: 180px; " />
+                    <span title="add email to contact" class="material-symbols-outlined" style="position: absolute; left: 183px; color:#0a406b; top: -2px "> add </span>
                     <h1 (input)="edit()" contenteditable="true" id="name" style="position: absolute; top: 28px;left: 50px">sara</h1>
                     <label for=name style="position: absolute; top: 40px">Name:</label>
 
@@ -45,6 +54,23 @@
                     </section>
 
                 </div>
+<!--              adding contact-->
+              <div class="add_contacts" id="add_contacts" style="display:none">
+                <input id="nameofcontact" >
+                <label for="nameofcontact" style="position: absolute;top: 8px;" >Name</label>
+                <span title="Add Name" class="material-symbols-outlined" style="position: absolute; left: 243px; color:#0a406b; top: -2px " (click)="addName()"> add </span>
+                <input id="emailOfContact" >
+                <label for="emailOfContact" style="position: absolute;top:60px;" >Email</label>
+                <span title="Add Email" class="material-symbols-outlined" style="position: absolute; left: 243px; color:#0a406b; top: 50px "(click)="addEmail()"> add </span>
+                <p style="position: absolute; color:#000000; top: 90px ;font-size: 15px" >Name Entered:</p>
+                <p style="position: absolute; color:#000000; top: 90px ;font-size: 15px; left: 100px" id="enteredname" ></p>
+                <p style="position: absolute; color:#000000; top: 120px;font-size: 15px ;" >Email Entered:  </p>
+                <p  style="position: absolute; color:#000000; top: 120px;font-size: 15px ;left: 100px" id="enteredemail" ></p>
+                <button id="addtocontacts" (click)="addcontact()">Add</button>
+                <button id="back" (click)="back()">Back</button>
+              </div>
+
+<!--              end of adding contact-->
                 <div class="profile">
                     <button title="profile" class="material-symbols-outlined" (click)="showWindow('profile-content')">account_circle</button>
                     <div id="profile-content" style="display: none; position:absolute;">

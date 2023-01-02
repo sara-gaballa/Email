@@ -20,6 +20,11 @@
         <textarea id="body" rows="14" cols="113" style="overflow: scroll; left: 5px;bottom:50px;position: absolute;font-size: 20px;" placeholder="Email body"></textarea>
         <button id="logout" routerLink="/emails" (click)="composeEmail('send')">Sent <span class="material-symbols-outlined" style="position: absolute; left:60px; bottom:7px ">send</span></button>
         <button id="save_as_draft" routerLink="/emails" (click)="composeEmail('draft')" style=" position: absolute; left: 1000px; top:495px; width:160px">Save as draft <span class="material-symbols-outlined" style="position: absolute; left:120px; bottom:7px ">save</span></button>
-        <input type="file" id="attachments" style="position: relative;top: 335px;width: 500px;left: 6px" multiple="multiple">
+        <input type="file" id="attachments" #attt style="position: relative;top: 335px;width: 90px;left: 6px" multiple="multiple" (change)="getatt()">
+      <div class="files">
+      <ul style="position: absolute;">
+        <li   *ngFor="let att of getatt();let i = index;" >{{att}}</li>
+      </ul>
+      </div>
     </form>
 </div>

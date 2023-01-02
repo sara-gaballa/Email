@@ -176,3 +176,27 @@ select {
   display: flex;
   justify-content: center;
 }
+.files{
+  height:40px;
+  width: 800px;
+  color: black;
+  position: absolute;
+  background-image: linear-gradient(to bottom, rgb(207, 218, 239), rgb(125, 156, 227)), url("https://wallpapercave.com/wp/KSnFrMw.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  border: 2px solid rgb(3, 2, 16);
+  z-index: 1;
+  overflow-x: hidden;
+  overflow-y:scroll;
+  bottom:5px;
+  left: 115px;
+
+}
+li{
+  cursor: pointer;
+}

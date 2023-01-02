@@ -627,3 +627,95 @@ h1 {
 .newFoler .material-symbols-outlined:hover {
     background-color: rgb(140, 137, 232);
 }
+.add_contacts{
+  position: absolute;
+  background-image: linear-gradient(to bottom, rgb(207, 218, 239), rgb(125, 156, 227)), url("https://wallpapercave.com/wp/KSnFrMw.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  border: 2px solid rgb(140, 137, 232);
+  z-index: 1;
+  overflow: scroll;
+  height: 200px;
+  width: 300px;
+  right: 80px;
+  top: 50px;
+}
+
+.add_contacts #nameofcontact{
+  background: #eeeaea;
+  display: flex;
+  padding: 8px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  position: relative;
+  width: 70%;
+  height: 20px;
+  background-size: cover;
+  display: flex;
+  left: 40px;
+  top: 4px;
+
+}
+.add_contacts #emailOfContact{
+  background: #eeeaea;
+  display: flex;
+  padding: 8px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  position: relative;
+  width: 70%;
+  height: 20px;
+  background-size: cover;
+  display: flex;
+  left: 40px;
+  top: 15px;
+
+}
+#addtocontacts{
+  position: sticky;
+  height: 30px;
+  width: 60px;
+  display: block;
+  font-size: 18px;
+  border: 2px solid rgb(114, 143, 246);
+  background-image: linear-gradient(to bottom, rgba(205, 172, 231, 0.85), rgb(125, 156, 227));;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 20px;
+  color: rgb(246, 246, 246);
+  text-decoration: none;
+  cursor: pointer;
+  top: 170px;
+  left: 220px;
+}
+#back{
+  position: sticky;
+  height: 30px;
+  width: 60px;
+  display: block;
+  font-size: 18px;
+  border: 2px solid rgb(114, 143, 246);
+  background-image: linear-gradient(to bottom, rgba(205, 172, 231, 0.85), rgb(125, 156, 227));
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 20px;
+  color: rgb(246, 246, 246);
+  text-decoration: none;
+  cursor: pointer;
+  top: 170px;
+}
