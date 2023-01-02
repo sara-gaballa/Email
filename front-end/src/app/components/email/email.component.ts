@@ -19,6 +19,7 @@ export class EmailComponent implements OnInit {
   shownEmails: Email[] = []
   selectedEmails: Email[] = []
   contacts: Contact[] = [new Contact('Rowaina', 'Rowainaabdelnaser@gmail.com', [])]
+  allSelected: boolean = false
 
   constructor(private httpService: EmailHttpService, private emailService: EmailService) {}
 
@@ -42,7 +43,8 @@ export class EmailComponent implements OnInit {
   }
 
   foldersNavigate(folder: string) {
-    this.unSelectAll()
+    this.allSelected = false
+    this.selectAll()
     this.emailService.setCurrentFolder(folder)
     this.pagesNavigate('current')
   }
@@ -123,32 +125,44 @@ export class EmailComponent implements OnInit {
 
   //TODO add icon for mail selection
   //selection of one mail
-  select(id: number, ) {
+  selectAllOne(id: number, checked: boolean) {
     let index = id + ''
     let click = document.getElementById(index) as HTMLInputElement;
-    click.setAttribute("checked", "checked");
-    this.selectedEmails.push(this.shownEmails[id])
+    if(checked) {
+      click.setAttribute("checked", "checked");
+      this.selectedEmails.push(this.shownEmails[id])
+    } else {
+      click.removeAttribute("checked");
+    }
   }
+
+  select(id: number) {
+    let index = id + ''
+    let click = document.getElementById(index) as HTMLInputElement;
+    if(click.checked) {
+      click.setAttribute("checked", "checked");
+      this.selectedEmails.push(this.shownEmails[id])
+    } else {
+      click.removeAttribute("checked");
+      this.selectedEmails.splice(this.shownEmails.indexOf(this.selectedEmails[id]), 1)
+    }
+  }
+
 
   //TODO add to select all button
   selectAll() {
+    this.selectedEmails = []
     let click = document.getElementById('selectAll') as HTMLInputElement;
     if(click.checked) {
       for(let i = 0; i < this.shownEmails.length; i++) {
-        this.select(i)
+        this.selectAllOne(i, true)
       }
     } else {
       for(let i = 0; i < this.shownEmails.length; i++) {
-        this.unSelectAll()
+        this.selectAllOne(i, false)
       }
     }
-    //TODO for loop to change style
-  }
-
-   //TODO add to select all button
-  unSelectAll() {
-    this.selectedEmails = []
-    //TODO for loop to change style
+    this.allSelected = !this.allSelected
   }
 
 
@@ -162,11 +176,37 @@ export class EmailComponent implements OnInit {
         }
       }
     }
-    this.unSelectAll()
+    this.allSelected = false
+    this.selectAll()
     //TODO send to back
   }
 
-  rename(window: Folder, id:HTMLInputElement) {
+  showContacts() {
+    let click = document.getElementById("contacts");
+    let details = document.getElementById("contactDetails");
+    if (click != null && click.style.display === "none") {
+      click.style.display = "block";
+      details.style.display="none";
+    } else if (click != null) {
+      click.style.display = "none";
+      details.style.display="none";
+    }
+  }
+
+  showDetails(){
+    let click = document.getElementById("contactDetails");
+    if (click != null && click.style.display === "none") {
+      click.style.display = "block";
+    } else if (click != null) {
+      click.style.display = "none";
+    }
+  }
+  edit(){
+    let click = document.getElementById("name") ;
+    console.log(click.innerText)
+
+  }
+  rename(window: Folder,id:HTMLInputElement) {
     id.addEventListener("keypress", function(event) {
       if (event.key === "Enter") {
         event.preventDefault();
@@ -184,22 +224,4 @@ export class EmailComponent implements OnInit {
       this.emailService.deleteFolder(folder.getName());}
   }
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  showContacts() {
-    let click = document.getElementById("contacts");
-    let details = document.getElementById("contactDetails");
-    if (click != null && click.style.display === "none") {
-      click.style.display = "block";
-      details.style.display="none";
-    } else if (click != null) {
-      click.style.display = "none";
-      details.style.display="none";
-    }
-  }
-
-  edit(){
-    let click = document.getElementById("name") ;
-    console.log(click.innerText)
-  }
 }

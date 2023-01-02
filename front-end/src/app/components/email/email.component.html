@@ -21,33 +21,29 @@
                         <input type="text" placeholder={{search}}/>
                         <span title="add contacts" class="material-symbols-outlined" style="position: absolute; left: 165px; color:#0a406b;"> add </span>
                         <span title="sort contacts" class="material-symbols-outlined" style="position: absolute; left: 200px; color:#0a406b;"> sort </span>
+
+
                         <div class="contact_list">
-                            <section class="single_contact" (click)="showWindow('contactDetails')">
+                            <section class="single_contact" (click)="showDetails()">
                                 <span class="material-symbols-outlined" style=" color:#0a406b;"> account_circle </span>
                                 <h1>Sara</h1>
                             </section>
-
-
-
                         </div>
-
                     </div>
-
                 </div>
                 <div class="editList" id="contactDetails" style="display: none">
                     <input type="text" placeholder=Add style="background-color: white; position: absolute; left: 0px;width: 180px" />
-                    <button title="add email to contact" class="material-symbols-outlined" style="position: absolute; left: 200px; color:#0a406b; width: 30px;height: 38px; padding: 1px "> add </button>
+                    <button title="add email to contact" class="material-symbols-outlined" style="position: absolute; left: 200px; color:#0a406b;width: 30px;height: 38px; padding: 1px "> add </button>
                     <h1 (input)="edit()" contenteditable="true" id="name" style="position: absolute; top: 28px;left: 50px">sara</h1>
                     <label for=name style="position: absolute; top: 40px">Name:</label>
-                    <!--                <span  class="material-symbols-outlined" style=" color:#0a406b;position: absolute;left: 80px;bottom: 128px" >edit </span>-->
+
                     <section class="EmailContact">
                         <span class="material-symbols-outlined" style=" color:#0a406b;">mail </span>
                         <h1 (click)="edit()" contenteditable="true" id="email">Sara@galaxy.com</h1>
-                        <!--                  <span (click)="edit()"  class="material-symbols-outlined" style=" color:#0a406b;" >edit </span>-->
-                        <span id="done" class="material-symbols-outlined" style=" color:#0a406b;position: absolute; left: 170px; display: none ">done </span>
-                        <span class="material-symbols-outlined" style=" color:#0a406b; position: absolute; left: 200px; ">delete </span>
+                        <span id="done" class="material-symbols-outlined" style=" color:#0a406b;position: absolute; left: 170px; display: none"> done </span>
+                        <span class="material-symbols-outlined" style=" color:#0a406b; position: absolute; left: 200px;">delete </span>
                     </section>
-                    <!--    <span  title="edit contact" class="material-symbols-outlined"  style="position: absolute; lef   t: 200px; color:#0a406b;"> edit </span>-->
+
                 </div>
                 <div class="profile">
                     <button title="profile" class="material-symbols-outlined" (click)="showWindow('profile-content')">account_circle</button>
@@ -111,7 +107,7 @@
             <div class="emailList">
                 <div class="emailList_settings">
                     <div class="emailList_settingsLeft">
-                        <input type="checkbox" class="material-symbols-outlined">
+                        <input type="checkbox" id="selectAll" (change)="selectAll()" class="material-symbols-outlined">
                         <select class="List" name="List">//filter
                         <option value="1">Filter</option>
                         <option value="2" (click)="filter('subject')">Subject</option>
@@ -119,8 +115,8 @@
                       </select>
                         <select class="List" name="List">//filter//sort
                         <option value="1">sort</option>
-                        <option value="subject" (click)="sort('subject')" >Subject</option>
-                        <option value="sender" (click)="sort('sender')" >Sender</option>
+                        <!-- <option value="subject" (click)="sort('subject')" >Subject</option>
+                        <option value="sender" (click)="sort('sender')" >Sender</option> -->
                       </select>
                         <span class="material-symbols-outlined">Refresh</span>
                     </div>
@@ -139,8 +135,8 @@
                     </div>
 
                     <div class="emailList_settingsRight">
-                        <span class="material-symbols-outlined" (click)="pagesNavigate('previous')">chevron_left</span>
-                        <span class="material-symbols-outlined" (click)="pagesNavigate('next')">chevron_right</span>
+                        <!-- <span class="material-symbols-outlined" (click)="pagesNavigate('previous')">chevron_left</span>
+                      <span class="material-symbols-outlined" (click)="pagesNavigate('next')">chevron_right</span> -->
                     </div>
                 </div>
                 <!-- sections end -->
@@ -153,6 +149,7 @@
 
 <div class="mails">
     <span class="email" *ngFor="let email of shownEmails; let i = index">
+    <input type="checkbox" (change)="select(i)" id={{i}} class="material-symbols-outlined">
     <button class = "material-symbols-outlined" style="position: relative; bottom:-20px; left:20px" (click)="setOpenedEmail(i)" routerLink="/mail-box"  >mail</button>
     <div style="position: relative; left:45px; top: 25px; font-size: 17px;" id="read">{{email.getFrom()}}</div>
     <div style="position: relative; left:550px; top: 10px; font-size: 17px;" id="read">{{email.getSubject()}}</div>
