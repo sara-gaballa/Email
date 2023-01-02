@@ -36,7 +36,15 @@ export class EmailHttpService{
     public addFolder(name:string){
       console.log("Sending request...");
       console.log("name of the folder: "+name);
-      return this.http.get<void>(this.mailUrl + "addFolder",{params:{name}}).subscribe();
+      return this.http.get<void>(this.mailUrl + "addFolder",{params:{name}});
+    }
+
+    public renameFolder(oldName: string, newName: string){
+      return this.http.put<void>(this.mailUrl + "renameFolder", {params:{oldName, newName}});
+    }
+
+    public deleteFolder(name: string){
+      return this.http.delete<void>(this.mailUrl + "deleteFolder", {params:{name}});
     }
 
     // public getFolders() {
@@ -45,7 +53,7 @@ export class EmailHttpService{
     //   return this.http.get<string[]>(this.mailUrl + "getFolders",httpOptions);
     // }
 
-    sendEmail(email: Email, to: string[]) {
+    sendEmail(email: Email) {
       console.log("Sending request...");
       console.log(email);
       return this.http.post<Email>(this.mailUrl + "send", email, httpOptions);
@@ -53,7 +61,11 @@ export class EmailHttpService{
 
     //gets current page of the passed folder
     getEMails(folder: string){
-      return this.http.get<Email[]>(this.mailUrl + "getMails/" + {params:{folder}});
+      return this.http.get<Email[]>(this.mailUrl + "getMails" + {params:{folder}});
+    }
+
+    deleteMails(folder: string, ids: string[]){
+      return this.http.delete<void>(this.mailUrl + "delete", {params:{folder, ids}});
     }
 
     //gets current page of the passed folder
@@ -63,16 +75,49 @@ export class EmailHttpService{
       return this.http.post<Email[]>(this.mailUrl + "filter/" + criteria + "/" + value, httpOptions)
     }
 
+    move(from: string, to: string, ids: string[]){
+      return this.http.put<void>(this.mailUrl + "move", {params:{from, to, ids}});
+    }
+
     forwardEmail(email: Email, users: User[]) {} //forward to selected contacts
 
-    logout() {}
+    logout() {
+      return this.http.get<void>(this.mailUrl + "signOut");
+    }
 
-    updateFolders(action: string, name: string) {} //add delete rename
-
-    updateEmail(action: string, id: string) {} //add or delete email
-
-    sort(folder: string, sort: string) {
-      return this.http.post<Email[]>(this.mailUrl + "filter/" + folder + "/" + sort, httpOptions)
+    sort(attribute: string) {
+      return this.http.get<Email[]>(this.mailUrl + "sort", {params:{attribute}})
     } //filter is the same so prameter will handel both
+
+    sortByPriority() {
+      return this.http.get<Email[]>(this.mailUrl + "priority");
+    } //
+    search(attributes: string[], value: string){
+      return this.http.get<Email[]>(this.mailUrl + "search", {params:{attributes, value}});
+    }
+
+    addContact(contact: Contact){
+      return this.http.post<void>(this.mailUrl + "addContact", contact);
+    }
+
+    editContact(name: string, contact: Contact){
+      return this.http.put<void>(this.mailUrl + "editContact/" + name, contact);
+    }
+
+    deleteContact(name: string){
+      return this.http.delete<void>(this.mailUrl + "deleteContact/" + name);
+    }
+
+    searchContacts(attribute: string, value: string){
+      return this.http.get<Contact[]>(this.mailUrl + "searchContact", {params:{attribute, value}});
+    }
+
+    sortContacts(name: string){
+      return this.http.get<Contact[]>(this.mailUrl + "sortContacts");
+    }
+
+    openAttachment(name: string){
+      return this.http.get<void>(this.mailUrl + "open", {params:{name}});
+    }
 
 }
