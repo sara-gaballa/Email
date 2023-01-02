@@ -6,7 +6,7 @@ export class User {
   private lastName: string;
   private email: string;
   private password: string;
-  private contacts: Contact[] = [new Contact('name', 'sdckn', []) ];
+  private contacts: Contact[] = [new Contact( []) ];
   private userFolders: string[] = [];
 
   constructor(firstName: string, lastName: string, email: string, password: string, contacts: Contact[]) {

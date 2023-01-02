@@ -51,7 +51,7 @@ export class EmailHttpService{
       return this.http.post<Email>(this.mailUrl + "send", email, httpOptions);
     } //sends email on compose
 
-    getContact(): Contact { return new Contact("Rowaina", "rowainaabdelnasser@gmail.com", ["Sara", "Nancy", "Mariam"]) }
+    getContact(): Contact { return new Contact(["Sara", "Nancy", "Mariam"]) }
 
     getUser(): User { return new User("Rowaina", "Abdelnaser", "Rowainaabdelnasser@gmail.com", "Rowaina20000", []) }
 

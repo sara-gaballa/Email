@@ -67,6 +67,10 @@ export class EmailService {
       this.folders[index].setIcon()
       //TODO send to back to rename
     }
+     
+    delete(){
+
+    }
 
     getCurrentFolder() { return this.currentFolder }
 
