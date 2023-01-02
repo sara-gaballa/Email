@@ -40,7 +40,7 @@ export class EmailHttpService{
     }
 
     public renameFolder(oldName: string, newName: string){
-      return this.http.put<void>(this.mailUrl + "renameFolder", {params:{oldName, newName}});
+      return this.http.get<void>(this.mailUrl + "renameFolder", {params:{oldName, newName}});
     }
 
     public deleteFolder(name: string){

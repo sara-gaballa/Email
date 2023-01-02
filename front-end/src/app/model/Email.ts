@@ -14,7 +14,7 @@ export class Email {
 
   protected body: string = '';
 
-  private Priority: string = '';
+  private priority: string = '';
 
   protected attachments: string[] = [];
 
@@ -25,7 +25,7 @@ export class Email {
     this.time = time
     this.subject = subject
     this.body = body
-    this.Priority=priority
+    this.priority=priority
     this.id = id
     this.attachments=attachments
   }

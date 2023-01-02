@@ -1,0 +1,11 @@
+{
+  "id" : "",
+  "from" : "",
+  "to" : [ "abc" ],
+  "date" : "1/2/2023",
+  "time" : "18:30:5",
+  "subject" : "compose test",
+  "body" : "aaa",
+  "priority" : null,
+  "attachments" : [ ]
+}

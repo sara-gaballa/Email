@@ -1,0 +1,11 @@
+{
+  "id" : "",
+  "from" : "sara@galaxy.com",
+  "to" : [ "neso@galaxy.com" ],
+  "date" : "1/2/2023",
+  "time" : "19:1:14",
+  "subject" : "compose test",
+  "body" : "qs",
+  "priority" : "HIGH",
+  "attachments" : [ ]
+}

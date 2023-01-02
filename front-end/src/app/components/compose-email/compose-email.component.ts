@@ -42,13 +42,12 @@ getatt():string[]{
 }
 
 run(file:string){
-
-    let path="D:\\CSE25\\Second year\\programming 2\\email\\Email\\back-end\\attatchments\\";
+   this.httpService.openAttachment(file).subscribe();
 
 }
   composeEmail(operation: string) { //facade
     let to = document.getElementById("to") as HTMLInputElement;
-    let from = this.emailService.getUser().getEmail();
+    let from =this.emailService.getUser().getEmail();
     let priority = document.getElementById("priority") as HTMLInputElement;
     let sentDate = new Date();
     let time = sentDate.getHours()+":"+sentDate.getMinutes()+":"+sentDate.getSeconds();
@@ -64,8 +63,12 @@ run(file:string){
     this.email = new Email('', from, to_arr, sentDate.toLocaleDateString(), time,subject.value, body.value, priority.value, attachments)
     if(operation==='send'){
       let index = this.emailService.names.indexOf('sent')
-      console.log(this.email)
+      // console.log(this.email)
       this.folders[index].addEmail(this.email)
+      this.httpService.sendEmail(this.email).subscribe( res=>{
+
+        console.log(res)
+      })
       //TODO send to back
     }
     else if(operation==='draft'){
@@ -73,6 +76,6 @@ run(file:string){
       this.folders[index].addEmail(this.email)
       //TODO send to back
     }
-    this.httpService.sendEmail(this.email, to_arr)
+
   }
 }

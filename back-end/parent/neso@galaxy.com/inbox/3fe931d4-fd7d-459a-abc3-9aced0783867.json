@@ -1,0 +1,11 @@
+{
+  "id" : "3fe931d4-fd7d-459a-abc3-9aced0783867",
+  "from" : "sara@galaxy.com",
+  "to" : [ "neso@galaxy.com" ],
+  "date" : "1/2/2023",
+  "time" : "19:4:44",
+  "subject" : "",
+  "body" : "ffef",
+  "priority" : "MEDIUM",
+  "attachments" : [ "discrete-sheet1-sara mahmoud-20010652.pdf", "discrete-sheet2-20010652-sara.pdf", "sheet3-discrete-20010652-sara.pdf", "sheet4-discrete-20010652-sara.pdf", "sheet5-discrete-20010652-sara.pdf", "sheet6-discrete-20010652-sara.pdf", "sheet7-discrete-20010652-sara.pdf", "sheet8-discrete-20010652-sara.pdf", "sheet9-discrete-20010652-sara.pdf", "sheet10-discrete-20010652-sara.pdf" ]
+}

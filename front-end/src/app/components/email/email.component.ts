@@ -26,6 +26,7 @@ export class EmailComponent implements OnInit {
 
   constructor(private httpService: EmailHttpService, private emailService: EmailService) {
     this.shownFolders = emailService.getFolders()
+    // this.contacts=emailService.getUser().getContacts();
     console.log(this.shownFolders + "hhhhhhhhhhhhh")
     this.shownEmails = []
   }
@@ -38,7 +39,8 @@ export class EmailComponent implements OnInit {
   initiateEmail(){
     this.emailService.setFolders()
     this.shownFolders = this.emailService.getFolders()
-    console.log(this.shownFolders)
+    this.contacts=this.emailService.getUser().getContacts();
+    console.log(this.contacts)
   }
 
 
@@ -107,7 +109,9 @@ export class EmailComponent implements OnInit {
       let click = document.getElementById("NewFolder");
       click!.style.display = "none";
     }
+    this.httpService.addFolder(name.value).subscribe();
     name.value = '';
+
   }
 
   showWindow(window: string) {
@@ -210,10 +214,14 @@ export class EmailComponent implements OnInit {
     }
     this.allSelected = false
     this.selectAll()
+
     //TODO send to back
   }
-
-  showDetails(id: number){
+contact():Contact[]{
+  console.log(this.emailService.getUser().getContacts())
+  return this.emailService.getUser().getContacts();
+}
+  showDetails(i:number){
     let click = document.getElementById("contactDetails");
     if (click != null && click.style.display === "none") {
       click.style.display = "block";
@@ -228,21 +236,28 @@ export class EmailComponent implements OnInit {
   }
 
   rename(window: Folder,id:HTMLInputElement) {
-    id.addEventListener("keypress", function(event) {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        if(id.value!=''){
-          window.setName(id.value);}
-        else{
-          //nothing
-        }
-      }
-    });
+    // let prevname=window.getName();
+    // id.addEventListener("keypress", function(event) {
+    //   if (event.key === "Enter") {
+    //     event.preventDefault();
+    //     if(id.value!=''){
+    //
+    //       window.setName(id.value);}
+    //
+    //   }
+    // });
+
+    this.httpService.renameFolder(window.getName(),id.value).subscribe();
+    console.log("prev"+window.getName()+"   "+"new"+id.value)
+    window.setName(id.value);
+
   }
 
   delete(folder: Folder){
     if (confirm('The folder will be deleted permanently')) {
-      this.deleteFolder(folder.getName());}
+      this.deleteFolder(folder.getName());
+      this.httpService.deleteFolder(folder.getName()).subscribe();
+    }
   }
 
   moveEmailToFolder(id: number, folder: string) {

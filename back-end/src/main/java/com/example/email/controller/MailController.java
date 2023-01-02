@@ -45,9 +45,13 @@ public class MailController {
         try {
             User user = logging.signIn(email, password);
             service.updateTrash(user); // update trash by deleting emails exceeding 30 days
+            System.out.println(user);
             return new ResponseEntity<>(user, HttpStatus.OK);
+
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
         }
 
     }
@@ -63,10 +67,11 @@ public class MailController {
         System.out.println(logging.getCurrentUser().getFirstName() + " has added " + name + " folder.");
     }
 
-    @PutMapping("/renameFolder")
+    @GetMapping("/renameFolder")
     public void renameFolder(@RequestParam String oldName, @RequestParam String newName) {
-        service.renameFolder(logging.getCurrentUser(), oldName, newName);
         System.out.println(logging.getCurrentUser().getFirstName() + " has renamed " + oldName + " to " + newName + " folder.");
+        service.renameFolder(logging.getCurrentUser(), oldName, newName);
+
     }
 
     @DeleteMapping("/deleteFolder")
@@ -86,7 +91,9 @@ public class MailController {
 
         try {
             this.service.sendMail(email, q);
+            System.out.println("ok");
         } catch (Exception e) {
+            System.out.println("error");
         }
         // System.out.println(mockUser.getEmail());
         return email;

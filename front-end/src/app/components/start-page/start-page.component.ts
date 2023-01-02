@@ -6,6 +6,7 @@ import { EmailComponent } from '../email/email.component';
 import {Router} from "@angular/router";
 import {Email} from "../../model/Email";
 import {Folder} from "../../model/folder";
+import {Contact} from "../../model/Contact";
 
 @Component({
   selector: 'app-start-page',
@@ -33,7 +34,13 @@ export class StartPageComponent implements OnInit {
   signIn(email: string, password: string) {
 
       this.httpService.signIn(email, password).subscribe((user) => {
-      let userr = new User(user['firstName'], user['lastName'], user['email'], user['password'], user['contacts'], user['userFolders'])
+        let contact:Contact[] = new Array(user['contacts'].length)
+        for(let i = 0; i < user['contacts'].length; i++) {
+          contact[i]=(new Contact(user['contacts'][i]['emails'], user['contacts'][i]['name']))
+          console.log(contact)
+        }
+        console.log(contact[0].getName())
+      let userr = new User(user['firstName'], user['lastName'], user['email'], user['password'], contact, user['userFolders'])
       this.emailService.setUser(userr)
       let email=new EmailComponent(this.httpService,this.emailService);
       email.initiateEmail();

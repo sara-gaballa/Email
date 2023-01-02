@@ -24,14 +24,14 @@
 
 
                         <div class="contact_list">
-                            <section class="single_contact" *ngFor="let contact of contacts; let i = index" (click)="showDetails(i)">
+                            <section class="single_contact" *ngFor="let contact of contact(); let i = index;" (click)="showDetails(i)" >
                                 <span class="material-symbols-outlined" style=" color:#0a406b;"> account_circle </span>
-                                <h1>{{contact.getName()}}</h1>
+                                <h1 #{{contact.getName()}}>{{contact.getName()}}</h1>
                             </section>
                         </div>
                     </div>
                 </div>
-                <div class="editList" id="contactDetails" style="display: none">
+                <div class="editList" id="contactDetails" style="display: none" >
                     <span title="back to contacts list" class="material-symbols-outlined" style="position: absolute; left: -7px; color:#0a406b; " (click)="backToContacts()">arrow_back_ios</span>
                     <input type="text" placeholder=Add style="background-color: white; position: absolute; left: 22px;width: 180px; " />
                     <span title="add email to contact" class="material-symbols-outlined" style="position: absolute; left: 183px; color:#0a406b; top: -2px "> add </span>
@@ -40,7 +40,7 @@
 
                     <section class="EmailContact">
                         <span class="material-symbols-outlined" style=" color:#0a406b;">mail </span>
-                        <h1 (click)="edit()" contenteditable="true" id="email">Sara@galaxy.com</h1>
+                        <h1 (click)="edit()" contenteditable="true" id="email"></h1>
                         <span id="done" class="material-symbols-outlined" style=" color:#0a406b;position: absolute; left: 170px; display: none"> done </span>
                         <span class="material-symbols-outlined" style=" color:#0a406b; position: absolute; left: 200px;">delete </span>
                     </section>
@@ -101,7 +101,8 @@
                             <ng-template [ngIf]="folder.getName()!='inbox' && folder.getName()!='draft' && folder.getName()!='trash' && folder.getName()!='sent'">
                                 <button class="material-symbols-outlined" (click)="showWindow(folder.getName())">arrow_drop_down</button>
                                 <div id={{folder.getName()}} class="newFoler" style="display:none; position:absolute;">
-                                    <input class="FFolder" (click)="rename(folder,rename_id)" type="text" #rename_id placeholder="rename">
+                                    <input class="FFolder"  type="text" #rename_id placeholder="rename">
+                                    <button class="material-symbols-outlined" (click)="rename(folder,rename_id)" >add</button>
                                     <button class="material-symbols-outlined" (click)="delete(folder)">Delete</button>
                                 </div>
                             </ng-template>

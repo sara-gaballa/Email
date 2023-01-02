@@ -1,0 +1,11 @@
+{
+  "id" : "",
+  "from" : "yasmeen@galaxy.com",
+  "to" : [ "sara@galaxy.com", "nancy@galaxy", "rowaina@galaxy", "mariam@galaxy " ],
+  "date" : "1/2/2023",
+  "time" : "18:51:23",
+  "subject" : "sf",
+  "body" : "sssssssss",
+  "priority" : null,
+  "attachments" : [ ]
+}

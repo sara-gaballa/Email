@@ -33,7 +33,6 @@ public class Email implements Comparable<Email> {
 
     // set id only one time
     public void setId(String id) {
-        if (this.id == null)
             this.id = id;
     }
 
