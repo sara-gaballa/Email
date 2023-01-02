@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -69,7 +68,11 @@ public class MailController {
     @PostMapping("/send")
     public Email send(@RequestBody Email email) {
         Queue<String> q = new PriorityQueue<>();
-        q.addAll(Arrays.asList(email.getTo()));
+        for (String to : email.getTo()) {
+            if (logging.findUser(to) == null)
+                continue;
+            q.add(to);
+        }
 
         try {
             this.service.sendMail(email, q);
