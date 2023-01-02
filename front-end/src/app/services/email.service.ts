@@ -21,13 +21,10 @@ export class EmailService {
     public names: string[] = ['inbox', 'sent', 'draft', 'trash']; //only used to access folder not more or less
 
     //singleton
-    openedEmail: Email = new Email("" ,"Rowaina", "SaraNancyMariam", "12/27/2022", "11:50AM", "The Project is on fire", "GG","high",[])
+    openedEmail: Email = new Email("" ,"Rowaina", [], "12/27/2022", "11:50AM", "The Project is on fire", "GG","high",[])
 
     //singleton
     private user: User = new User("Rowaina", "Abdelanser", "Rowainaabdelansser@gamil.com", "dfvbkvfdkjvb", []) //current user
-
-    //singleton
-    public emailIterator: EmailIterator
 
     constructor(private httpService: EmailHttpService) {
       for(let i = 0; i < 4; i++) {
@@ -42,52 +39,18 @@ export class EmailService {
       });
     }
 
+    getAllEmails(folder: string): Email[] {
+      return this.folders[this.names.indexOf(folder)].getEmails()
+    }
+
     //get updated folders
     getFolders(): Folder[] { return this.folders }
-
-    //add folder (observer updated)
-    addFolder(name: string) {
-      this.folders.push(new Folder(name))
-      this.names.push(name)
-      this.httpService.addFolder(name);
-    }
-
-    //delete folder (observer updated)
-    deleteFolder(name: string) {
-      let index = this.names.indexOf(name)
-      this.names.splice(index, 1)
-      this.folders.splice(index, 1)
-      //TODO send to back to delete
-    }
-
-    //rename folder (observer updated)
-    renameFolder(before:string, after: string) {
-      let index = this.names.indexOf(before)
-      this.folders[index].setName(after)
-      this.folders[index].setIcon()
-      //TODO send to back to rename
-    }
-     
-    delete(){
-
-    }
 
     getCurrentFolder() { return this.currentFolder }
 
     setCurrentFolder(currentFolder: string) {
       this.currentFolder = currentFolder
       if(this.folders[this.names.indexOf(currentFolder)].getEmails().length == 0) {/*TODO send to back to take the required mails*/}
-    }
-
-    getAllEmails(folder: string): Email[] {
-      return this.folders[this.names.indexOf(folder)].getEmails()
-    }
-
-    getPageEmails(state: string): Email[] {
-      if(state === 'current') {
-        return this.emailIterator.getCurrentPage()
-      }
-      return this.folders[this.names.indexOf(this.currentFolder)].getEmails()
     }
 
     setOpenedEmail(email: Email) { this.openedEmail = email }

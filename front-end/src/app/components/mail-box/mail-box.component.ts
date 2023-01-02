@@ -16,9 +16,6 @@ export class MailBoxComponent implements OnInit {
   }
 
   getOpenedEmail(): Email {
-    if(this.emailService.getCurrentFolder() === 'draft') {
-    //TODO Draft
-    }
     return this.emailService.getOpenedEmail()
   }
 

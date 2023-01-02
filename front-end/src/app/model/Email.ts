@@ -4,7 +4,7 @@ export class Email {
 
   protected from: string = '';
 
-  protected to: string = '';
+  protected to: string[] = [];
 
   protected date: string = '';
 
@@ -18,7 +18,7 @@ export class Email {
 
   protected attachments: string[] = [];
 
-  constructor(id: string, from: string, to: string, date: string, time: string, subject: string, body: string, priority:string,attachments:string[]) {
+  constructor(id: string, from: string, to: string[], date: string, time: string, subject: string, body: string, priority:string,attachments:string[]) {
     this.from = from
     this.to = to
     this.date = date
@@ -40,7 +40,7 @@ export class Email {
 
   getFrom(): string { return this.from }
 
-  getTo(): string { return this.to }
+  getTo(): string[] { return this.to }
 
   getBody(): string { return this.body }
 

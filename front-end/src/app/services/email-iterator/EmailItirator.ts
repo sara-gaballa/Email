@@ -4,10 +4,10 @@ import { IEmailIterator } from "./IEmailIterator";
 
 export class EmailIterator implements IEmailIterator{
 
-  emails: Email[] //emails of current folder
-  currentPage: Email[]
-  nextPage: Email[]
-  previousPage: Email[]
+  emails: Email[] = [] //emails of current folder
+  currentPage: Email[] = []
+  nextPage: Email[] = []
+  previousPage: Email[] = []
 
   constructor(private emailService: EmailService) { //initially inbox
     this.setAllEMails(emailService.getAllEmails('inbox'))
@@ -79,7 +79,7 @@ export class EmailIterator implements IEmailIterator{
 
   setAllEMails(emails: Email[]): void { //initializes the iterator, each page contains maximum 10 emails
     this.emails = emails
-    this.previousPage = []
+    /* this.previousPage = []
     this.currentPage = []
     this.nextPage = []
     for(let i = 0; i < emails.length; i++) {
@@ -88,7 +88,7 @@ export class EmailIterator implements IEmailIterator{
       else if(i < 20 && i >= 10 && emails.length - i - 1 > 0) {
         this.nextPage.push(emails[i])
       }
-    }
+    } */
   }
 
 }

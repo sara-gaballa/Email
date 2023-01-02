@@ -66,7 +66,7 @@ public class MailController {
     }
 
     @PostMapping("/send")
-    public void send(@RequestBody Email email) {
+    public Email send(@RequestBody Email email) {
         Queue<String> q = new PriorityQueue<>();
         q.addAll(Arrays.asList(email.getTo()));
 
@@ -75,6 +75,7 @@ public class MailController {
         } catch (Exception e) {
         }
         // System.out.println(mockUser.getEmail());
+        return email;
     }
 
     @DeleteMapping("/delete")
