@@ -127,30 +127,49 @@
                 <div class="emailList_settings">
                     <div class="emailList_settingsLeft">
                         <input type="checkbox" id="selectAll" (change)="selectAll()" class="material-symbols-outlined">
-                        <select class="List" name="List">//filter
-                        <option value="1">Filter</option>
-                        <option value="2" (click)="filter('subject')">Subject</option>
-                        <option value="3" (click)="filter('sender')">Sender</option>
+                        <select class="List" name="List" (change)="filter()" id="filtertype">//filter
+                        <option >Filter</option>
+                        <option value="subject" >Subject</option>
+                        <option value="sender" >Sender</option>
                       </select>
-                        <select class="List" name="List">//filter//sort
-                        <option value="1">sort</option>
-                        <option value="subject" (click)="sort('subject')" >Subject</option>
-                        <option value="sender" (click)="sort('sender')" >Sender</option>
+                      <input type="text" style="position: absolute; left: 300px; width: 80px" id="filterDest">
+                        <select class="List" name="List" id="sort" (change)="sort()" style="position: absolute;right: 80px">//filter//sort
+                        <option >sort</option>
+                        <option value="subject"  >Subject</option>
+                        <option value="sender"  >Sender</option>
+                          <option value="receivers"  >Receivers</option>
+                          <option value="date"  >Date</option>
+                          <option value="body"  >Body</option>
+                          <option value="priority"  >Priority</option>
+                          <option value="attachments"  >Attachments</option>
+
+
                       </select>
-                        <span class="material-symbols-outlined">Refresh</span>
+                        <span class="material-symbols-outlined"  style="position: absolute;left: 400px">Refresh</span>
                     </div>
                     <!-- sections start -->
                     <div class="emailList_sections">
-                        <span class="material-symbols-outlined"> search </span>
-                        <input type="text" placeholder={{search}}/>
-                        <div class="dropdown">
-                            <span class="material-symbols-outlined">arrow_drop_down</span>
-                            <div class="dropdown-content">
-                                <a (click)="changeSearchLabel('Search All Mail')" value="All">All</a>
-                                <a (click)="changeSearchLabel('Search Subject Mail')" value="Subject">Subject</a>
-                                <a (click)="changeSearchLabel('Search Sender Mail')" value="Sender">Sender</a>
-                            </div>
-                        </div>
+                        <span class="material-symbols-outlined" (click)="search()"> search </span>
+                        <input type="text" placeholder="search"  id="searchData" />
+                      <form id="search">
+                          <select class="List"  style="width: 100px" name="type"  multiple>//filter
+                            <option value="subject"  >Subject</option>
+                            <option value="from"  >Sender</option>
+                            <option value="to"  >Receivers</option>
+                            <option value="date"  >Date</option>
+                            <option value="body"  >Body</option>
+                            <option value="priority"  >Priority</option>
+                            <option value="attachments"  >Attachments</option>
+                          </select>
+                      </form>
+
+<!--                          <span class="material-symbols-outlined">arrow_drop_down</span>-->
+<!--                            <div class="dropdown-content">-->
+<!--                                <a (click)="changeSearchLabel('Search All Mail')" value="All">All</a>-->
+<!--                                <a (click)="changeSearchLabel('Search Subject Mail')" value="Subject">Subject</a>-->
+<!--                                <a (click)="changeSearchLabel('Search Sender Mail')" value="Sender">Sender</a>-->
+<!--                            </div>-->
+
                     </div>
 
                     <div class="emailList_settingsRight">

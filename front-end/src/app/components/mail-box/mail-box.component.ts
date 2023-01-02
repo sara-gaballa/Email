@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Email } from 'src/app/model/Email';
 import { EmailService } from 'src/app/services/email.service';
+import * as http from "http";
+import {EmailHttpService} from "../../services/http.service";
 
 @Component({
   selector: 'app-mail-box',
@@ -10,7 +12,7 @@ import { EmailService } from 'src/app/services/email.service';
 
 export class MailBoxComponent implements OnInit {
 
-  constructor(private emailService: EmailService) { }
+  constructor(private emailService: EmailService,private httpService: EmailHttpService) { }
 
   ngOnInit(): void {
   }
@@ -18,5 +20,8 @@ export class MailBoxComponent implements OnInit {
   getOpenedEmail(): Email {
     return this.emailService.getOpenedEmail()
   }
+  run(file:string){
+    this.httpService.openAttachment(file).subscribe();
 
+  }
 }

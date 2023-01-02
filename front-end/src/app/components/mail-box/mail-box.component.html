@@ -20,5 +20,9 @@
     <div class="Body">
         <h6>{{getOpenedEmail().getBody()}}</h6>
     </div>
-
+  <div class="files">
+    <ul style="position: absolute;">
+      <li   *ngFor="let att of getOpenedEmail().getAttachments();let i = index;" (click)="run(att)" >{{att}}</li>
+    </ul>
+  </div>
 </form>

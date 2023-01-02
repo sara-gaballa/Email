@@ -41,10 +41,10 @@ getatt():string[]{
 
 }
 
-run(file:string){
-   this.httpService.openAttachment(file).subscribe();
+  run(file:string){
+    this.httpService.openAttachment(file).subscribe();
 
-}
+  }
   composeEmail(operation: string) { //facade
     let to = document.getElementById("to") as HTMLInputElement;
     let from =this.emailService.getUser().getEmail();
@@ -66,10 +66,9 @@ run(file:string){
       // console.log(this.email)
       this.folders[index].addEmail(this.email)
       this.httpService.sendEmail(this.email).subscribe( res=>{
-
+        this.email.setID(res["id"]);
         console.log(res)
       })
-      //TODO send to back
     }
     else if(operation==='draft'){
       let index = this.emailService.names.indexOf('draft')

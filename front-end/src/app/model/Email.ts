@@ -29,7 +29,7 @@ export class Email {
     this.id = id
     this.attachments=attachments
   }
-
+  setID(id:string){this.id=id; }
   getDate(): string { return this.date }
 
   getTime(): string { return this.time }
