@@ -77,7 +77,7 @@ export class EmailService {
     getOpenedEmail(): Email { return this.openedEmail }
 
     setUser(user: User) {
-      console.log(user)
+      console.log(user);
       this.user = user
     }
 
