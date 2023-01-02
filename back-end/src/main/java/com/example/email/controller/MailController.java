@@ -89,9 +89,8 @@ public class MailController {
                 continue;
             q.add(to);
         }
-
         try {
-            this.service.sendMail(email, q);
+            email = this.service.sendMail(email, q);
             System.out.println("ok");
         } catch (Exception e) {
             System.out.println("error");
