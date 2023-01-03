@@ -719,3 +719,24 @@ h1 {
   cursor: pointer;
   top: 170px;
 }
+#addeditcontact{
+  position: sticky;
+  height: 30px;
+  width: 60px;
+  display: block;
+  font-size: 18px;
+  border: 2px solid rgb(114, 143, 246);
+  background-image: linear-gradient(to bottom, rgba(205, 172, 231, 0.85), rgb(125, 156, 227));
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 20px;
+  color: rgb(246, 246, 246);
+  text-decoration: none;
+  cursor: pointer;
+  top: 250px;
+  left: 220px;
+}

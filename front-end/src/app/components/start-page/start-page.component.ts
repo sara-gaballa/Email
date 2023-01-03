@@ -7,6 +7,8 @@ import {Router} from "@angular/router";
 import {Email} from "../../model/Email";
 import {Folder} from "../../model/folder";
 import {Contact} from "../../model/Contact";
+import {delay, Observable} from "rxjs";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-start-page',
@@ -20,7 +22,7 @@ export class StartPageComponent implements OnInit {
   }
 
   //Should be false by default and set to true by back
-  private valid = true
+  public valid = false
 
   ngOnInit(): void {}
 
@@ -39,15 +41,25 @@ export class StartPageComponent implements OnInit {
           contact[i]=(new Contact(user['contacts'][i]['emails'], user['contacts'][i]['name']))
           console.log(contact)
         }
-
         console.log(contact[0].getName())
         let userr = new User(user['firstName'], user['lastName'], user['email'], user['password'], contact, user['userFolders'])
         this.emailService.setUser(userr)
         let email=new EmailComponent(this.httpService,this.emailService,this.route);
         email.initiateEmail();
+        this.valid=true
+        //
+        // ,error(error)=>{
+        //   this.valid=false
+        // }
 
+        // delay(100000)
+        // console.log(this.valid)
+        // if(this.valid) this.route.navigate(["/emails"]);
+        // return this.handleError()
     })
-    this.route.navigate(["/emails"]);
-  }
 
+  }
+  // handleError() {
+  //     this.route.navigate(["/emails"]);
+  // }
 }

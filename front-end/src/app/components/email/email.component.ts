@@ -15,7 +15,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./email.component.css']
 })
 export class EmailComponent implements OnInit {
-
+  check:number=0;
   click: string = ''
   shownFolders: Folder[] = []
   shownEmails: Email[] = []
@@ -158,28 +158,8 @@ export class EmailComponent implements OnInit {
 
   //TODO add icon for mail selection
   //selection of one mail
-  selectAllOne(id: number, checked: boolean) {
-    let index = id + ''
-    let click = document.getElementById(index) as HTMLInputElement;
-    if(checked) {
-      click.setAttribute("checked", "checked");
-      this.selectedEmails.push(this.shownEmails[id])
-    } else {
-      click.removeAttribute("checked");
-    }
-  }
 
-  select(id: number) {
-    let index = id + ''
-    let click = document.getElementById(index) as HTMLInputElement;
-    if(click.checked) {
-      click.setAttribute("checked", "checked");
-      this.selectedEmails.push(this.shownEmails[id])
-    } else {
-      click.removeAttribute("checked");
-      this.selectedEmails.splice(this.shownEmails.indexOf(this.selectedEmails[id]), 1)
-    }
-  }
+
 
 
   search(){
@@ -200,19 +180,6 @@ export class EmailComponent implements OnInit {
     console.log(data.value, t.getAll('type'));
   }
   //TODO add to select all button
-  selectAll() {
-    this.selectedEmails = []
-    let click = document.getElementById('selectAll') as HTMLInputElement;
-    if(click.checked) {
-      for(let i = 0; i < this.shownEmails.length; i++) {
-        this.selectAllOne(i, true)
-      }
-    } else {
-      for(let i = 0; i < this.shownEmails.length; i++) {
-        this.selectAllOne(i, false)
-      }
-    }
-  }
 
   // sort(sort: string) {
   //   this.emailService.sort(this.emailService.getCurrentFolder(), sort)
@@ -285,16 +252,7 @@ contact():Contact[]{
     }
   }
 
-  moveEmailToFolder(id: number, folder: string) {
-    if(this.emailService.getCurrentFolder() == 'trash') {
-      this.shownFolders[this.emailService.names.indexOf('trash')].removeEmail(this.shownEmails[id])
-      // this.pagesNavigate('current')
-      //TODO delete permenantly
-    }
-    this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].removeEmail(this.shownEmails[id])
-    this.shownFolders[this.emailService.names.indexOf(folder)].addEmail(this.shownEmails[id])
-    // this.pagesNavigate('current')
-  }
+
   backToContacts(){
     let contact = document.getElementById("contacts");
     let details = document.getElementById("contactDetails");
@@ -315,6 +273,10 @@ contact():Contact[]{
   addcontact(){
     let contact = document.getElementById("contacts");
     let add = document.getElementById("add_contacts");
+    let display1 = document.getElementById("enteredemail");
+    let display2 = document.getElementById("enteredname");
+    display1.textContent='';
+    display2.textContent='';
     contact.style.display="block";
     add.style.display="none";
 
@@ -363,5 +325,88 @@ contact():Contact[]{
       }
     }
   }
+  selectAllOne(id: number) {
+    let index = id + ''
+    let click = document.getElementById(index) as HTMLInputElement;
+    let click1 = document.getElementById("check-box");
+    click.checked=true;
+    this.selectedEmails.push(this.shownEmails[id])
+    click1.style.display = "block";
+  }
 
+  dontSelectAllOne(id: number) {
+    let index = id + ''
+    let click = document.getElementById(index) as HTMLInputElement;
+    let click1 = document.getElementById("check-box");
+    click.checked=false;
+    this.selectedEmails.pop()
+    click1.style.display = "none";
+  }
+
+  select(id: number) {
+    let index = id + ''
+    let click = document.getElementById(index) as HTMLInputElement;
+    let click1 = document.getElementById("check-box");
+    if(click.checked) {
+      this.check=this.check+1;
+      click.checked=true;
+      this.selectedEmails.push(this.shownEmails[id])
+      click1.style.display = "block";
+    } else {
+      this.check=this.check-1;
+      console.log(this.check)
+      if(this.check==0) {
+        click.checked=false;
+        click1.style.display = "none";
+      }
+      this.selectedEmails.splice(this.shownEmails.indexOf(this.selectedEmails[id]),1) //////////////error
+    }
+  }
+
+
+  //TODO add to select all button
+  selectAll() {
+    this.selectedEmails = []
+    let click1 = document.getElementById("check-box");
+    let click = document.getElementById('selectAll') as HTMLInputElement;
+    if(click.checked) {
+      for(let i = 0; i < this.shownEmails.length; i++) {
+        this.selectAllOne(i)
+      }
+      this.check=this.shownEmails.length;
+      click1.style.display = "block";
+    } else {
+      for(let i = 0; i < this.shownEmails.length; i++) {
+        this.dontSelectAllOne(i)
+      }
+      this.check=0;
+      click1.style.display = "none";
+    }
+  }
+
+
+  moveEmailToFolder(folder: string) {
+    if(this.emailService.getCurrentFolder() == 'trash') {
+      //TODO send to back
+    }
+    //TODO send selectedEmails to back
+    console.log(this.selectedEmails);
+    console.log("this.check: "+this.check);
+    for(var i = 0 ;i <this.selectedEmails.length ;i++){ //////////////////////////?????????
+      this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].removeEmail(this.selectedEmails[i])
+      for(let j = 0; j < this.shownEmails.length; j++) {
+        if(this.shownEmails[j].getFrom() == this.selectedEmails[i].getFrom()) { //TODO change to getId()
+          this.shownEmails.splice(j, 1)
+          break
+        }
+      }
+    }
+    this.selectedEmails = []
+    this.check = 0;
+    let click1 = document.getElementById("check-box");
+    let click = document.getElementById('selectAll') as HTMLInputElement;
+    click.checked=false;
+    click1.style.display = 'none';
+    this.pagesNavigate('current')
+  }
 }
