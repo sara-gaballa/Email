@@ -3,7 +3,6 @@ import { EmailHttpService } from './http.service';
 import { Email } from '../model/Email';
 import { Folder } from '../model/folder';
 import { User } from '../model/User';
-import { EmailIterator } from './email-iterator/EmailItirator';
 
 @Injectable({
   providedIn: 'root'

@@ -7,8 +7,7 @@ import {Router} from "@angular/router";
 import {Email} from "../../model/Email";
 import {Folder} from "../../model/folder";
 import {Contact} from "../../model/Contact";
-import {delay, Observable} from "rxjs";
-import {error} from "@angular/compiler-cli/src/transformers/util";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-start-page',
@@ -47,14 +46,9 @@ export class StartPageComponent implements OnInit {
         let email=new EmailComponent(this.httpService,this.emailService,this.route);
         email.initiateEmail();
         this.valid=true
-        //
-        // ,error(error)=>{
-        //   this.valid=false
-        // }
-
-        // delay(100000)
-        // console.log(this.valid)
-        // if(this.valid) this.route.navigate(["/emails"]);
+        ,(err)=>{
+          this.valid=false
+        }
         // return this.handleError()
     })
 
