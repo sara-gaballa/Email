@@ -17,21 +17,21 @@
                 <div class="contacts" id="contacts" style="display: none">
                     <!--   search bar-->
                     <div class="search_contacts">
-                        <span class="material-symbols-outlined" (click)="searchContact(contactSearch.value)" style="position: absolute; left: 1px"> search </span>
-                        <input type="text" #contactSearch placeholder={{search}}/>
+                        <span class="material-symbols-outlined" style="position: absolute; left: 1px"> search </span>
+                        <input type="text" placeholder={{search}}/>
                         <span title="add contacts" class="material-symbols-outlined" style="position: absolute; left: 165px; color:#0a406b;" (click)="gotoadd()"> add </span>
-                        <span title="sort contacts" class="material-symbols-outlined" (click)="sortContacts()" style="position: absolute; left: 200px; color:#0a406b;"> sort </span>
+                        <span title="sort contacts" class="material-symbols-outlined" style="position: absolute; left: 200px; color:#0a406b;"> sort </span>
 
 
                         <div class="contact_list">
-                            <section class="single_contact" *ngFor="let contact of contact(); let i = index;" (click)="showContactDetails(i)">
+                            <section class="single_contact" *ngFor="let contact of contact(); let i = index;" (click)="showDetails(i)" >
                                 <span class="material-symbols-outlined" style=" color:#0a406b;"> account_circle </span>
                                 <h1 #{{contact.getName()}}>{{contact.getName()}}</h1>
                             </section>
                         </div>
                     </div>
                 </div>
-                <div class="editList" id="contactDetails" style="display: none">
+                <div class="editList" id="contactDetails" style="display: none" >
                     <span title="back to contacts list" class="material-symbols-outlined" style="position: absolute; left: -7px; color:#0a406b; " (click)="backToContacts()">arrow_back_ios</span>
                     <input type="text" placeholder=Add style="background-color: white; position: absolute; left: 22px;width: 180px; " />
                     <span title="add email to contact" class="material-symbols-outlined" style="position: absolute; left: 183px; color:#0a406b; top: -2px "> add </span>
@@ -40,9 +40,9 @@
 
                     <section class="EmailContact">
                         <span class="material-symbols-outlined" style=" color:#0a406b;">mail </span>
-                        <h2 contenteditable="true" id="email" *ngFor="let email of currentContact.getEmails(); let i = index;" (click)="showContactDetails(i)"> {{email[i]}} </h2>
+                        <h1 (click)="edit()" contenteditable="true" id="email"></h1>
                         <span id="done" class="material-symbols-outlined" style=" color:#0a406b;position: absolute; left: 170px; display: none"> done </span>
-                        <span class="material-symbols-outlined" (click)="deleteContact()" style=" color:#0a406b; position: absolute; left: 200px;">delete </span>
+                        <span class="material-symbols-outlined" style=" color:#0a406b; position: absolute; left: 200px;">delete </span>
                     </section>
 
                 </div>
@@ -55,9 +55,9 @@
                     <label for="emailOfContact" style="position: absolute;top:60px;">Email</label>
                     <span title="Add Email" class="material-symbols-outlined" style="position: absolute; left: 243px; color:#0a406b; top: 50px " (click)="addEmail()"> add </span>
                     <p style="position: absolute; color:#000000; top: 90px ;font-size: 15px">Name Entered:</p>
-                    <p style="position: absolute; color:#000000; top: 90px ;font-size: 15px; left: 100px" #name id="enteredname"></p>
+                    <p style="position: absolute; color:#000000; top: 90px ;font-size: 15px; left: 100px" id="enteredname"></p>
                     <p style="position: absolute; color:#000000; top: 120px;font-size: 15px ;">Email Entered: </p>
-                    <p style="position: absolute; color:#000000; top: 120px;font-size: 15px ;left: 100px" #emails id="enteredemail"></p>
+                    <p style="position: absolute; color:#000000; top: 120px;font-size: 15px ;left: 100px" id="enteredemail"></p>
                     <button id="addtocontacts" (click)="addcontact()">Add</button>
                     <button id="back" (click)="back()">Back</button>
                 </div>
@@ -82,11 +82,11 @@
             <!-- side bar section start  -->
             <div class="sidebar">
                 <button class="sidebar_compose" routerLink="/compose">
-            <span class="material-symbols-outlined" >add</span>
-            Compose
-          </button>
+              <span class="material-symbols-outlined" >add</span>
+              Compose
+            </button>
 
-                <div class="sidebaroption sidebaroption_active" *ngFor="let folder of shownFolders" (click)="getPageEmails(folder.getName())">
+                <div class="sidebaroption sidebaroption_active"  *ngFor="let folder of shownFolders" (click)="getPageEmails(folder.getName())">
                     <span class="material-symbols-outlined">{{ folder.getIcon() }}</span>
                     <h3> {{ folder.getName() }} </h3>
                     <div class="default-prioprity">
@@ -101,8 +101,8 @@
                             <ng-template [ngIf]="folder.getName()!='inbox' && folder.getName()!='draft' && folder.getName()!='trash' && folder.getName()!='sent'">
                                 <button class="material-symbols-outlined" (click)="showWindow(folder.getName())">arrow_drop_down</button>
                                 <div id={{folder.getName()}} class="newFoler" style="display:none; position:absolute;">
-                                    <input class="FFolder" type="text" #rename_id placeholder="rename">
-                                    <button class="material-symbols-outlined" (click)="rename(folder, rename_id)">add</button>
+                                    <input class="FFolder"  type="text" #rename_id placeholder="rename">
+                                    <button class="material-symbols-outlined" (click)="rename(folder,rename_id)" >add</button>
                                     <button class="material-symbols-outlined" (click)="delete(folder)">Delete</button>
                                 </div>
                             </ng-template>
@@ -111,9 +111,9 @@
                 </div>
 
                 <button class="sidebar_addfolder" (click)="showWindow('NewFolder')">
-            <span class="material-symbols-outlined">create_new_folder</span>
-            add new folder
-          </button>
+              <span class="material-symbols-outlined">create_new_folder</span>
+              add new folder
+            </button>
                 <div class="addNewFolder" id="NewFolder" style="display: none;">
                     <input class="inputfolder" type="text" id="FolderName" placeholder="Folder name">
                     <button (click)="addfolder()" class="showfolder">Add</button>
@@ -128,53 +128,53 @@
                     <div class="emailList_settingsLeft">
                         <input type="checkbox" id="selectAll" (change)="selectAll()" class="material-symbols-outlined">
                         <select class="List" name="List" (change)="filter()" id="filtertype">//filter
-                      <option >Filter</option>
-                      <option value="subject" >Subject</option>
-                      <option value="sender" >Sender</option>
-                    </select>
-                        <input type="text" style="position: absolute; left: 300px; width: 80px" id="filterDest">
+                        <option >Filter</option>
+                        <option value="subject" >Subject</option>
+                        <option value="sender" >Sender</option>
+                      </select>
+                      <input type="text" style="position: absolute; left: 300px; width: 80px" id="filterDest">
                         <select class="List" name="List" id="sort" (change)="sort()" style="position: absolute;right: 80px">//filter//sort
-                      <option >sort</option>
-                      <option value="subject"  >Subject</option>
-                      <option value="sender"  >Sender</option>
-                        <option value="receivers"  >Receivers</option>
-                        <option value="date"  >Date</option>
-                        <option value="body"  >Body</option>
-                        <option value="priority"  >Priority</option>
-                        <option value="attachments"  >Attachments</option>
-
-
-                    </select>
-                        <span class="material-symbols-outlined" style="position: absolute;left: 400px">Refresh</span>
-                    </div>
-                    <!-- sections start -->
-                    <div class="emailList_sections">
-                        <span class="material-symbols-outlined" (click)="search()"> search </span>
-                        <input type="text" placeholder="search" id="searchData" />
-                        <form id="search">
-                            <select class="List" style="width: 100px" name="type" multiple>//filter
-                          <option value="subject"  >Subject</option>
-                          <option value="from"  >Sender</option>
-                          <option value="to"  >Receivers</option>
+                        <option >sort</option>
+                        <option value="subject"  >Subject</option>
+                        <option value="sender"  >Sender</option>
+                          <option value="receivers"  >Receivers</option>
                           <option value="date"  >Date</option>
                           <option value="body"  >Body</option>
                           <option value="priority"  >Priority</option>
                           <option value="attachments"  >Attachments</option>
-                        </select>
-                        </form>
 
-                        <!--                          <span class="material-symbols-outlined">arrow_drop_down</span>-->
-                        <!--                            <div class="dropdown-content">-->
-                        <!--                                <a (click)="changeSearchLabel('Search All Mail')" value="All">All</a>-->
-                        <!--                                <a (click)="changeSearchLabel('Search Subject Mail')" value="Subject">Subject</a>-->
-                        <!--                                <a (click)="changeSearchLabel('Search Sender Mail')" value="Sender">Sender</a>-->
-                        <!--                            </div>-->
+
+                      </select>
+                        <span class="material-symbols-outlined"  style="position: absolute;left: 400px">Refresh</span>
+                    </div>
+                    <!-- sections start -->
+                    <div class="emailList_sections">
+                        <span class="material-symbols-outlined" (click)="search()"> search </span>
+                        <input type="text" placeholder="search"  id="searchData" />
+                      <form id="search">
+                          <select class="List"  style="width: 100px" name="type"  multiple>//filter
+                            <option value="subject"  >Subject</option>
+                            <option value="from"  >Sender</option>
+                            <option value="to"  >Receivers</option>
+                            <option value="date"  >Date</option>
+                            <option value="body"  >Body</option>
+                            <option value="priority"  >Priority</option>
+                            <option value="attachments"  >Attachments</option>
+                          </select>
+                      </form>
+
+<!--                          <span class="material-symbols-outlined">arrow_drop_down</span>-->
+<!--                            <div class="dropdown-content">-->
+<!--                                <a (click)="changeSearchLabel('Search All Mail')" value="All">All</a>-->
+<!--                                <a (click)="changeSearchLabel('Search Subject Mail')" value="Subject">Subject</a>-->
+<!--                                <a (click)="changeSearchLabel('Search Sender Mail')" value="Sender">Sender</a>-->
+<!--                            </div>-->
 
                     </div>
 
                     <div class="emailList_settingsRight">
-                        <span class="material-symbols-outlined" (click)="pagesNavigate('previous')">chevron_left</span>
-                        <span class="material-symbols-outlined" (click)="pagesNavigate('next')">chevron_right</span>
+                    <span class="material-symbols-outlined" (click)="pagesNavigate('previous')">chevron_left</span>
+                      <span class="material-symbols-outlined" (click)="pagesNavigate('next')">chevron_right</span>
                     </div>
                 </div>
                 <!-- sections end -->
@@ -187,13 +187,13 @@
 
 <div class="mails">
     <span class="email" *ngFor="let email of shownEmails; let i = index">
-  <input type="checkbox" (change)="select(i)" id={{i}} class="material-symbols-outlined">
-  <button class = "material-symbols-outlined" style="position: relative; bottom:-20px; left:20px" (click)="setOpenedEmail(i)" routerLink="/mail-box"  >mail</button>
-  <div style="position: relative; left:45px; top: 25px; font-size: 17px;" id="read">{{email.getFrom()}}</div>
-  <div style="position: relative; left:550px; top: 10px; font-size: 17px;" id="read">{{email.getSubject()}}</div>
-  <button class="material-symbols-outlined" (click)="moveEmailToFolder('trash')" style="position: relative; left:1230px; bottom: 20px" >delete</button>
-  <button class="material-symbols-outlined" (click)="setOpenedEmail(i)" style="position: relative; left:1130px; bottom: 20px" >open_with</button>
-</span>
+    <input type="checkbox" (change)="select(i)" id={{i}} class="material-symbols-outlined">
+    <button class = "material-symbols-outlined" style="position: relative; bottom:-20px; left:20px" (click)="setOpenedEmail(i)" routerLink="/mail-box"  >mail</button>
+    <div style="position: relative; left:45px; top: 25px; font-size: 17px;" id="read">{{email.getFrom()}}</div>
+    <div style="position: relative; left:550px; top: 10px; font-size: 17px;" id="read">{{email.getSubject()}}</div>
+    <button class="material-symbols-outlined" (click)="moveEmailToFolder(i, 'trash')" style="position: relative; left:1230px; bottom: 20px" >delete</button>
+    <button class="material-symbols-outlined" (click)="setOpenedEmail(i)" style="position: relative; left:1130px; bottom: 20px" >open_with</button>
+  </span>
 </div>
 <!--<form action="/tutorial/fileupload.html" class="mails">-->
 <!--  <select multiple style="height: 100%; overflow:hidden">-->

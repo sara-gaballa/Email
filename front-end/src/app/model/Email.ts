@@ -46,6 +46,4 @@ export class Email {
 
   getAttachments(): string[] { return this.attachments }
 
-  setId(id: string) { this.id = id }
-
 }

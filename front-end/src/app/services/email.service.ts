@@ -4,7 +4,6 @@ import { Email } from '../model/Email';
 import { Folder } from '../model/folder';
 import { User } from '../model/User';
 import { EmailIterator } from './email-iterator/EmailItirator';
-import { Contact } from '../model/Contact';
 
 @Injectable({
   providedIn: 'root'
@@ -23,16 +22,21 @@ export class EmailService {
 
     //singleton
     openedEmail: Email
-
     //singleton
     private user: User
-
 
     constructor(private httpService: EmailHttpService) {
       for(let i = 0; i < 4; i++) {
         let folder = new Folder(this.names[i])
         this.folders.push(folder)
       }
+
+      // httpService.getFolders().subscribe((res)=>{
+      //   for (let i=0;i<res.length;i++){
+      //     this.folders.push(new Folder(res[i]))
+      //     this.names.push(res[i])
+      //   }
+      // });
     }
 
     clear() {
@@ -48,6 +52,12 @@ export class EmailService {
     }
 
     setFolders() {
+      /* if(this.user.getUserFolders() != null){
+        for(let i = 4; i < this.user.getUserFolders().length; i++) {
+          let folder = new Folder(this.names[i])
+          this.folders.push(folder)
+        }
+      } */
       console.log(this.user)
     }
 
