@@ -1,134 +1,134 @@
 body {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .image {
-    background-image: url("https://wallpapercave.com/wp/KSnFrMw.jpg");
-    height: 100%;
-    width: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-    left: 50%;
-    right: 50%;
-    bottom: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    margin-bottom: -50vw;
-    margin-top: -0.5vw;
-    max-width: 100vw;
-    width: 100vw;
-    max-height: 100vw;
-    height: 46.9vw;
+  background-image: url("https://wallpapercave.com/wp/KSnFrMw.jpg");
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  bottom: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  margin-bottom: -50vw;
+  margin-top: -0.5vw;
+  max-width: 100vw;
+  width: 100vw;
+  max-height: 100vw;
+  height: 46.9vw;
 }
 
 .header-left img {
-    object-fit: contain;
-    height: 60px;
-    width: 60;
-    margin-left: 5px;
+  object-fit: contain;
+  height: 60px;
+  width: 60;
+  margin-left: 5px;
 }
 
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .header-left {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .header-left span {
-    padding: 10px;
-    cursor: pointer;
+  padding: 10px;
+  cursor: pointer;
 }
 
 .material-symbols-outlined {
-    background-color: none;
-    color: rgb(140, 137, 232);
+  background-color: none;
+  color: rgb(140, 137, 232);
 }
 
 .header-right {
-    display: flex;
-    padding-right: 20px;
+  display: flex;
+  padding-right: 20px;
 }
 
 .header-right span {
-    padding: 10px;
-    cursor: pointer;
+  padding: 10px;
+  cursor: pointer;
 }
 
 .sidebar {
-    flex: 0.11;
-    max-width: 300px;
-    padding-right: 20px;
+  flex: 0.11;
+  max-width: 300px;
+  padding-right: 20px;
 }
 
 .sidebar_compose {
-    margin-top: 15px;
-    margin-left: 10px;
-    margin-bottom: 15px;
-    text-transform: capitalize;
-    color: grey;
-    padding: 15px;
-    border-radius: 30px;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    outline: none;
-    border: none;
-    box-shadow: 0px 2px 5px -2px rgb(140, 137, 232);
-    cursor: pointer;
-    font-size: 17px;
+  margin-top: 15px;
+  margin-left: 10px;
+  margin-bottom: 15px;
+  text-transform: capitalize;
+  color: grey;
+  padding: 15px;
+  border-radius: 30px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  outline: none;
+  border: none;
+  box-shadow: 0px 2px 5px -2px rgb(140, 137, 232);
+  cursor: pointer;
+  font-size: 17px;
 }
 
 .sidebar_addfolder {
-    margin-top: 15px;
-    margin-left: 10px;
-    margin-bottom: 15px;
-    text-transform: capitalize;
-    color: rgb(255, 255, 255);
-    padding: 5px;
-    border-radius: 10px;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    outline: none;
-    border: none;
-    box-shadow: 0px 2px 5px -2px rgb(140, 137, 232);
-    cursor: pointer;
-    font-size: 17px;
+  margin-top: 15px;
+  margin-left: 10px;
+  margin-bottom: 15px;
+  text-transform: capitalize;
+  color: rgb(255, 255, 255);
+  padding: 5px;
+  border-radius: 10px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  outline: none;
+  border: none;
+  box-shadow: 0px 2px 5px -2px rgb(140, 137, 232);
+  cursor: pointer;
+  font-size: 17px;
 }
 
 .sidebar_compose span {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 .sidebaroption {
-    display: flex;
-    align-items: center;
-    height: 40px;
-    width: 170px;
-    padding: 0 10px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    cursor: pointer;
-    color: rgb(251, 251, 251);
+  display: flex;
+  align-items: center;
+  height: 40px;
+  width: 170px;
+  padding: 0 10px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  cursor: pointer;
+  color: rgb(251, 251, 251);
 }
 
 .sidebaroption .material-symbols-outlined {
-    padding: 5px;
+  padding: 5px;
 }
 
 .sidebaroption h3 {
-    flex: 1;
-    margin-left: 10px;
-    font-size: 17px;
-    font-weight: 400;
+  flex: 1;
+  margin-left: 10px;
+  font-size: 17px;
+  font-weight: 400;
 }
 
 .sidebaroption:hover,
@@ -139,63 +139,63 @@ body {
 .sidebar_compose:hover,
 .sidebar_addfolder:hover,
 .sidebaroption_active:hover .material-symbols-outlined {
-    background-color: rgb(173, 173, 247);
-    font-weight: 500;
+  background-color: rgb(173, 173, 247);
+  font-weight: 500;
 }
 
 .main_body {
-    display: flex;
-    height: 89vh;
+  display: flex;
+  height: 89vh;
 }
 
 .body {
-    height: 100vh;
-    overflow: hidden;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .emailList {
-    flex: 1;
+  flex: 1;
 }
 
 .emailList_settings {
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    background-color: rgb(251, 251, 251);
-    height: 50px;
-    z-index: 999;
-    padding: 8px;
-    border: 2px solid rgb(140, 137, 232);
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(251, 251, 251);
+  height: 50px;
+  z-index: 999;
+  padding: 8px;
+  border: 2px solid rgb(140, 137, 232);
 }
 
 .emailList_settingsLeft {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .emailList_settings .material-symbols-outlined {
-    border: none;
-    margin: 5px;
-    cursor: pointer;
+  border: none;
+  margin: 5px;
+  cursor: pointer;
 }
 
 .emailList_settingsLeft .List {
-    color: grey;
-    padding: 5px;
-    border-radius: 10px;
-    background-color: rgb(255, 255, 255);
-    display: flex;
-    align-items: center;
-    outline: none;
-    border: none;
-    box-shadow: 0px 2px 5px -2px rgb(140, 137, 232);
-    border: 2px solid rgb(140, 137, 232);
-    cursor: pointer;
-    font-size: 15px;
+  color: grey;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  outline: none;
+  border: none;
+  box-shadow: 0px 2px 5px -2px rgb(140, 137, 232);
+  border: 2px solid rgb(140, 137, 232);
+  cursor: pointer;
+  font-size: 15px;
 }
 
 
@@ -214,420 +214,250 @@ body {
 } */
 
 .emailList_sections {
-    display: flex;
-    flex: 0.7;
-    align-items: center;
-    background-color: white;
-    padding: 10px;
-    border-radius: 50px;
-    border: 2px solid rgb(140, 137, 232);
+
+  display: flex;
+  position: relative;
+  flex: 0.4;
+  right:100px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 50px;
+  border: 2px solid rgb(140, 137, 232);
+
+
 }
 
 .emailList_sections input {
-    border: none;
-    width: 100%;
-    padding: 10px;
-    outline: none;
-    font-size: medium;
-    background-color: transparent;
+  border: none;
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  font-size: medium;
+  background-color: transparent;
 }
 
 .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #ffffff;
-    min-width: 80px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    border: 2px solid rgb(140, 137, 232);
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  min-width: 80px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border: 2px solid rgb(140, 137, 232);
 }
 
 .dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    cursor: pointer;
-    border-top-right-radius: 50px;
-    border-bottom-right-radius: 50px;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
 }
 
 .dropdown-content a:hover {
-    background-color: #f1f1f1
+  background-color: #f1f1f1
 }
 
 .dropdown:hover .dropdown-content {
-    display: block;
-    cursor: pointer;
+  display: block;
+  cursor: pointer;
 }
 
 .profile .material-symbols-outlined {
-    background-color: transparent;
-    margin-top: 0.5vw;
-    z-index: 1;
+  background-color: transparent;
+  margin-top: 0.5vw;
+  z-index: 1;
 }
 
 #profile-content {
-    position: absolute;
-    background-image: url("https://wallpapercave.com/wp/KSnFrMw.jpg");
-    height: 100%;
-    width: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border: 2px solid rgb(140, 137, 232);
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    z-index: 1;
-    height: 200px;
-    width: 250px;
-    right: 20px;
-    top: 50px;
+  position: absolute;
+  background-image: url("https://wallpapercave.com/wp/KSnFrMw.jpg");
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 2px solid rgb(140, 137, 232);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  z-index: 1;
+  height: 200px;
+  width: 250px;
+  right: 20px;
+  top: 50px;
 }
 
 #profile-content button {
-    position: absolute;
-    top: 140px;
-    left: 65px;
-    height: 40px;
-    width: 130px;
-    display: block;
-    font-size: 18px;
-    border: 2px solid rgb(140, 137, 232);
-    background-color: transparent;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
-    color: rgb(246, 246, 246);
-    text-decoration: none;
-    padding: 10px;
-    z-index: 1;
-    cursor: pointer;
-    text-align: left;
+  position: absolute;
+  top: 140px;
+  left: 65px;
+  height: 40px;
+  width: 130px;
+  display: block;
+  font-size: 18px;
+  border: 2px solid rgb(140, 137, 232);
+  background-color: transparent;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  color: rgb(246, 246, 246);
+  text-decoration: none;
+  padding: 10px;
+  z-index: 1;
+  cursor: pointer;
+  text-align: left;
 }
 
 .addNewFolder {
-    position: relative;
-    background-image: url("https://wallpapercave.com/wp/KSnFrMw.jpg");
-    height: 100%;
-    width: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border: 2px solid rgb(140, 137, 232);
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    z-index: 1;
-    height: 130px;
-    width: 200px;
-    left: 10px;
-    bottom: 10px;
+  position: relative;
+  background-image: url("https://wallpapercave.com/wp/KSnFrMw.jpg");
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: 2px solid rgb(140, 137, 232);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  z-index: 1;
+  height: 130px;
+  width: 200px;
+  left: 10px;
+  bottom: 10px;
 }
 
 .inputfolder {
-    background: #e0dede;
-    border-radius: 10px;
-    margin: 20px auto;
-    padding: 10px;
-    position: relative;
-    left: 7px;
-    cursor: pointer;
+  background: #e0dede;
+  border-radius: 10px;
+  margin: 20px auto;
+  padding: 10px;
+  position: relative;
+  left: 7px;
+  cursor: pointer;
 }
 
 .showfolder {
-    position: relative;
-    text-align: left;
-    width: 70px;
-    height: 35px;
-    background: #e0dede;
-    display: flex;
-    margin: 20px auto;
-    padding: 10px;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    bottom: 20px;
-    cursor: pointer;
+  position: relative;
+  text-align: left;
+  width: 70px;
+  height: 35px;
+  background: #e0dede;
+  display: flex;
+  margin: 20px auto;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  bottom: 20px;
+  cursor: pointer;
 }
 
 b {
-    text-decoration: none;
-    position: absolute;
-    background-color: #ffffff;
-    width: 50px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border: 2px solid rgb(140, 137, 232);
-    color: rgb(0, 0, 0);
-    padding: 12px 16px;
-    text-decoration: none;
-    cursor: pointer;
+  text-decoration: none;
+  position: absolute;
+  background-color: #ffffff;
+  width: 50px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border: 2px solid rgb(140, 137, 232);
+  color: rgb(0, 0, 0);
+  padding: 12px 16px;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .mails {
-    position: absolute;
-    border: 2px solid rgb(140, 137, 232);
-    flex: 1;
-    overflow: scroll;
-    border-radius: 10px;
-    width: 1300px;
-    height: 540px;
-    left: 220px;
-    top: 145px;
-    box-shadow: 0 8px 10px -7px rgb(226, 226, 251);
-    background: #ffffff;
+  position: absolute;
+  border: 2px solid rgb(140, 137, 232);
+  flex: 1;
+  overflow: scroll;
+  border-radius: 10px;
+  width: 1300px;
+  height: 540px;
+  left: 220px;
+  top: 145px;
+  box-shadow: 0 8px 10px -7px rgb(226, 226, 251);
+  background: #ffffff;
 }
-
+.mails .checkBox .material-symbols-outlined{
+  background-color: red;
+}
+.mails .checkBox .material-symbols-outlined:hover{
+  background-color: green;
+}
 .btn {
-    border-radius: 5px;
-    float: left;
-    width: 50%;
-    height: 40px;
-    display: block;
-    border: 2px solid rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    background: rgb(140, 137, 232);
-    cursor: pointer;
+  border-radius: 5px;
+  float: left;
+  width: 50%;
+  height: 40px;
+  display: block;
+  border: 2px solid rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  background: rgb(140, 137, 232);
+  cursor: pointer;
 }
 
 h1 {
-    font-size: 17px;
+  font-size: 17px;
 }
 
 .email {
-    border-radius: 5px;
-    float: left;
-    width: 100%;
-    height: 70px;
-    display: block;
-    border: 2px solid rgb(140, 137, 232);
-    color: rgb(0, 0, 0);
-    background: rgb(255, 255, 255);
-    cursor: pointer;
+  border-radius: 5px;
+  float: left;
+  width: 100%;
+  height: 70px;
+  display: block;
+  border: 2px solid rgb(140, 137, 232);
+  color: rgb(0, 0, 0);
+  background: rgb(255, 255, 255);
+  cursor: pointer;
 }
 
 .email .material-symbols-outlined {
-    float: left;
-    color: rgb(140, 137, 232);
-    cursor: pointer;
+  float: left;
+  color: rgb(140, 137, 232);
+  cursor: pointer;
 }
 
-.email:hover {
-    background: rgb(207, 207, 216);
-}
 
 .default-prioprity .material-symbols-outlined {
-    background-color: transparent;
-    border-color: transparent;
+  background-color: transparent;
+  border-color: transparent;
 }
 
 .default-prioprity .material-symbols-outlined:hover {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .default-prioprity .de-pr button {
-    border-radius: 5px;
-    width: 100%;
-    height: 30px;
-    display: block;
-    background-color: 2px solid rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    border-color: rgb(140, 137, 232);
-    cursor: pointer;
+  border-radius: 5px;
+  width: 100%;
+  height: 30px;
+  display: block;
+  background-color: 2px solid rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  border-color: rgb(140, 137, 232);
+  cursor: pointer;
 }
 
 .contacts {
-    position: absolute;
-    background-image: linear-gradient(to bottom, rgb(207, 218, 239), rgb(125, 156, 227)), url("https://wallpapercave.com/wp/KSnFrMw.jpg");
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 8px;
-    border: 2px solid rgb(140, 137, 232);
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    z-index: 1;
-    /*overflow: scroll;*/
-    height: 200px;
-    width: 250px;
-    right: 80px;
-    top: 50px;
-}
-
-.search_contacts {
-    display: flex;
-    flex: 0.7;
-    align-items: center;
-    background-color: white;
-    padding: 10px;
-    border-radius: 10px;
-    border: 2px solid rgb(140, 137, 232);
-    width: 150px;
-    height: 10px;
-}
-
-.search_contacts input {
-    border: none;
-    width: 100%;
-    padding: 10px;
-    outline: none;
-    font-size: medium;
-    background-color: transparent;
-    font-size: 15px;
-    position: absolute;
-    left: 30px;
-}
-
-.contact_list {
-    position: absolute;
-    top: 40px;
-    right: 1px;
-    width: 100%;
-    height: 80%;
-    align-items: center;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    scrollbar-width: thin;
-    scrollbar-base-color: #6d44b8;
-}
-
-.single_contact {
-    background-image: linear-gradient(to bottom, rgb(255, 255, 255), rgb(231, 184, 239)), url("https://wallpapercave.com/wp/KSnFrMw.jpg");
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-    width: 100%;
-    height: 25%;
-    background-size: cover;
-    display: flex;
-    /*right: 5px;*/
-    border-radius: 5px;
-}
-
-.single_contact h1 {
-    font-size: 14px;
-    color: #0a406b;
-    align-content: center;
-}
-
-.FFolder {
-    background-color: red;
-}
-
-.FFFolder {
-    background-color: green;
-    width: 100%;
-    height: 30px;
-}
-
-.editList {
-    position: absolute;
-    background-image: linear-gradient(to bottom, rgb(207, 218, 239), rgb(125, 156, 227)), url("https://wallpapercave.com/wp/KSnFrMw.jpg");
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border-radius: 8px;
-    border: 2px solid rgb(140, 137, 232);
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    z-index: 1;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    scrollbar-width: thin;
-    height: 200px;
-    width: 250px;
-    right: 80px;
-    top: 50px;
-}
-
-.EmailContact {
-    position: relative;
-    width: 100%;
-    height: 25%;
-    background-size: cover;
-    display: flex;
-    /*right: 5px;*/
-    border-radius: 5px;
-    top: 60px;
-    right: 10px;
-}
-
-.editList input {
-    border: none;
-    width: 100%;
-    padding: 10px;
-    outline: none;
-    font-size: medium;
-    background-color: transparent;
-    font-size: 15px;
-    position: absolute;
-    left: 30px;
-    border-radius: 10px;
-}
-
-.n .newFoler {
-    position: relative;
-    z-index: 1;
-}
-
-.n .material-symbols-outlined {
-    background-color: transparent;
-    border: none;
-}
-
-.FFolder {
-    width: 90px;
-    height: 20px;
-    background-color: whitesmoke;
-}
-
-.n .newFoler button {
-    border-radius: 5px;
-    width: 100px;
-    height: 30px;
-    display: block;
-    background-color: 2px solid rgb(241, 240, 255);
-    color: rgb(0, 0, 0);
-    cursor: pointer;
-}
-
-.newFoler .material-symbols-outlined {
-    background-color: rgb(173, 173, 247);
-}
-
-.newFoler .material-symbols-outlined:hover {
-    background-color: rgb(140, 137, 232);
-}
-.add_contacts{
   position: absolute;
   background-image: linear-gradient(to bottom, rgb(207, 218, 239), rgb(125, 156, 227)), url("https://wallpapercave.com/wp/KSnFrMw.jpg");
   -webkit-background-size: cover;
@@ -636,86 +466,170 @@ h1 {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  border-radius: 5px;
+  border-radius: 8px;
   border: 2px solid rgb(140, 137, 232);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   z-index: 1;
-  overflow: scroll;
+  /*overflow: scroll;*/
   height: 200px;
-  width: 300px;
+  width: 250px;
   right: 80px;
   top: 50px;
 }
 
-.add_contacts #nameofcontact{
-  background: #eeeaea;
+.search_contacts {
   display: flex;
-  padding: 8px;
-  border: none;
-  outline: none;
-  border-radius: 5px;
-  position: relative;
-  width: 70%;
-  height: 20px;
-  background-size: cover;
-  display: flex;
-  left: 40px;
-  top: 4px;
-
+  flex: 0.7;
+  align-items: center;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid rgb(140, 137, 232);
+  width: 150px;
+  height: 10px;
 }
-.add_contacts #emailOfContact{
-  background: #eeeaea;
-  display: flex;
-  padding: 8px;
-  border: none;
-  outline: none;
-  border-radius: 5px;
-  position: relative;
-  width: 70%;
-  height: 20px;
-  background-size: cover;
-  display: flex;
-  left: 40px;
-  top: 15px;
 
+.search_contacts input {
+  border: none;
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  font-size: medium;
+  background-color: transparent;
+  font-size: 15px;
+  position: absolute;
+  left: 30px;
 }
-#addtocontacts{
-  position: sticky;
-  height: 30px;
-  width: 60px;
-  display: block;
-  font-size: 18px;
-  border: 2px solid rgb(114, 143, 246);
-  background-image: linear-gradient(to bottom, rgba(205, 172, 231, 0.85), rgb(125, 156, 227));;
+
+.contact_list {
+  position: absolute;
+  top: 40px;
+  right: 1px;
+  width: 100%;
+  height: 80%;
+  align-items: center;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-base-color: #6d44b8;
+}
+
+.single_contact {
+  background-image: linear-gradient(to bottom, rgb(255, 255, 255), rgb(231, 184, 239)), url("https://wallpapercave.com/wp/KSnFrMw.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  border-radius: 20px;
-  color: rgb(246, 246, 246);
-  text-decoration: none;
-  cursor: pointer;
-  top: 170px;
-  left: 220px;
+  position: relative;
+  width: 100%;
+  height: 25%;
+  background-size: cover;
+  display: flex;
+  /*right: 5px;*/
+  border-radius: 5px;
 }
-#back{
-  position: sticky;
+
+.single_contact h1 {
+  font-size: 14px;
+  color: #0a406b;
+  align-content: center;
+}
+
+.FFolder {
+  background-color: red;
+}
+
+.FFFolder {
+  background-color: green;
+  width: 100%;
   height: 30px;
-  width: 60px;
-  display: block;
-  font-size: 18px;
-  border: 2px solid rgb(114, 143, 246);
-  background-image: linear-gradient(to bottom, rgba(205, 172, 231, 0.85), rgb(125, 156, 227));
+}
+
+.editList {
+  position: absolute;
+  background-image: linear-gradient(to bottom, rgb(207, 218, 239), rgb(125, 156, 227)), url("https://wallpapercave.com/wp/KSnFrMw.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  border-radius: 20px;
-  color: rgb(246, 246, 246);
-  text-decoration: none;
+  border-radius: 8px;
+  border: 2px solid rgb(140, 137, 232);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  z-index: 1;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  height: 200px;
+  width: 250px;
+  right: 80px;
+  top: 50px;
+}
+
+.EmailContact {
+  position: relative;
+  width: 100%;
+  height: 25%;
+  background-size: cover;
+  display: flex;
+  /*right: 5px;*/
+  border-radius: 5px;
+  top: 60px;
+  right: 10px;
+}
+
+.editList input {
+  border: none;
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  font-size: medium;
+  background-color: transparent;
+  font-size: 15px;
+  position: absolute;
+  left: 30px;
+  border-radius: 10px;
+}
+
+.n .newFoler {
+  position: relative;
+  z-index: 1;
+}
+
+.n .material-symbols-outlined {
+  background-color: transparent;
+  border: none;
+}
+
+.FFolder {
+  width: 90px;
+  height: 20px;
+  background-color: whitesmoke;
+}
+
+.n .newFoler button {
+  border-radius: 5px;
+  width: 100px;
+  height: 30px;
+  display: block;
+  background-color: 2px solid rgb(241, 240, 255);
+  color: rgb(0, 0, 0);
   cursor: pointer;
-  top: 170px;
+}
+
+.newFoler .material-symbols-outlined {
+  background-color: rgb(173, 173, 247);
+}
+
+.newFoler .material-symbols-outlined:hover {
+  background-color: rgb(140, 137, 232);
 }

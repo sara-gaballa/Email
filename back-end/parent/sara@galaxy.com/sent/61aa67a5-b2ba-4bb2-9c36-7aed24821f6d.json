@@ -1,0 +1,11 @@
+{
+  "id" : "61aa67a5-b2ba-4bb2-9c36-7aed24821f6d",
+  "from" : "sara@galaxy.com",
+  "to" : [ "neso@galaxy.com" ],
+  "date" : "1/3/2023",
+  "time" : "22:36:54",
+  "subject" : "heheh",
+  "body" : "test test",
+  "priority" : "HIGH",
+  "attachments" : [ "CheatSheet.pdf", "Screenshot (52).png" ]
+}

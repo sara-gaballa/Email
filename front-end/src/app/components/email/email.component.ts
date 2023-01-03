@@ -22,6 +22,7 @@ export class EmailComponent implements OnInit {
   selectedEmails: Email[] = []
   contacts: Contact[]
   allSelected: boolean = false
+  check:number=0;
   //singleton
   public emailIterator: EmailIterator
 
@@ -64,14 +65,14 @@ export class EmailComponent implements OnInit {
     })
     this.route.navigate(["/emails"]);
   }
-    //add folder (observer updated)
+  //add folder (observer updated)
   addFolder(name: string) {
     this.shownFolders.push(new Folder(name))
     this.emailService.names.push(name)
     this.httpService.addFolder(name);
   }
 
-    //delete folder (observer updated)
+  //delete folder (observer updated)
   deleteFolder(name: string) {
     let index = this.emailService.names.indexOf(name)
     this.emailService.names.splice(index, 1)
@@ -79,7 +80,7 @@ export class EmailComponent implements OnInit {
     //TODO send to back to delete
   }
 
-    //rename folder (observer updated)
+  //rename folder (observer updated)
   renameFolder(before:string, after: string) {
     let index = this.emailService.names.indexOf(before)
     this.shownFolders[index].setName(after)
@@ -158,26 +159,62 @@ export class EmailComponent implements OnInit {
 
   //TODO add icon for mail selection
   //selection of one mail
-  selectAllOne(id: number, checked: boolean) {
+  selectAllOne(id: number) {
     let index = id + ''
     let click = document.getElementById(index) as HTMLInputElement;
-    if(checked) {
-      click.setAttribute("checked", "checked");
-      this.selectedEmails.push(this.shownEmails[id])
-    } else {
-      click.removeAttribute("checked");
-    }
+    let click1 = document.getElementById("check-box");
+    click.checked=true;
+    this.selectedEmails.push(this.shownEmails[id])
+    click1.style.display = "block";
+  }
+
+  dontSelectAllOne(id: number) {
+    let index = id + ''
+    let click = document.getElementById(index) as HTMLInputElement;
+    let click1 = document.getElementById("check-box");
+    click.checked=false;
+    this.selectedEmails.pop()
+    click1.style.display = "none";
   }
 
   select(id: number) {
     let index = id + ''
     let click = document.getElementById(index) as HTMLInputElement;
+    let click1 = document.getElementById("check-box");
     if(click.checked) {
-      click.setAttribute("checked", "checked");
+      this.check=this.check+1;
+      click.checked=true;
       this.selectedEmails.push(this.shownEmails[id])
+      click1.style.display = "block";
     } else {
-      click.removeAttribute("checked");
-      this.selectedEmails.splice(this.shownEmails.indexOf(this.selectedEmails[id]), 1)
+      this.check=this.check-1;
+      console.log(this.check)
+      if(this.check==0) {
+        click.checked=false;
+        click1.style.display = "none";
+      }
+      this.selectedEmails.splice(this.shownEmails.indexOf(this.selectedEmails[id]),1) //////////////error
+    }
+  }
+
+
+  //TODO add to select all button
+  selectAll() {
+    this.selectedEmails = []
+    let click1 = document.getElementById("check-box");
+    let click = document.getElementById('selectAll') as HTMLInputElement;
+    if(click.checked) {
+      for(let i = 0; i < this.shownEmails.length; i++) {
+        this.selectAllOne(i)
+      }
+      this.check=this.shownEmails.length;
+      click1.style.display = "block";
+    } else {
+      for(let i = 0; i < this.shownEmails.length; i++) {
+        this.dontSelectAllOne(i)
+      }
+      this.check=0;
+      click1.style.display = "none";
     }
   }
 
@@ -200,19 +237,7 @@ export class EmailComponent implements OnInit {
     console.log(data.value, t.getAll('type'));
   }
   //TODO add to select all button
-  selectAll() {
-    this.selectedEmails = []
-    let click = document.getElementById('selectAll') as HTMLInputElement;
-    if(click.checked) {
-      for(let i = 0; i < this.shownEmails.length; i++) {
-        this.selectAllOne(i, true)
-      }
-    } else {
-      for(let i = 0; i < this.shownEmails.length; i++) {
-        this.selectAllOne(i, false)
-      }
-    }
-  }
+
 
   // sort(sort: string) {
   //   this.emailService.sort(this.emailService.getCurrentFolder(), sort)
@@ -242,10 +267,10 @@ export class EmailComponent implements OnInit {
 
     //TODO send to back
   }
-contact():Contact[]{
-  console.log(this.emailService.getUser().getContacts())
-  return this.emailService.getUser().getContacts();
-}
+  contact():Contact[]{
+    console.log(this.emailService.getUser().getContacts())
+    return this.emailService.getUser().getContacts();
+  }
   showDetails(i:number){
     let click = document.getElementById("contactDetails");
     if (click != null && click.style.display === "none") {
@@ -285,15 +310,29 @@ contact():Contact[]{
     }
   }
 
-  moveEmailToFolder(id: number, folder: string) {
+  moveEmailToFolder(folder: string) {
     if(this.emailService.getCurrentFolder() == 'trash') {
-      this.shownFolders[this.emailService.names.indexOf('trash')].removeEmail(this.shownEmails[id])
-      // this.pagesNavigate('current')
-      //TODO delete permenantly
+      //TODO send to back
     }
-    this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].removeEmail(this.shownEmails[id])
-    this.shownFolders[this.emailService.names.indexOf(folder)].addEmail(this.shownEmails[id])
-    // this.pagesNavigate('current')
+    //TODO send selectedEmails to back
+    console.log(this.selectedEmails);
+    console.log("this.check: "+this.check);
+    for(var i = 0 ;i <this.selectedEmails.length ;i++){ //////////////////////////?????????
+      this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].removeEmail(this.selectedEmails[i])
+      for(let j = 0; j < this.shownEmails.length; j++) {
+        if(this.shownEmails[j].getFrom() == this.selectedEmails[i].getFrom()) { //TODO change to getId()
+          this.shownEmails.splice(j, 1)
+          break
+        }
+      }
+    }
+    this.selectedEmails = []
+    this.check = 0;
+    let click1 = document.getElementById("check-box");
+    let click = document.getElementById('selectAll') as HTMLInputElement;
+    click.checked=false;
+    click1.style.display = 'none';
+    this.pagesNavigate('current')
   }
   backToContacts(){
     let contact = document.getElementById("contacts");
