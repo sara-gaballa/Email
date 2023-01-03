@@ -39,13 +39,15 @@ export class StartPageComponent implements OnInit {
           contact[i]=(new Contact(user['contacts'][i]['emails'], user['contacts'][i]['name']))
           console.log(contact)
         }
-        console.log(contact[0].getName())
-      let userr = new User(user['firstName'], user['lastName'], user['email'], user['password'], contact, user['userFolders'])
-      this.emailService.setUser(userr)
-      let email=new EmailComponent(this.httpService,this.emailService,this.route);
-      email.initiateEmail();
-    })
 
+        console.log(contact[0].getName())
+        let userr = new User(user['firstName'], user['lastName'], user['email'], user['password'], contact, user['userFolders'])
+        this.emailService.setUser(userr)
+        let email=new EmailComponent(this.httpService,this.emailService,this.route);
+        email.initiateEmail();
+
+    })
+    this.route.navigate(["/emails"]);
   }
 
 }
