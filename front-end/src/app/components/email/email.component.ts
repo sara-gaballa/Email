@@ -23,7 +23,7 @@ export class EmailComponent implements OnInit {
   currentContact: Contact =  new Contact(["00", "000", "000"], "rowaina")
   contactName: string = ''
   contactEmails: string = ''
-  user: User = new User('00', '00', 'ropof', 'vbdhkh', [], [])
+  user: User=this.emailService.getUser();
 
   constructor(private httpService: EmailHttpService, private emailService: EmailService,private  route:Router) {
     this.shownFolders = emailService.getFolders()
@@ -35,6 +35,7 @@ export class EmailComponent implements OnInit {
       this.contacts.push(new Contact(["00", "000", "000"], i + ''))
     }
     this.user = emailService.getUser()
+    // console.log(this.user)
   }
 
   ngOnInit(): void {
@@ -43,10 +44,12 @@ export class EmailComponent implements OnInit {
 
 
   initiateEmail(){
+    this.user = this.emailService.getUser()
     this.emailService.setFolders()
     this.shownFolders = this.emailService.getFolders()
     this.contacts=this.emailService.getUser().getContacts();
     console.log(this.contacts)
+    console.log(this.user)
   }
 
   refresh() { //TODO test

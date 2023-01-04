@@ -46,9 +46,9 @@ export class StartPageComponent implements OnInit {
         let email=new EmailComponent(this.httpService,this.emailService,this.route);
         email.initiateEmail();
         this.valid=true
-        ,(err)=>{
-          this.valid=false
-        }
+        // ,(err)=>{
+        //   this.valid=false
+        // }
         // return this.handleError()
     })
 
