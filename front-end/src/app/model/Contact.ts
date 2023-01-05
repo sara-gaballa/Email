@@ -13,4 +13,6 @@ export class Contact {
     getName(): string { return this.name }
 
     setName(name: string) { this.name = name }
+
+    addEmail(email: string): string[] { this.emails.push(email); return this.emails }
 }

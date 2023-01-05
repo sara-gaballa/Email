@@ -12,14 +12,17 @@ public class ContactService {
 
     public void addContact(User user, Contact contact) {
         user.addContact(contact);
+        this.setContacts(user.getContacts());
     }
 
     public void editContact(User user, String name, Contact contact) {
         user.setContact(name, contact);
+        this.setContacts(user.getContacts());
     }
 
     public void deleteContact(User user, String name) {
         user.deleteContact(name);
+        this.setContacts(user.getContacts());
     }
 
     public List<Contact> search(String attribute, String value) {

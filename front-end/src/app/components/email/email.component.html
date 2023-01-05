@@ -27,20 +27,21 @@
                             <section class="single_contact" *ngFor="let contact of contacts; let i = index;" (click)="showContactDetails(i)">
                                 <span class="material-symbols-outlined" style=" color:#0a406b;"> account_circle </span>
                                 <h1>{{contact.getName()}}</h1>
+                                <span class="material-symbols-outlined" style=" color:#0a406b; position: absolute; left: 200px;" (click)="delete(shownFolders[0], 'contact', i)">delete </span>
                             </section>
                         </div>
                     </div>
                 </div>
                 <div class="editList" id="contactDetails" style="display: none">
                     <span title="back to contacts list" class="material-symbols-outlined" style="position: absolute; left: -7px; color:#0a406b; " (click)="backToContacts()">arrow_back_ios</span>
-                    <input type="text" placeholder=Add style="background-color: white; position: absolute; left: 22px;width: 180px; " />
-                    <span title="add email to contact" class="material-symbols-outlined" style="position: absolute; left: 183px; color:#0a406b; top: -2px "> add </span>
+                    <input type="text" #addedEmail placeholder=Add style="background-color: white; position: absolute; left: 22px;width: 180px; " />
+                    <span (click)="addNewEmail(addedEmail.value)" title="add email to contact" class="material-symbols-outlined" style="position: absolute; left: 183px; color:#0a406b; top: -2px "> add </span>
                     <h1 (input)="edit()" contenteditable="true" id="name" style="position: absolute; top: 28px;left: 50px">{{currentContact.getName()}}</h1>
                     <label for=name style="position: absolute; top: 40px">Name:</label>
 
                     <section class="EmailContact" *ngFor="let email of currentContact.getEmails(); let i = index">
                         <span class="material-symbols-outlined" style=" color:#0a406b;">mail </span>
-                        <h1 (click)="edit()" contenteditable="true" id="email"> email </h1>
+                        <h1 (input)="edit()" contenteditable="true" id="email"> {{email}} </h1>
                         <!--                        <span id="done" class="material-symbols-outlined" style=" color:#0a406b;position: absolute; left: 170px; display: none"> done </span>-->
 
                         <span class="material-symbols-outlined" style=" color:#0a406b; position: absolute; left: 200px;" (click)="delete(shownFolders[0], 'emailContact', i)">delete </span>
@@ -163,14 +164,6 @@
                             <option value="attachments"  >Attachments</option>
                           </select>
                         </form>
-
-                        <!--                          <span class="material-symbols-outlined">arrow_drop_down</span>-->
-                        <!--                            <div class="dropdown-content">-->
-                        <!--                                <a (click)="changeSearchLabel('Search All Mail')" value="All">All</a>-->
-                        <!--                                <a (click)="changeSearchLabel('Search Subject Mail')" value="Subject">Subject</a>-->
-                        <!--                                <a (click)="changeSearchLabel('Search Sender Mail')" value="Sender">Sender</a>-->
-                        <!--                            </div>-->
-
                     </div>
 
 

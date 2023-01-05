@@ -5,8 +5,23 @@
   "password" : "sara123",
   "folder" : "sara@galaxy.com",
   "contacts" : [ {
-    "name" : "Nancy",
-    "emails" : [ "neso@galaxy.com", "nancy@galaxy.com" ]
+    "name" : "rowainaabdelnasser@gmail.com, ",
+    "emails" : [ "rowainaabdelnasser@gmail.com" ]
+  }, {
+    "name" : "rowainaabdelnasser1@gmail.com, , ",
+    "emails" : [ "rowainaabdelnasser1@gmail.com", "" ]
+  }, {
+    "name" : "Rowaina Abdelnasser",
+    "emails" : [ "rowainaabdelnasser@gmail.com", "", "sara@galaxy.com" ]
+  }, {
+    "name" : "Rowaina Abdelnasser",
+    "emails" : [ "rowainaabdelnasser@gmail.com" ]
+  }, {
+    "name" : "Mohamed",
+    "emails" : [ "fsaad6410@gmail.com" ]
+  }, {
+    "name" : "Rowaina Abdelnasser",
+    "emails" : [ "rowainaabdelnasser@gmail.com" ]
   } ],
   "userFolders" : [ "saba7ooo", "Rowaina" ]
 }

@@ -31,12 +31,8 @@ export class EmailComponent implements OnInit {
     // this.contacts=emailService.getUser().getContacts();
     console.log(this.shownFolders + "hhhhhhhhhhhhh")
     this.shownEmails = []
-
-    for(let i = 0; i < 3; i++) {
-      this.contacts.push(new Contact(["00", "000", "000"], i + ''))
-    }
     this.user = emailService.getUser()
-    // console.log(this.user)
+    console.log(this.user)
   }
 
   ngOnInit(): void {
@@ -48,7 +44,6 @@ export class EmailComponent implements OnInit {
     this.emailService.setFolders()
     this.shownFolders = this.emailService.getFolders()
     this.contacts = this.emailService.getUser().getContacts();
-    console.log(this.user.getUserFolders().length)
     if(this.user.getUserFolders().length != 0) //TODO newli added
       this.shownFolders.splice(4, this.shownFolders.length - 4)
     for(let i = 0; i < this.user.getUserFolders().length; i++) {
@@ -81,15 +76,7 @@ export class EmailComponent implements OnInit {
 
   sortByPriority() {
     this.httpService.sortByPriority().subscribe((res) => {
-      console.log
-      this.shownEmails=[];
-      this.shownFolders[this.emailService.names.indexOf('inbox')].setEmails([])
-      for (let i = 0; i < res.length; i++) {
-        let email=new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["priority"], res[i]["attachments"]);
-        this.shownFolders[this.emailService.names.indexOf('inbox')].addEmail(email)
-      }
-      console.log(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails());
-      this.pagesNavigate('current')
+      this.loadEmails(res, this.emailService.getCurrentFolder())
     })
   }
 
@@ -132,13 +119,7 @@ export class EmailComponent implements OnInit {
     let sort= document.getElementById("sort") as HTMLInputElement;
     this.shownEmails=[];
     this.httpService.sort(sort.value).subscribe( res=>{
-      this.shownEmails=[];
-      for (let i = 0; i < res.length; i++) {
-        let email = new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["priority"], res[i]["attachments"]);
-        this.shownEmails.push(email);
-        this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].addEmail(email)
-      }
-      console.log(this.shownEmails);
+      this.loadEmails(res, this.emailService.getCurrentFolder())
     })
   }
 
@@ -168,13 +149,7 @@ export class EmailComponent implements OnInit {
     let type = document.getElementById("filtertype") as HTMLInputElement;
     let dest = document.getElementById("filterDest") as HTMLInputElement;
     this.httpService.filter(type.value, dest.value).subscribe(res => {
-      console.log("sent successfully")
-      this.shownEmails = []
-      for (let i = 0; i < res.length; i++) {
-        this.shownEmails.push(new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["priority"], res[i]["attachments"]));
-        console.log(res[i])
-      }
-      console.log(type.value,dest.value)
+      this.loadEmails(res, this.emailService.getCurrentFolder())
     })
   }
 
@@ -209,6 +184,8 @@ export class EmailComponent implements OnInit {
   logout(){ this.httpService.logout().subscribe() }
 
   showContacts() {
+    this.user = this.emailService.getUser()
+    this.contacts = this.user.getContacts()
     let click = document.getElementById("contacts");
     let details = document.getElementById("contactDetails");
     if (click != null && click.style.display === "none") {
@@ -230,6 +207,10 @@ export class EmailComponent implements OnInit {
   edit(){
     let click = document.getElementById("name") ;
     console.log(click.innerText)
+    let name = this.currentContact.getName()
+    this.currentContact.setName(click.innerText)
+    console.log(this.currentContact)
+    this.httpService.editContact(name, this.currentContact).subscribe()
   }
 
   rename(window: Folder,id: string){ //TODO all renames
@@ -252,7 +233,9 @@ export class EmailComponent implements OnInit {
     } else if(kind == 'contact') { //TODO test
       if (confirm('The contact will be deleted permanently')) {
         this.httpService.deleteContact(this.contacts[id].getName()).subscribe(() => {
+          console.log(this.contacts[id].getName())
           this.contacts.splice(id, 1)
+          this.showContacts()
         })
       }
     } else if(kind == 'emailContact') { //TODO test
@@ -260,8 +243,9 @@ export class EmailComponent implements OnInit {
         let email = this.contacts[this.contacts.indexOf(this.currentContact)].getEmails()
         email.splice(id, 1)
         this.contacts[this.contacts.indexOf(this.currentContact)].setEmails(email)
-        console.log(this.contacts[id].getEmails())
-        this.httpService.deleteContact(this.currentContact.getName()).subscribe()
+        console.log(this.currentContact)
+        this.currentContact.setEmails(email)
+        this.httpService.editContact(this.currentContact.getName(), this.currentContact).subscribe()
       }
     }
   }
@@ -296,7 +280,9 @@ export class EmailComponent implements OnInit {
     let emails = this.contactEmails.split(', ');
     emails.pop()
     console.log(emails)
-    this.httpService.addContact(new Contact(emails, this.contactEmails)).subscribe(() => {
+    let sentContact = new Contact(emails, this.contactName)
+    this.httpService.addContact(sentContact).subscribe(() => {
+      this.contacts.push(sentContact)
       this.contactEmails = ''
       this.contactName = ''
     })
@@ -308,11 +294,22 @@ export class EmailComponent implements OnInit {
     contact.style.display="block";
     add.style.display="none";
   }
+
+  addNewEmail(email: string) { //TODO test
+    this.currentContact.addEmail(email)
+    this.httpService.editContact(this.currentContact.getName(), this.currentContact).subscribe()
+  }
+
   gotoadd(){
     let add = document.getElementById("add_contacts");
     let contact = document.getElementById("contacts");
     contact.style.display="none";
     add.style.display="block";
+    console.log("add")
+    let email = document.getElementById("emailOfContact") as HTMLInputElement;
+    let name = document.getElementById("nameofcontact") as HTMLInputElement;
+    name.value = ""
+    email.value = ""
   }
 
 
