@@ -112,7 +112,7 @@ export class EmailHttpService{
       return this.http.get<Contact[]>(this.mailUrl + "searchContact", {params:{attribute, value}});
     }
 
-    sortContacts(name: string){
+    sortContacts(){
       return this.http.get<Contact[]>(this.mailUrl + "sortContacts");
     }
 

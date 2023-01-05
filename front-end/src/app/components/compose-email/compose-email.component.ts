@@ -43,7 +43,6 @@ getatt():string[]{
 
   run(file:string){
     this.httpService.openAttachment(file).subscribe();
-
   }
   composeEmail(operation: string) { //facade
     let to = document.getElementById("to") as HTMLInputElement;
@@ -63,7 +62,6 @@ getatt():string[]{
     this.email = new Email('', from, to_arr, sentDate.toLocaleDateString(), time,subject.value, body.value, priority.value, attachments)
     if(operation==='send'){
       let index = this.emailService.names.indexOf('sent')
-      // console.log(this.email)
       this.folders[index].addEmail(this.email)
       this.httpService.sendEmail(this.email).subscribe( res=>{
         this.email.setID(res["id"]);
