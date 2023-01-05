@@ -18,17 +18,13 @@ export class MailBoxComponent implements OnInit {
   constructor(private emailService: EmailService,private httpService: EmailHttpService, private  route:Router) { }
 
   ngOnInit(): void {
+
   }
 
   getOpenedEmail(): Email {
     if(this.emailService.getCurrentFolder() == "draft") {
-      let compose= new ComposeEmailComponent(this.httpService,this.emailService);
-
-      compose.OpenDraft(this.emailService.getOpenedEmail())
       this.route.navigate(["/compose"])
-      //TODO send to compose
     }
-    console.log(this.emailService.getOpenedEmail())
     return this.emailService.getOpenedEmail()
   }
   run(file:string){

@@ -26,7 +26,24 @@ export class ComposeEmailComponent implements OnInit {
     this.draftFolder.addEmail(this.sentEmail)
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.emailService.getCurrentFolder()=="draft"){
+      let to = document.getElementById("to") as HTMLInputElement;
+      let priority = document.getElementById("priority") as HTMLInputElement;
+      let subject = document.getElementById("subject") as HTMLInputElement;
+      let body = document.getElementById("body") as HTMLInputElement;
+      subject.value=this.emailService.getOpenedEmail().getSubject()
+      body.value=this.emailService.getOpenedEmail().getBody()
+      let to_arr = this.emailService.getOpenedEmail().getTo();
+      to.value = to_arr.join(", ")
+      priority.value=this.emailService.getOpenedEmail().getPriority();
+      let attach = document.getElementById("attachments") as HTMLInputElement;
+      let attachments=this.emailService.getOpenedEmail().getAttachments()
+      for(let i=0;i < attachments.length;i++){
+        attach[i]=attachments[i];
+      }
+    }
+  }
 
   multipleTo(){
     let to = document.getElementById("to") as HTMLInputElement;
@@ -66,10 +83,18 @@ export class ComposeEmailComponent implements OnInit {
     console.log(to_arr)
     this.email = new Email('', from, to_arr, sentDate.toLocaleDateString(), time,subject.value, body.value, priority.value, attachments)
     if(operation==='send'){
-      this.httpService.sendEmail(this.email).subscribe( res=>{
-        this.email.setID(res["id"]);
-        console.log(res)
-      })
+      if(this.emailService.getCurrentFolder() == 'draft') {
+        //TODO send to back to delete from draft
+        this.httpService.sendEmail(this.email).subscribe( res=>{
+          this.email.setID(res["id"]);
+          console.log(res)
+        })
+      } else {
+        this.httpService.sendEmail(this.email).subscribe( res=>{
+          this.email.setID(res["id"]);
+          console.log(res)
+        })
+      }
     }
     else if(operation==='draft'){
       this.httpService.saveDraft(this.email).subscribe( res=>{
@@ -79,6 +104,7 @@ export class ComposeEmailComponent implements OnInit {
       //TODO send to back
     }
   }
+
   OpenDraft(email:Email){
     let to = document.getElementById("to") as HTMLInputElement;
     let from = this.emailService.getUser().getEmail();

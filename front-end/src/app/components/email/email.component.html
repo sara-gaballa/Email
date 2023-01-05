@@ -20,7 +20,7 @@
                         <span class="material-symbols-outlined" style="position: absolute; left: 1px"> search </span>
                         <input type="text" placeholder=search>
                         <span title="add contacts" class="material-symbols-outlined" style="position: absolute; left: 165px; color:#0a406b;" (click)="gotoadd()"> add </span>
-                        <span title="sort contacts" class="material-symbols-outlined" style="position: absolute; left: 200px; color:#0a406b;"> sort </span>
+                        <span title="sort contacts" class="material-symbols-outlined" style="position: absolute; left: 200px; color:#0a406b;" (click)="sortContact()"> sort </span>
 
 
                         <div class="contact_list">
@@ -36,13 +36,13 @@
                     <span title="back to contacts list" class="material-symbols-outlined" style="position: absolute; left: -7px; color:#0a406b; " (click)="backToContacts()">arrow_back_ios</span>
                     <input type="text" #addedEmail placeholder=Add style="background-color: white; position: absolute; left: 22px;width: 180px; " />
                     <span (click)="addNewEmail(addedEmail.value)" title="add email to contact" class="material-symbols-outlined" style="position: absolute; left: 183px; color:#0a406b; top: -2px "> add </span>
-                    <h1 (input)="edit()" contenteditable="true" id="name" style="position: absolute; top: 28px;left: 50px">{{currentContact.getName()}}</h1>
+                    <h1 (input)="edit('name', 0)" contenteditable="true" id="name" style="position: absolute; top: 28px;left: 50px">{{currentContact.getName()}}</h1>
                     <label for=name style="position: absolute; top: 40px">Name:</label>
 
                     <section class="EmailContact" *ngFor="let email of currentContact.getEmails(); let i = index">
                         <span class="material-symbols-outlined" style=" color:#0a406b;">mail </span>
-                        <h1 (input)="edit()" contenteditable="true" id="email"> {{email}} </h1>
-                        <!--                        <span id="done" class="material-symbols-outlined" style=" color:#0a406b;position: absolute; left: 170px; display: none"> done </span>-->
+                        <h1 (input)="edit('email', i)" contenteditable="true" id="email"> {{email}} </h1>
+                        <span id="done" class="material-symbols-outlined" style=" color:#0a406b;position: absolute; left: 170px; display: none"> done </span>
 
                         <span class="material-symbols-outlined" style=" color:#0a406b; position: absolute; left: 200px;" (click)="delete(shownFolders[0], 'emailContact', i)">delete </span>
                     </section>

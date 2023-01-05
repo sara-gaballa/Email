@@ -204,13 +204,23 @@ export class EmailComponent implements OnInit {
     this.currentContact = this.contacts[i]
   }
 
-  edit(){
-    let click = document.getElementById("name") ;
-    console.log(click.innerText)
-    let name = this.currentContact.getName()
-    this.currentContact.setName(click.innerText)
-    console.log(this.currentContact)
-    this.httpService.editContact(name, this.currentContact).subscribe()
+  edit(kind: string, id: number){
+    console.log(kind)
+    if(kind == 'name') {
+      let click = document.getElementById("name") ;
+      console.log(click.innerText)
+      let name = this.currentContact.getName()
+      this.currentContact.setName(click.innerText)
+      console.log(this.currentContact)
+      this.httpService.editContact(name, this.currentContact).subscribe()
+    } else if(kind == 'email') {
+      let click = document.getElementById("email") ;
+      let emails = this.currentContact.getEmails()
+      emails[id] = click.innerText
+      this.contacts[this.contacts.indexOf(this.currentContact)].setEmails(emails)
+      this.currentContact.setEmails(emails)
+      this.httpService.editContact(this.currentContact.getName(), this.currentContact).subscribe()
+    }
   }
 
   rename(window: Folder,id: string){ //TODO all renames
@@ -230,7 +240,7 @@ export class EmailComponent implements OnInit {
         this.deleteFolder(folder.getName());
         this.httpService.deleteFolder(folder.getName()).subscribe();
       }
-    } else if(kind == 'contact') { //TODO test
+    } else if(kind == 'contact') { //DONE
       if (confirm('The contact will be deleted permanently')) {
         this.httpService.deleteContact(this.contacts[id].getName()).subscribe(() => {
           console.log(this.contacts[id].getName())
@@ -310,6 +320,16 @@ export class EmailComponent implements OnInit {
     let name = document.getElementById("nameofcontact") as HTMLInputElement;
     name.value = ""
     email.value = ""
+  }
+
+  sortContact() {
+    this.httpService.sortContacts().subscribe((res)=> {
+      let sortedContacts = []
+      for(let i = 0; i < res.length; i++) {
+        sortedContacts.push(new Contact(res['emails'][i], res['name'][i]))
+      }
+      this.contacts = sortedContacts
+    })
   }
 
 
