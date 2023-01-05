@@ -6,6 +6,6 @@
   "time" : "18:51:23",
   "subject" : "sf",
   "body" : "sssssssss",
-  "priority" : null,
+  "priority" : "LOW",
   "attachments" : [ ]
 }

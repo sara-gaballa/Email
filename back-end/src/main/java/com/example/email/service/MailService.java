@@ -98,9 +98,9 @@ public class MailService {
         List<Email> trashEmails = mailManager.getAllMails(user.getFolder() + "\\" + FoldersName.TRASH);
         List<String> deletedIds = new ArrayList<>();
         for (Email email : trashEmails) {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-            Date d1 = new SimpleDateFormat("dd-MM-yyyy").parse(formatter.format(new Date()));
-            Date d2 = new SimpleDateFormat("dd-MM-yyyy").parse(email.getDate());
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date d1 = new SimpleDateFormat("dd/MM/yyyy").parse(formatter.format(new Date()));
+            Date d2 = new SimpleDateFormat("dd/MM/yyyy").parse(email.getDate());
             long diff = d1.getTime() - d2.getTime();
             System.out.println(diff);
             if (diff / (1000 * 60 * 60 * 24) > 30) {

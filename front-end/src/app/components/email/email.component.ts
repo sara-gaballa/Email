@@ -53,6 +53,7 @@ export class EmailComponent implements OnInit {
       this.shownFolders.splice(4, this.shownFolders.length - 4)
     for(let i = 0; i < this.user.getUserFolders().length; i++) {
       this.shownFolders.push(new Folder(this.user.getUserFolders()[i]))
+      this.emailService.names.push(this.user.getUserFolders()[i])
     }
     console.log(this.contacts)
     console.log(this.user)
@@ -68,7 +69,7 @@ export class EmailComponent implements OnInit {
       this.emailService.setCurrentFolder(folder)
       this.shownFolders[this.emailService.names.indexOf(folder)].setEmails([])
       for(let i = 0; i < res.length; i++) {
-        let email =new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]);
+        let email =new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["priority"], res[i]["attachments"]);
         this.shownEmails.push(email);
         this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].addEmail(email)
       }
@@ -78,14 +79,29 @@ export class EmailComponent implements OnInit {
     })
   }
 
+  sortByPriority() {
+    this.httpService.sortByPriority().subscribe((res) => {
+      console.log
+      this.shownEmails=[];
+      this.shownFolders[this.emailService.names.indexOf('inbox')].setEmails([])
+      for (let i = 0; i < res.length; i++) {
+        let email=new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["priority"], res[i]["attachments"]);
+        this.shownFolders[this.emailService.names.indexOf('inbox')].addEmail(email)
+      }
+      console.log(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails());
+      this.pagesNavigate('current')
+    })
+  }
+
   getPageEmails(folder: string) {
     this.emailService.setCurrentFolder(folder)
     this.shownEmails=[];
-    this.httpService.getEMails(this.emailService.getCurrentFolder()).subscribe( res=>{
+    this.httpService.getEMails(folder).subscribe( res=>{
       this.shownEmails=[];
-      this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].setEmails([])
+      console.log(this.shownFolders[this.emailService.names.indexOf(folder)])
+      this.shownFolders[this.emailService.names.indexOf(folder)].setEmails([])
       for (let i = 0; i < res.length; i++) {
-        let email=new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]);
+        let email=new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["priority"], res[i]["attachments"]);
         this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].addEmail(email)
       }
       console.log(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails());
@@ -114,7 +130,7 @@ export class EmailComponent implements OnInit {
     this.httpService.sort(sort.value).subscribe( res=>{
       this.shownEmails=[];
       for (let i = 0; i < res.length; i++) {
-        let email=new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]);
+        let email = new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["priority"], res[i]["attachments"]);
         this.shownEmails.push(email);
         this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].addEmail(email)
       }
@@ -151,7 +167,7 @@ export class EmailComponent implements OnInit {
       console.log("sent successfully")
       this.shownEmails = []
       for (let i = 0; i < res.length; i++) {
-        this.shownEmails.push(new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]));
+        this.shownEmails.push(new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["priority"], res[i]["attachments"]));
         console.log(res[i])
       }
       console.log(type.value,dest.value)
@@ -181,7 +197,7 @@ export class EmailComponent implements OnInit {
         console.log("sent successfully")
         this.shownEmails = []
         for (let i = 0; i < res.length; i++) {
-          this.shownEmails.push(new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]));
+          this.shownEmails.push(new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["priority"], res[i]["attachments"]));
           console.log(res[i])
         }
       })

@@ -6,6 +6,6 @@
   "time" : "18:27:32",
   "subject" : "",
   "body" : "dewd",
-  "priority" : null,
+  "priority" : "LOW",
   "attachments" : [ ]
 }

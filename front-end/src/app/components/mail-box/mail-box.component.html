@@ -14,14 +14,14 @@
     <div class="To">
         <h5> To: {{getOpenedEmail().getTo()}} </h5>
     </div>
+    <div class="priority">
+        <h6>{{getOpenedEmail().getPriority()}}</h6>
+    </div>
     <div class="Subject">
         <h1>{{getOpenedEmail().getSubject()}}</h1>
     </div>
     <div class="Body">
         <h6>{{getOpenedEmail().getBody()}}</h6>
-    </div>
-    <div class="priority">
-        <h6>{{getOpenedEmail().getPriority()}}</h6>
     </div>
     <div class="files">
         <ul style="position: absolute;">

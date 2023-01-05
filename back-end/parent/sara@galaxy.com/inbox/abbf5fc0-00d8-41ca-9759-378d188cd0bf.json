@@ -6,6 +6,6 @@
   "time" : "18:47:18",
   "subject" : "chb",
   "body" : "looooo9l",
-  "priority" : null,
+  "priority" : "CRITICAL",
   "attachments" : [ ]
 }

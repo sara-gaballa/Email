@@ -6,6 +6,6 @@
   "time" : "18:49:6",
   "subject" : "heheh",
   "body" : "ddddddddddd",
-  "priority" : null,
+  "priority" : "LOW",
   "attachments" : [ ]
 }

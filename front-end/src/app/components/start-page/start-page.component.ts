@@ -23,7 +23,9 @@ export class StartPageComponent implements OnInit {
   //Should be false by default and set to true by back
   public valid = false
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.httpService.logout().subscribe()
+  }
 
   signUp(firstName: string, lastName: string, email: string, password: string) {
     this.httpService.signUp(new User(firstName, lastName, email, password, [], [])).subscribe(() => {

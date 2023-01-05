@@ -28,6 +28,7 @@ export class MailBoxComponent implements OnInit {
       this.route.navigate(["/compose"])
       //TODO send to compose
     }
+    console.log(this.emailService.getOpenedEmail())
     return this.emailService.getOpenedEmail()
   }
   run(file:string){
