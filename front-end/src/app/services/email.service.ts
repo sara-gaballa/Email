@@ -66,10 +66,7 @@ export class EmailService {
 
     getCurrentFolder() { return this.currentFolder }
 
-    setCurrentFolder(currentFolder: string) {
-      this.currentFolder = currentFolder
-      if(this.folders[this.names.indexOf(currentFolder)].getEmails().length == 0) {/*TODO send to back to take the required mails*/}
-    }
+    setCurrentFolder(currentFolder: string) { this.currentFolder = currentFolder }
 
     setOpenedEmail(email: Email) { this.openedEmail = email }
 

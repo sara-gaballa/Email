@@ -80,7 +80,6 @@ export class EmailComponent implements OnInit {
       this.shownEmails=[];
       for (let i = 0; i < res.length; i++) {
         let email=new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]);
-        // this.shownEmails.push(email);
         this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].addEmail(email)
       }
       console.log(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails());
@@ -88,6 +87,7 @@ export class EmailComponent implements OnInit {
     })
     this.route.navigate(["/emails"]);
   }
+
     //add folder (observer updated)
   addFolder(name: string) {
     this.shownFolders.push(new Folder(name))
@@ -108,7 +108,6 @@ export class EmailComponent implements OnInit {
     let index = this.emailService.names.indexOf(before)
     this.shownFolders[index].setName(after)
     this.shownFolders[index].setIcon()
-    //TODO send to back to rename
   }
 
   // changeSearchLabel(s: string): void {
@@ -239,11 +238,15 @@ export class EmailComponent implements OnInit {
     console.log(click.innerText)
   }
 
-  rename(window: Folder,id:HTMLInputElement){ //TODO test
-    console.log("prev"+window.getName()+"   "+"new"+id.value)
-    this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].setName(window.getName())
-    window.setName(id.value);
-    this.httpService.renameFolder(window.getName(),id.value).subscribe();
+  rename(window: Folder,id: string){ //TODO test
+    let index = this.emailService.names.indexOf(window.getName())
+    this.shownFolders[index].setName(id) //set Folder name
+    this.emailService.names[index] = id //set names
+    window.setName(id); // change shown name
+    this.emailService.setCurrentFolder(id) //set current folder
+    console.log(this.emailService.names)
+    console.log(this.shownFolders)
+    this.httpService.renameFolder(window.getName(), id).subscribe();
   }
 
   delete(folder: Folder, kind: string, id: number){

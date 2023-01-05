@@ -103,7 +103,7 @@
                                 <button class="material-symbols-outlined" (click)="showWindow(folder.getName())">arrow_drop_down</button>
                                 <div id={{folder.getName()}} class="newFoler" style="display:none; position:absolute;">
                                     <input class="FFolder" type="text" #rename_id placeholder="rename">
-                                    <button class="material-symbols-outlined" (click)="rename(folder,rename_id)">add</button>
+                                    <button class="material-symbols-outlined" (click)="rename(folder, rename_id.value)">add</button>
                                     <button class="material-symbols-outlined" (click)="delete(folder, 'folder', 0)">Delete</button>
                                 </div>
                             </ng-template>
