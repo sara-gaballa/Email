@@ -93,7 +93,7 @@ export class EmailHttpService{
       return this.http.get<Email[]>(this.mailUrl + "priority");
     } //
     search(attributes: string[], value: string){
-      return this.http.get<Email[]>(this.mailUrl + "search", {params:{attributes, value}});
+      return this.http.get<Email[]>(this.mailUrl + "search" ,{params:{attributes, value}});
     }
 
     addContact(contact: Contact){

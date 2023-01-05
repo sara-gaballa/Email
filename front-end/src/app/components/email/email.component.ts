@@ -97,7 +97,13 @@ export class EmailComponent implements OnInit {
     this.emailService.setCurrentFolder(folder)
     this.shownEmails=[];
     this.httpService.getEMails(folder).subscribe( res=>{
-      this.shownEmails=[];
+      this.loadEmails(res, folder)
+    })
+    this.route.navigate(["/emails"]);
+  }
+
+  loadEmails(res: any, folder: string) {
+    this.shownEmails=[];
       console.log(this.shownFolders[this.emailService.names.indexOf(folder)])
       this.shownFolders[this.emailService.names.indexOf(folder)].setEmails([])
       for (let i = 0; i < res.length; i++) {
@@ -106,8 +112,6 @@ export class EmailComponent implements OnInit {
       }
       console.log(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails());
       this.pagesNavigate('current')
-    })
-    this.route.navigate(["/emails"]);
   }
 
   addFolder(name: string) {
@@ -194,12 +198,7 @@ export class EmailComponent implements OnInit {
       let t: FormData;
       t = new FormData(type)
       this.httpService.search(t.getAll('type') as string[], value).subscribe(res => {
-        console.log("sent successfully")
-        this.shownEmails = []
-        for (let i = 0; i < res.length; i++) {
-          this.shownEmails.push(new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["priority"], res[i]["attachments"]));
-          console.log(res[i])
-        }
+        this.loadEmails(res, this.emailService.getCurrentFolder())
       })
       console.log(value, t.getAll('type'));
     } else if(kind == 'contats') {
@@ -414,8 +413,8 @@ export class EmailComponent implements OnInit {
     console.log(id)
     console.log(this.emailService.getCurrentFolder())
     this.httpService.move(this.emailService.currentFolder, folder, id).subscribe(() => {
-      this.refresh(this.emailService.currentFolder)
       this.pagesNavigate('current')
+      this.refresh(this.emailService.currentFolder) //TODO refresh
     })
   }
 }
