@@ -16,7 +16,7 @@ export class EmailComponent implements OnInit {
   // searchLable: string = ''
   check:number=0;
   click: string = ''
-  shownFolders: Folder[] = []
+  shownFolders: Folder[] = [new Folder('')]
   shownEmails: Email[] = []
   selectedEmails: Email[] = []
   contacts: Contact[] = []
@@ -58,6 +58,7 @@ export class EmailComponent implements OnInit {
   }
 
   refresh() { //TODO test
+    console.log("refresh")
     this.httpService.getEMails('inbox').subscribe((res) => {
       this.emailService.setCurrentFolder('inbox')
       this.shownFolders[this.emailService.names.indexOf('inbox')].setEmails([])
