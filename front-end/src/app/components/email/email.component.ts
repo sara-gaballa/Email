@@ -50,6 +50,8 @@ export class EmailComponent implements OnInit {
     this.shownFolders = this.emailService.getFolders()
     this.contacts=this.emailService.getUser().getContacts();
     console.log(this.user.getUserFolders().length)
+    if(this.user.getUserFolders().length != 0) //TODO newli added
+      this.shownFolders.splice(4, this.shownFolders.length - 4)
     for(let i = 0; i < this.user.getUserFolders().length; i++) {
       this.shownFolders.push(new Folder(this.user.getUserFolders()[i]))
     }
@@ -57,7 +59,7 @@ export class EmailComponent implements OnInit {
     console.log(this.user)
   }
 
-  refresh() { //TODO test
+  refresh() {
     console.log("refresh")
     this.httpService.getEMails('inbox').subscribe((res) => {
       this.emailService.setCurrentFolder('inbox')
@@ -72,19 +74,17 @@ export class EmailComponent implements OnInit {
   }
 
   getPageEmails(folder: string) {
-    // this.allSelected = false
-    // this.selectAll()
     this.emailService.setCurrentFolder(folder)
     this.shownEmails=[];
     this.httpService.getEMails(this.emailService.getCurrentFolder()).subscribe( res=>{
       this.shownEmails=[];
       for (let i = 0; i < res.length; i++) {
         let email=new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["Priority"], res[i]["attachments"]);
-        this.shownEmails.push(email);
+        // this.shownEmails.push(email);
         this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].addEmail(email)
       }
-      console.log(this.shownEmails);
-      // this.pagesNavigate('current')
+      console.log(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails());
+      this.pagesNavigate('current')
     })
     this.route.navigate(["/emails"]);
   }
@@ -324,6 +324,7 @@ export class EmailComponent implements OnInit {
     let prev = this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails().indexOf(this.shownEmails[0])
     console.log("next: "+next);
     if( ((len-1)-next)<=0 && (state == 'next') ||  prev==0 && (state == 'previous')){return;}
+
 
     for(let i = 0; i < 10; i++){
       this.shownEmails.pop();
