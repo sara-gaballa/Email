@@ -13,6 +13,7 @@ import { User } from 'src/app/model/User';
   styleUrls: ['./email.component.css']
 })
 export class EmailComponent implements OnInit {
+  // searchLable: string = ''
   check:number=0;
   click: string = ''
   shownFolders: Folder[] = []
@@ -48,6 +49,10 @@ export class EmailComponent implements OnInit {
     this.emailService.setFolders()
     this.shownFolders = this.emailService.getFolders()
     this.contacts=this.emailService.getUser().getContacts();
+    console.log(this.user.getUserFolders().length)
+    for(let i = 0; i < this.user.getUserFolders().length; i++) {
+      this.shownFolders.push(new Folder(this.user.getUserFolders()[i]))
+    }
     console.log(this.contacts)
     console.log(this.user)
   }
@@ -106,7 +111,7 @@ export class EmailComponent implements OnInit {
   }
 
   // changeSearchLabel(s: string): void {
-  //   this.search = s;
+  //   this.searchLable = s;
   // }
 
 
@@ -132,8 +137,9 @@ export class EmailComponent implements OnInit {
       let click = document.getElementById("NewFolder");
       click!.style.display = "none";
     }
-    this.httpService.addFolder(name.value).subscribe();
-    name.value = '';
+    this.httpService.addFolder(name.value).subscribe(() => {
+      name.value = '';
+    });
 
   }
 
@@ -164,13 +170,9 @@ export class EmailComponent implements OnInit {
 
   }
 
-  getUserName(): string {
-    return this.emailService.getUser().getFirstName().concat(" " + this.emailService.getUser().getLastName())
-  }
+  getUserName(): string { return this.emailService.getUser().getFirstName().concat(" " + this.emailService.getUser().getLastName()) }
 
-  getUserEmail(): string {
-    return this.emailService.getUser().getEmail()
-  }
+  getUserEmail(): string { return this.emailService.getUser().getEmail() }
 
   setOpenedEmail(id: number) {
     console.log(this.shownEmails)
@@ -200,15 +202,8 @@ export class EmailComponent implements OnInit {
     }
   }
 
-  logout(){
-    this.httpService.logout().subscribe()
-  }
+  logout(){ this.httpService.logout().subscribe() }
 
-  //TODO add to select all button
-
-  // sort(sort: string) {
-  //   this.emailService.sort(this.emailService.getCurrentFolder(), sort)
-  // }
   showNewFolder(foler: string) {
     let click = document.getElementById(foler);
     if (click != null && click.style.display === "none") {
@@ -237,6 +232,7 @@ export class EmailComponent implements OnInit {
     this.showWindow('contactDetails')
     this.currentContact = this.contacts[i]
   }
+
   edit(){
     let click = document.getElementById("name") ;
     console.log(click.innerText)
@@ -389,7 +385,6 @@ export class EmailComponent implements OnInit {
     }
   }
 
-
   //TODO add to select all button
   selectAll() {
     this.selectedEmails = []
@@ -411,31 +406,32 @@ export class EmailComponent implements OnInit {
   }
 
 
-  // moveEmailToFolder(folder: string) {
-  //   let id = []
-  //   for(let i = 0; i < this.selectedEmails.length; i++) {
-  //     id.push(this.selectedEmails[i].getId())
-  //   }
-  //   this.httpService.move(this.emailService.currentFolder, folder, id).subscribe(() => {
-  //     for(var i = 0 ;i <this.selectedEmails.length ;i++){ //////////////////////////?????????
-  //       this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].removeEmail(this.selectedEmails[i])
-  //       for(let j = 0; j < this.shownEmails.length; j++) {
-  //         if(this.shownEmails[j].getFrom() == this.selectedEmails[i].getFrom()) { //TODO change to getId()
-  //           this.shownEmails.splice(j, 1)
-  //           break
-  //         }
-  //       }
-  //     }
-  //     this.selectedEmails = []
-  //     this.check = 0;
-  //     let click1 = document.getElementById("check-box");
-  //     let click = document.getElementById('selectAll') as HTMLInputElement;
-  //     click.checked=false;
-  //     click1.style.display = 'none';
-  //     this.pagesNavigate('current')
-  //   })
-  // }
   moveEmailToFolder(folder: string) {
+    let id = []
+    for(let i = 0; i < this.selectedEmails.length; i++) {
+      id.push(this.selectedEmails[i].getId())
+    }
+    console.log(id)
+    this.httpService.move(this.emailService.currentFolder, folder, id).subscribe(() => {
+      for(var i = 0 ;i <this.selectedEmails.length ;i++){ //////////////////////////?????????
+        this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].removeEmail(this.selectedEmails[i])
+        for(let j = 0; j < this.shownEmails.length; j++) {
+          if(this.shownEmails[j].getFrom() == this.selectedEmails[i].getFrom()) { //TODO change to getId()
+            this.shownEmails.splice(j, 1)
+            break
+          }
+        }
+      }
+      this.selectedEmails = []
+      this.check = 0;
+      let click1 = document.getElementById("check-box");
+      let click = document.getElementById('selectAll') as HTMLInputElement;
+      click.checked=false;
+      click1.style.display = 'none';
+      this.pagesNavigate('current')
+    })
+  }
+  /* moveEmailToFolder(folder: string) {
     if(this.emailService.getCurrentFolder() == 'trash') {
       //TODO send to back
     }
@@ -445,7 +441,7 @@ export class EmailComponent implements OnInit {
     for(var i = 0 ;i <this.selectedEmails.length ;i++){ //////////////////////////?????????
       this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].removeEmail(this.selectedEmails[i])
       for(let j = 0; j < this.shownEmails.length; j++) {
-        if(this.shownEmails[j].getFrom() == this.selectedEmails[i].getFrom()) { //TODO change to getId()
+        if(this.shownEmails[j].getId() == this.selectedEmails[i].getId()) { //TODO change to getId() --> changed 1/5/2023
           this.shownEmails.splice(j, 1)
           break
         }
@@ -458,7 +454,6 @@ export class EmailComponent implements OnInit {
     click.checked=false;
     click1.style.display = 'none';
     this.pagesNavigate('current')
-  }
-
+  } */
 
 }
