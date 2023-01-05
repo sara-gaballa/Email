@@ -84,8 +84,8 @@ export class ComposeEmailComponent implements OnInit {
     this.email = new Email('', from, to_arr, sentDate.toLocaleDateString(), time,subject.value, body.value, priority.value, attachments)
     if(operation==='send'){
       if(this.emailService.getCurrentFolder() == 'draft') {
-        //TODO send to back to delete from draft
         this.httpService.sendEmail(this.email).subscribe( res=>{
+          this.httpService.deleteMails('draft', [this.email.getId()]).subscribe()
           this.email.setID(res["id"]);
           console.log(res)
         })
