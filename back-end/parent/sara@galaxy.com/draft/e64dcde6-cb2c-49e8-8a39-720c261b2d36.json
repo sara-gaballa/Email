@@ -1,0 +1,11 @@
+{
+  "id" : "e64dcde6-cb2c-49e8-8a39-720c261b2d36",
+  "from" : "sara@galaxy.com",
+  "to" : [ "sara@galaxy.com" ],
+  "date" : "1/5/2023",
+  "time" : "16:59:21",
+  "subject" : "compose test",
+  "body" : "",
+  "priority" : "MEDIUM",
+  "attachments" : [ "Screenshot (52).png" ]
+}

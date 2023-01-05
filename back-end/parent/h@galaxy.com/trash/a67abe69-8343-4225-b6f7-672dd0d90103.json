@@ -1,0 +1,11 @@
+{
+  "id" : "a67abe69-8343-4225-b6f7-672dd0d90103",
+  "from" : "h@galaxy.com",
+  "to" : [ "sara@galaxy.com" ],
+  "date" : "1/5/2023",
+  "time" : "16:45:1",
+  "subject" : "draft",
+  "body" : "draft",
+  "priority" : "MEDIUM",
+  "attachments" : [ ]
+}

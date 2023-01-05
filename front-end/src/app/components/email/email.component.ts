@@ -204,24 +204,7 @@ export class EmailComponent implements OnInit {
     this.currentContact = this.contacts[i]
   }
 
-  edit(kind: string, id: number){
-    console.log(kind)
-    if(kind == 'name') {
-      let click = document.getElementById("name") ;
-      console.log(click.innerText)
-      let name = this.currentContact.getName()
-      this.currentContact.setName(click.innerText)
-      console.log(this.currentContact)
-      this.httpService.editContact(name, this.currentContact).subscribe()
-    } else if(kind == 'email') {
-      let click = document.getElementById("email") ;
-      let emails = this.currentContact.getEmails()
-      emails[id] = click.innerText
-      this.contacts[this.contacts.indexOf(this.currentContact)].setEmails(emails)
-      this.currentContact.setEmails(emails)
-      this.httpService.editContact(this.currentContact.getName(), this.currentContact).subscribe()
-    }
-  }
+
 
   rename(window: Folder,id: string){ //TODO all renames
     let index = this.emailService.names.indexOf(window.getName())
@@ -420,7 +403,22 @@ export class EmailComponent implements OnInit {
       click1.style.display = "none";
     }
   }
-
+  edit(kind: string, value: string, id: number){
+    console.log(kind)
+    if(kind == 'name') {
+      let click = document.getElementById("name")
+      let name = this.currentContact.getName()
+      this.currentContact.setName(click.innerText)
+      console.log(this.currentContact)
+      this.httpService.editContact(name, this.currentContact).subscribe()
+    } else if(kind == 'email') {
+      let emails = this.currentContact.getEmails()
+      emails[id] = value
+      this.contacts[this.contacts.indexOf(this.currentContact)].setEmails(emails)
+      this.currentContact.setEmails(emails)
+      this.httpService.editContact(this.currentContact.getName(), this.currentContact).subscribe()
+    }
+  }
   moveEmailToFolder(folder: string) {
     let id = []
     console.log(this.selectedEmails)

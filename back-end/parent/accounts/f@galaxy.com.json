@@ -1,0 +1,9 @@
+{
+  "firstName" : "s",
+  "lastName" : "s",
+  "email" : "f@galaxy.com",
+  "password" : "f",
+  "folder" : null,
+  "contacts" : [ ],
+  "userFolders" : [ ]
+}

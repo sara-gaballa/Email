@@ -84,8 +84,12 @@ export class ComposeEmailComponent implements OnInit {
     this.email = new Email('', from, to_arr, sentDate.toLocaleDateString(), time,subject.value, body.value, priority.value, attachments)
     if(operation==='send'){
       if(this.emailService.getCurrentFolder() == 'draft') {
+        let id=this.emailService.getOpenedEmail().getId();
+        let ids=[]
+        ids.push(id);
+        console.log("iddddddddddddddddddd"+id)
+        this.httpService.deleteMails('draft', ids).subscribe()
         this.httpService.sendEmail(this.email).subscribe( res=>{
-          this.httpService.deleteMails('draft', [this.email.getId()]).subscribe()
           this.email.setID(res["id"]);
           console.log(res)
         })
@@ -98,6 +102,7 @@ export class ComposeEmailComponent implements OnInit {
     }
     else if(operation==='draft'){
       this.httpService.saveDraft(this.email).subscribe( res=>{
+        console.log("id draft"+res["id"])
         this.email.setID(res["id"]);
         console.log(res)
       })
@@ -105,21 +110,21 @@ export class ComposeEmailComponent implements OnInit {
     }
   }
 
-  OpenDraft(email:Email){
-    let to = document.getElementById("to") as HTMLInputElement;
-    let from = this.emailService.getUser().getEmail();
-    let priority = document.getElementById("priority") as HTMLInputElement;
-    let sentDate = email.getDate().split(":");
-    let time = sentDate[0]+sentDate[1]+sentDate[2];
-    let subject = document.getElementById("subject") as HTMLInputElement;
-    let body = document.getElementById("body") as HTMLInputElement;
-    let attach = document.getElementById("attachments") as HTMLInputElement;
-    let attachments: string[] = new Array(attach.files.length)
-    let to_arr = email.getTo();
-    to.value = to_arr.join(", ")
-    from = email.getFrom();
-    // priority=email.getPriority() ;
-    subject.value=email.getSubject();
-    body.value=email.getBody();
-  }
+  // OpenDraft(email:Email){
+  //   let to = document.getElementById("to") as HTMLInputElement;
+  //   let from = this.emailService.getUser().getEmail();
+  //   let priority = document.getElementById("priority") as HTMLInputElement;
+  //   let sentDate = email.getDate().split(":");
+  //   let time = sentDate[0]+sentDate[1]+sentDate[2];
+  //   let subject = document.getElementById("subject") as HTMLInputElement;
+  //   let body = document.getElementById("body") as HTMLInputElement;
+  //   let attach = document.getElementById("attachments") as HTMLInputElement;
+  //   let attachments: string[] = new Array(attach.files.length)
+  //   let to_arr = email.getTo();
+  //   to.value = to_arr.join(", ")
+  //   from = email.getFrom();
+  //   // priority=email.getPriority() ;
+  //   subject.value=email.getSubject();
+  //   body.value=email.getBody();
+  // }
 }

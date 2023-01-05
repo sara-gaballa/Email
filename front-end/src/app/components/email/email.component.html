@@ -12,72 +12,74 @@
                 <img alt="gege" src="https://cdn-icons-png.flaticon.com/512/3062/3062634.png">
             </div>
 
-            <div class="header-right">
-                <span title="contacts" class="material-symbols-outlined" (click)="showContacts()">contacts</span>
-                <div class="contacts" id="contacts" style="display: none">
-                    <!--   search bar-->
-                    <div class="search_contacts">
-                        <span class="material-symbols-outlined" style="position: absolute; left: 1px"> search </span>
-                        <input type="text" placeholder=search>
-                        <span title="add contacts" class="material-symbols-outlined" style="position: absolute; left: 165px; color:#0a406b;" (click)="gotoadd()"> add </span>
-                        <span title="sort contacts" class="material-symbols-outlined" style="position: absolute; left: 200px; color:#0a406b;" (click)="sortContact()"> sort </span>
+          <div class="header-right">
+            <span title="contacts" class="material-symbols-outlined" (click)="showContacts()">contacts</span>
+            <div class="contacts" id="contacts" style="display: none">
+              <!--   search bar-->
+              <div class="search_contacts">
+                <span class="material-symbols-outlined" style="position: absolute; left: 1px"> search </span>
+                <input type="text" placeholder=search>
+                <span title="add contacts" class="material-symbols-outlined" style="position: absolute; left: 165px; color:#0a406b;" (click)="gotoadd()"> add </span>
+                <span title="sort contacts" class="material-symbols-outlined" style="position: absolute; left: 200px; color:#0a406b;" (click)="sortContact()"> sort </span>
 
 
-                        <div class="contact_list">
-                            <section class="single_contact" *ngFor="let contact of contacts; let i = index;" (click)="showContactDetails(i)">
-                                <span class="material-symbols-outlined" style=" color:#0a406b;"> account_circle </span>
-                                <h1>{{contact.getName()}}</h1>
-                                <span class="material-symbols-outlined" style=" color:#0a406b; position: absolute; left: 200px;" (click)="delete(shownFolders[0], 'contact', i)">delete </span>
-                            </section>
-                        </div>
-                    </div>
+                <div class="contact_list" style="overflow: scroll;">
+                  <section class="single_contact" *ngFor="let contact of contacts; let i = index;">
+                    <span class="material-symbols-outlined" style=" color:#0a406b;" (click)="showContactDetails(i)"> account_circle </span>
+                    <h1>{{contact.getName()}}</h1>
+                    <span class="material-symbols-outlined" style=" color:#0a406b; position: absolute; left: 200px;" (click)="delete(shownFolders[0], 'contact', i)">delete </span>
+                  </section>
                 </div>
-                <div class="editList" id="contactDetails" style="display: none">
-                    <span title="back to contacts list" class="material-symbols-outlined" style="position: absolute; left: -7px; color:#0a406b; " (click)="backToContacts()">arrow_back_ios</span>
-                    <input type="text" #addedEmail placeholder=Add style="background-color: white; position: absolute; left: 22px;width: 180px; " />
-                    <span (click)="addNewEmail(addedEmail.value)" title="add email to contact" class="material-symbols-outlined" style="position: absolute; left: 183px; color:#0a406b; top: -2px "> add </span>
-                    <h1 (input)="edit('name', 0)" contenteditable="true" id="name" style="position: absolute; top: 28px;left: 50px">{{currentContact.getName()}}</h1>
-                    <label for=name style="position: absolute; top: 40px">Name:</label>
-
-                    <section class="EmailContact" *ngFor="let email of currentContact.getEmails(); let i = index">
-                        <span class="material-symbols-outlined" style=" color:#0a406b;">mail </span>
-                        <h1 (input)="edit('email', i)" contenteditable="true" id="email"> {{email}} </h1>
-                        <span id="done" class="material-symbols-outlined" style=" color:#0a406b;position: absolute; left: 170px; display: none"> done </span>
-
-                        <span class="material-symbols-outlined" style=" color:#0a406b; position: absolute; left: 200px;" (click)="delete(shownFolders[0], 'emailContact', i)">delete </span>
-                    </section>
-                    <button id="addeditcontact">Add</button>
-                </div>
-                <!--              adding contact-->
-                <div class="add_contacts" id="add_contacts" style="display:none">
-                    <input id="nameofcontact">
-                    <label for="nameofcontact" style="position: absolute;top: 8px;">Name</label>
-                    <span title="Add Name" class="material-symbols-outlined" style="position: absolute; left: 243px; color:#0a406b; top: -2px " (click)="addName()"> add </span>
-                    <input id="emailOfContact">
-                    <label for="emailOfContact" style="position: absolute;top:60px;">Email</label>
-                    <span title="Add Email" class="material-symbols-outlined" style="position: absolute; left: 243px; color:#0a406b; top: 50px " (click)="addEmail()"> add </span>
-                    <p style="position: absolute; color:#000000; top: 90px ;font-size: 15px">Name Entered:</p>
-                    <p style="position: absolute; color:#000000; top: 90px ;font-size: 15px; left: 100px" id="enteredname"></p>
-                    <p style="position: absolute; color:#000000; top: 120px;font-size: 15px ;">Email Entered: </p>
-                    <p style="position: absolute; color:#000000; top: 120px;font-size: 15px ;left: 100px" id="enteredemail"></p>
-                    <button id="addtocontacts" (click)="addcontact()">Add</button>
-                    <button id="back" (click)="back()">Back</button>
-                </div>
-
-                <!--              end of adding contact-->
-                <div class="profile">
-                    <button title="profile" class="material-symbols-outlined" (click)="showWindow('profile-content')">account_circle</button>
-                    <div id="profile-content" style="display: none; position:absolute;">
-                        <img id="img" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" style="width:50px; height:50px; position:relative; left: 100px; top:20px">
-                        <label for="img" style=" position:relative; top: 20px; left: 95px; color:whitesmoke"> </label>
-                        <label for="img" style=" position:relative; top: 40px; right: 20px; color:whitesmoke"></label>
-                        <button id="logout" routerLink="/">Sign Out</button>
-                        <span class="material-symbols-outlined" style=" position:relative; top: 40px; left: 150px; color: white" (click)="logout()">logout</span>
-                    </div>
-                </div>
+              </div>
             </div>
+            <div class="editList" id="contactDetails" style="display: none; overflow: scroll;">
+              <span title="back to contacts list" class="material-symbols-outlined" style="position: absolute; left: -7px; color:#0a406b; " (click)="backToContacts()">arrow_back_ios</span>
+              <input type="text" #addedEmail placeholder=Add style="background-color: white; position: absolute; left: 22px;width: 180px; " />
+              <span (click)="addNewEmail(addedEmail.value)" title="add email to contact" class="material-symbols-outlined" style="position: absolute; left: 183px; color:#0a406b; top: -2px "> add </span>
+              <h1 (input)="edit('name', '', 0)" id="name" style="position: absolute; top: 28px;left: 50px">{{currentContact.getName()}}</h1>
+              <label for=name contenteditable="true" style="position: absolute; top: 40px">Name:</label>
+
+              <section class="EmailContact" *ngFor="let email of currentContact.getEmails(); let i = index">
+                <span class="material-symbols-outlined" style=" color:#0a406b;">mail </span>
+                <h1 (input)="edit('email', '', i)" id="email"> {{email}} </h1>
+                <span class="material-symbols-outlined" style=" color:#0a406b; position: relative; left: 200px;" (click)="delete(shownFolders[0], 'emailContact', i)">delete </span>
+                <button class="material-symbols-outlined" style="position: relative; left:90px; border:none; background-color: transparent; cursor: pointer;" (click)="edit('email', renameEmailContact.value, i)">edit</button>
+                <input class="FFolder" #renameEmailContact style="position: relative; left:-20px; width: 60px;" type="text" #rename_id placeholder="rename">
+                <span id="done" class="material-symbols-outlined" style=" color:#0a406b;position: absolute; left: 170px; display: none"> done </span>
+
+              </section>
+              <button id="addeditcontact">Add</button>
+            </div>
+            <!--              adding contact-->
+            <div class="add_contacts" id="add_contacts" style="display:none">
+              <input id="nameofcontact">
+              <label for="nameofcontact" style="position: absolute;top: 8px;">Name</label>
+              <span title="Add Name" class="material-symbols-outlined" style="position: absolute; left: 243px; color:#0a406b; top: -2px " (click)="addName()"> add </span>
+              <input id="emailOfContact">
+              <label for="emailOfContact" style="position: absolute;top:60px;">Email</label>
+              <span title="Add Email" class="material-symbols-outlined" style="position: absolute; left: 243px; color:#0a406b; top: 50px " (click)="addEmail()"> add </span>
+              <p style="position: absolute; color:#000000; top: 90px ;font-size: 15px">Name Entered:</p>
+              <p style="position: absolute; color:#000000; top: 90px ;font-size: 15px; left: 100px" id="enteredname"></p>
+              <p style="position: absolute; color:#000000; top: 120px;font-size: 15px ;">Email Entered: </p>
+              <p style="position: absolute; color:#000000; top: 120px;font-size: 15px ;left: 100px" id="enteredemail"></p>
+              <button id="addtocontacts" (click)="addcontact()">Add</button>
+              <button id="back" (click)="back()">Back</button>
+            </div>
+
+            <!--              end of adding contact-->
+            <div class="profile">
+              <button title="profile" class="material-symbols-outlined" (click)="showWindow('profile-content')">account_circle</button>
+              <div id="profile-content" style="display: none; position:absolute;">
+                <img id="img" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" style="width:50px; height:50px; position:relative; left: 100px; top:20px">
+                <label for="img" style=" position:relative; top: 20px; left: 95px; color:whitesmoke"> </label>
+                <label for="img" style=" position:relative; top: 40px; right: 20px; color:whitesmoke"></label>
+                <button id="logout" routerLink="/">Sign Out</button>
+                <span class="material-symbols-outlined" style=" position:relative; top: 40px; left: 150px; color: white" (click)="logout()">logout</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <!-- header ends -->
+      <!-- header ends -->
 
         <!-- main body start -->
         <div class="main_body">

@@ -19,7 +19,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 @RestController
-@CrossOrigin("http://localhost:4200/")
+@CrossOrigin()
 @RequestMapping("/mail")
 public class MailController {
     @Autowired
