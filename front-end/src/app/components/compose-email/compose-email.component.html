@@ -21,10 +21,10 @@
         <button id="logout" routerLink="/emails" (click)="composeEmail('send')">Sent <span class="material-symbols-outlined" style="position: absolute; left:60px; bottom:7px ">send</span></button>
         <button id="save_as_draft" routerLink="/emails" (click)="composeEmail('draft')" style=" position: absolute; left: 1000px; top:495px; width:160px">Save as draft <span class="material-symbols-outlined" style="position: absolute; left:120px; bottom:7px ">save</span></button>
         <input type="file" id="attachments" #attt style="position: relative;top: 335px;width: 90px;left: 6px" multiple="multiple" (change)="getatt()">
-      <div class="files">
-      <ul style="position: absolute;">
-        <li   *ngFor="let att of getatt();let i = index;" (click)="run(att)" >{{att}}</li>
-      </ul>
-      </div>
+        <div class="files">
+            <ul style="position: absolute;">
+                <li *ngFor="let att of getatt();let i = index;" (click)="run(att)">{{att}}</li>
+            </ul>
+        </div>
     </form>
 </div>

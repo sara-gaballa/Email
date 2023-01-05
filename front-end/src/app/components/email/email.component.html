@@ -193,7 +193,7 @@
 </div>
 <div class="mails">
     <span class="email" *ngFor="let email of shownEmails; let i = index">
-  <input type="checkbox" (change)="select(i)" id={{i}} class="material-symbols-outlined">
+  <input type="checkbox" (change)="select(i)" id= {{i}} class="material-symbols-outlined">
   <button class = "material-symbols-outlined" style="position: relative; bottom:-20px; left:20px" (click)="setOpenedEmail(i)" routerLink="/mail-box"  >mail</button>
   <div style="position: relative; left:45px; top: 25px; font-size: 17px;" id="read">{{email.getFrom()}}</div>
   <div style="position: relative; left:550px; top: 10px; font-size: 17px;" id="read">{{email.getSubject()}}</div>

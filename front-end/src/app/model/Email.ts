@@ -30,6 +30,7 @@ export class Email {
     this.attachments=attachments
   }
   setID(id:string){this.id=id; }
+
   getDate(): string { return this.date }
 
   getTime(): string { return this.time }
@@ -45,5 +46,7 @@ export class Email {
   getBody(): string { return this.body }
 
   getAttachments(): string[] { return this.attachments }
+
+  getPriority(): string { return this.priority }
 
 }

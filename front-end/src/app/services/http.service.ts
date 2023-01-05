@@ -76,7 +76,7 @@ export class EmailHttpService{
     }
 
     move(from: string, to: string, ids: string[]){
-      return this.http.put<void>(this.mailUrl + "move", {params:{from, to, ids}});
+      return this.http.put<void>(this.mailUrl + "move", null,{params:{from, to, ids}});
     }
 
     forwardEmail(email: Email, users: User[]) {} //forward to selected contacts
@@ -118,6 +118,10 @@ export class EmailHttpService{
 
     openAttachment(name: string){
       return this.http.get<void>(this.mailUrl + "open", {params:{name}});
+    }
+
+    saveDraft(email: Email){
+      return this.http.post<void>(this.mailUrl + "saveDraft", email);
     }
 
 }
