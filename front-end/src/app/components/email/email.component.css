@@ -214,14 +214,18 @@ body {
 } */
 
 .emailList_sections {
+
     display: flex;
-    flex: 0.7;
-    align-items: center;
+    position: relative;
+    flex: 0.4;
+    right:100px;
     background-color: white;
     padding: 10px;
     border-radius: 50px;
     border: 2px solid rgb(140, 137, 232);
-}
+  
+  
+  }
 
 .emailList_sections input {
     border: none;

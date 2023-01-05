@@ -68,8 +68,8 @@
                     <button title="profile" class="material-symbols-outlined" (click)="showWindow('profile-content')">account_circle</button>
                     <div id="profile-content" style="display: none; position:absolute;">
                         <img id="img" src="https://cdn-icons-png.flaticon.com/512/3177/3177440.png" style="width:50px; height:50px; position:relative; left: 100px; top:20px">
-                        <label for="img" style=" position:relative; top: 20px; left: 95px; color:whitesmoke">{{getUserName()}} </label>
-                        <label for="img" style=" position:relative; top: 40px; right: 20px; color:whitesmoke">{{getUserEmail()}}</label>
+                        <label for="img" style=" position:relative; top: 20px; left: 95px; color:whitesmoke"> </label>
+                        <label for="img" style=" position:relative; top: 40px; right: 20px; color:whitesmoke"></label>
                         <button id="logout" routerLink="/">Sign Out</button>
                         <span class="material-symbols-outlined" style=" position:relative; top: 40px; left: 150px; color: white" (click)="logout()">logout</span>
                     </div>
@@ -133,7 +133,7 @@
                         <option value="subject" >Subject</option>
                         <option value="sender" >Sender</option>
                       </select>
-                        <input type="text" style="position: absolute; left: 300px; width: 80px" id="filterDest">
+                        <input type="text" style="position: absolute; left: 350px; width: 80px" id="filterDest">
                         <select class="List" name="List" id="sort" (change)="sort()" style="position: absolute;right: 80px">//filter//sort
                         <option >sort</option>
                         <option value="subject"  >Subject</option>
@@ -146,7 +146,7 @@
 
 
                       </select>
-                        <span class="material-symbols-outlined" style="position: absolute;left: 400px">Refresh</span>
+                        <span class="material-symbols-outlined" style="position: absolute;left: 450px">Refresh</span>
                     </div>
                     <!-- sections start -->
                     <div class="emailList_sections">
@@ -172,6 +172,7 @@
                         <!--                            </div>-->
 
                     </div>
+                    
 
                     <div class="emailList_settingsRight">
                         <span class="material-symbols-outlined" (click)="pagesNavigate('previous')">chevron_left</span>

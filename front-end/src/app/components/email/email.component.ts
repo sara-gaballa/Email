@@ -411,29 +411,53 @@ export class EmailComponent implements OnInit {
   }
 
 
+  // moveEmailToFolder(folder: string) {
+  //   let id = []
+  //   for(let i = 0; i < this.selectedEmails.length; i++) {
+  //     id.push(this.selectedEmails[i].getId())
+  //   }
+  //   this.httpService.move(this.emailService.currentFolder, folder, id).subscribe(() => {
+  //     for(var i = 0 ;i <this.selectedEmails.length ;i++){ //////////////////////////?????????
+  //       this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].removeEmail(this.selectedEmails[i])
+  //       for(let j = 0; j < this.shownEmails.length; j++) {
+  //         if(this.shownEmails[j].getFrom() == this.selectedEmails[i].getFrom()) { //TODO change to getId()
+  //           this.shownEmails.splice(j, 1)
+  //           break
+  //         }
+  //       }
+  //     }
+  //     this.selectedEmails = []
+  //     this.check = 0;
+  //     let click1 = document.getElementById("check-box");
+  //     let click = document.getElementById('selectAll') as HTMLInputElement;
+  //     click.checked=false;
+  //     click1.style.display = 'none';
+  //     this.pagesNavigate('current')
+  //   })
+  // }
   moveEmailToFolder(folder: string) {
-    let id = []
-    for(let i = 0; i < this.selectedEmails.length; i++) {
-      id.push(this.selectedEmails[i].getId())
+    if(this.emailService.getCurrentFolder() == 'trash') {
+      //TODO send to back
     }
-    this.httpService.move(this.emailService.currentFolder, folder, id).subscribe(() => {
-      for(var i = 0 ;i <this.selectedEmails.length ;i++){ //////////////////////////?????????
-        this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].removeEmail(this.selectedEmails[i])
-        for(let j = 0; j < this.shownEmails.length; j++) {
-          if(this.shownEmails[j].getFrom() == this.selectedEmails[i].getFrom()) { //TODO change to getId()
-            this.shownEmails.splice(j, 1)
-            break
-          }
+    //TODO send selectedEmails to back
+    console.log(this.selectedEmails);
+    console.log("this.check: "+this.check);
+    for(var i = 0 ;i <this.selectedEmails.length ;i++){ //////////////////////////?????????
+      this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].removeEmail(this.selectedEmails[i])
+      for(let j = 0; j < this.shownEmails.length; j++) {
+        if(this.shownEmails[j].getFrom() == this.selectedEmails[i].getFrom()) { //TODO change to getId()
+          this.shownEmails.splice(j, 1)
+          break
         }
       }
-      this.selectedEmails = []
-      this.check = 0;
-      let click1 = document.getElementById("check-box");
-      let click = document.getElementById('selectAll') as HTMLInputElement;
-      click.checked=false;
-      click1.style.display = 'none';
-      this.pagesNavigate('current')
-    })
+    }
+    this.selectedEmails = []
+    this.check = 0;
+    let click1 = document.getElementById("check-box");
+    let click = document.getElementById('selectAll') as HTMLInputElement;
+    click.checked=false;
+    click1.style.display = 'none';
+    this.pagesNavigate('current')
   }
 
 
