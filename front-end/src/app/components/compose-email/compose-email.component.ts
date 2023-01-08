@@ -75,6 +75,11 @@ export class ComposeEmailComponent implements OnInit {
     this.email = new Email('', from, to_arr, sentDate.toLocaleDateString(), time,subject.value, body.value, priority.value, attachments)
     if(operation==='send'){
       if(this.emailService.getCurrentFolder() == 'draft') {
+        let id=this.emailService.getOpenedEmail().getId();
+        let ids=[]
+        ids.push(id);
+        console.log("iddddddddddddddddddd"+id)
+        this.httpService.deleteMails('draft', ids).subscribe()
         this.httpService.sendEmail(this.email).subscribe( res=>{
           let id = []
           id.push(this.email.getId())
@@ -90,6 +95,7 @@ export class ComposeEmailComponent implements OnInit {
     }
     else if(operation==='draft'){
       this.httpService.saveDraft(this.email).subscribe( res=>{
+        console.log("id draft"+res["id"])
         this.email.setID(res["id"]);
         console.log(res)
       })

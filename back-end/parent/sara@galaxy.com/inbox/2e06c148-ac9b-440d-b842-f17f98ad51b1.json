@@ -1,0 +1,11 @@
+{
+  "id" : "2e06c148-ac9b-440d-b842-f17f98ad51b1",
+  "from" : "a@galaxy.com",
+  "to" : [ "sara@galaxy.com", "nancy@galaxy", "rowaina@galaxy", "mariam@galaxy " ],
+  "date" : "1/5/2023",
+  "time" : "16:24:16",
+  "subject" : "heheh",
+  "body" : "",
+  "priority" : "MEDIUM",
+  "attachments" : [ ]
+}

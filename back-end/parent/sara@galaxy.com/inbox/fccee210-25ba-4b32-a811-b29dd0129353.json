@@ -1,0 +1,11 @@
+{
+  "id" : "fccee210-25ba-4b32-a811-b29dd0129353",
+  "from" : "ismail@galaxy.com",
+  "to" : [ "sara@galaxy.com" ],
+  "date" : "1/5/2023",
+  "time" : "17:21:13",
+  "subject" : "test1",
+  "body" : "workingg ",
+  "priority" : "CRITICAL",
+  "attachments" : [ "CheatSheet.pdf", "Screenshot (52).png" ]
+}

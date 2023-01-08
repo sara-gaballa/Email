@@ -1,0 +1,11 @@
+{
+  "id" : "e7f0a4ee-3a15-4af6-8232-1297ac9c93b1",
+  "from" : "h@galaxy.com",
+  "to" : [ "sara@galaxy.com" ],
+  "date" : "1/5/2023",
+  "time" : "16:55:48",
+  "subject" : "    let id=this.emailService.getOpenedEmail().getId();",
+  "body" : "    let id=this.emailService.getOpenedEmail().getId();",
+  "priority" : "MEDIUM",
+  "attachments" : [ ]
+}

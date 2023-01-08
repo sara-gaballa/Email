@@ -1,0 +1,11 @@
+{
+  "id" : "1d87673d-cc2d-40a8-b07f-88479518d2cf",
+  "from" : "saro@galaxy.com",
+  "to" : [ "sara@galaxy.com", "nancy@galaxy", "rowaina@galaxy", "mariam@galaxy " ],
+  "date" : "1/5/2023",
+  "time" : "15:52:1",
+  "subject" : "compose test",
+  "body" : "sasa",
+  "priority" : "MEDIUM",
+  "attachments" : [ "CheatSheet.pdf", "Screenshot (52).png" ]
+}

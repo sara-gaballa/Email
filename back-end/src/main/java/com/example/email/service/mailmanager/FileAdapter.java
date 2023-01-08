@@ -20,6 +20,9 @@ public class FileAdapter implements MailManager {
     public List<Email> getAllMails(String path) throws IOException {
         File[] files = FileManager.getAllFiles(path);
         List<Email> emails = new ArrayList<>();
+        if(files==null){
+            return emails;
+        }
         for (File file : files) {
             emails.add(objectMapper.readValue(file, Email.class));
         }
