@@ -1,5 +1,4 @@
 import { Contact } from "./Contact";
-import { Folder } from "./folder";
 
 export class User {
 

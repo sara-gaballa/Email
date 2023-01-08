@@ -46,6 +46,7 @@ public class MailController {
             User user = logging.signIn(email, password);
             service.updateTrash(user); // update trash by deleting emails exceeding 30 days
             System.out.println(user);
+            this.contactService.setContacts(user.getContacts());
             return new ResponseEntity<>(user, HttpStatus.OK);
 
         } catch (Exception e) {

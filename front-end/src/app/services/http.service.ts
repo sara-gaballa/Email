@@ -22,20 +22,14 @@ export class EmailHttpService{
     }
 
     public signUp(user: User){ //done
-      console.log("Sending request...");
-      console.log(user);
       return this.http.post<void>(this.mailUrl + "signUp",user, httpOptions);
     }
 
     public signIn(email: string, password: string){ //done
-      console.log("Sending request...");
-      console.log("email:"+email+"pass:"+password);
       return this.http.get<User>(this.mailUrl + "signIn",{params:{email,password}});
     }
 
     public addFolder(name:string){
-      console.log("Sending request...");
-      console.log("name of the folder: "+name);
       return this.http.get<void>(this.mailUrl + "addFolder",{params:{name}});
     }
 
@@ -47,17 +41,9 @@ export class EmailHttpService{
       return this.http.delete<void>(this.mailUrl + "deleteFolder", {params:{name}});
     }
 
-    // public getFolders() {
-    //   console.log("Sending request...");
-    //   console.log("name of the folder: "+name);
-    //   return this.http.get<string[]>(this.mailUrl + "getFolders",httpOptions);
-    // }
-
     sendEmail(email: Email) {
-      console.log("Sending request...");
-      console.log(email);
       return this.http.post<Email>(this.mailUrl + "send", email, httpOptions);
-    } //sends email on compose
+    }
 
     //gets current page of the passed folder
     getEMails(folder: string){
@@ -70,8 +56,6 @@ export class EmailHttpService{
 
     //gets current page of the passed folder
     filter(criteria: string, value: string): Observable<Email[]> {
-      console.log("Sending request...");
-      console.log("criteria:"+criteria+" value:"+value);
       return this.http.post<Email[]>(this.mailUrl + "filter/" + criteria + "/" + value, httpOptions)
     }
 
@@ -91,7 +75,8 @@ export class EmailHttpService{
 
     sortByPriority() {
       return this.http.get<Email[]>(this.mailUrl + "priority");
-    } //
+    }
+
     search(attributes: string[], value: string){
       return this.http.get<Email[]>(this.mailUrl + "search" ,{params:{attributes, value}});
     }

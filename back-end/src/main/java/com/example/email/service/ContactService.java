@@ -35,7 +35,9 @@ public class ContactService {
     }
 
     public List<Contact> sort() {
+        System.out.println(contacts);
         Collections.sort(this.contacts);
+        System.out.println(contacts);
         return this.contacts;
     }
 

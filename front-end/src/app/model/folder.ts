@@ -8,7 +8,7 @@ export class Folder {
 
   private icons: string[] = ['inbox', 'send', 'draft', 'delete'];
 
-  private emails: Email[] = [] //those emails representing only current page since the rest is handeled in the back
+  private emails: Email[] = []
 
   constructor(name:string) {
     this.name = name;
@@ -19,7 +19,7 @@ export class Folder {
 
   getName(): string { return this.name }
 
-  setIcon() {//map
+  setIcon() {
     if(this.name == 'inbox')
       this.icon = this.icons[0]
     else if(this.name == 'sent')

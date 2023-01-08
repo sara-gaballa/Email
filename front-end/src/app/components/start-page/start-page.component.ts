@@ -4,10 +4,7 @@ import { User } from 'src/app/model/User';
 import { EmailService } from 'src/app/services/email.service';
 import { EmailComponent } from '../email/email.component';
 import {Router} from "@angular/router";
-import {Email} from "../../model/Email";
-import {Folder} from "../../model/folder";
 import {Contact} from "../../model/Contact";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-start-page',
@@ -15,12 +12,8 @@ import {Observable} from "rxjs";
   styleUrls: ['./start-page.component.css']
 })
 export class StartPageComponent implements OnInit {
-  shownFolders:Folder[]
-  constructor(private httpService: EmailHttpService, private emailService: EmailService,private route:Router) {
+  constructor(private httpService: EmailHttpService, private emailService: EmailService,private route:Router) {}
 
-  }
-
-  //Should be false by default and set to true by back
   public valid = false
 
   ngOnInit(): void {
@@ -35,26 +28,17 @@ export class StartPageComponent implements OnInit {
   }
 
   signIn(email: string, password: string) {
-
-      this.httpService.signIn(email, password).subscribe((user) => {
-        let contact:Contact[] = new Array(user['contacts'].length)
-        for(let i = 0; i < user['contacts'].length; i++) {
-          contact[i]=(new Contact(user['contacts'][i]['emails'], user['contacts'][i]['name']))
-          console.log(contact)
-        }
-        let userr = new User(user['firstName'], user['lastName'], user['email'], user['password'], contact, user['userFolders'])
-        this.emailService.setUser(userr)
-        let email = new EmailComponent(this.httpService, this.emailService, this.route);
-        email.initiateEmail();
-        this.valid=true
-        // ,(err)=>{
-        //   this.valid=false
-        // }
-        // return this.handleError()
+    this.httpService.signIn(email, password).subscribe((user) => {
+      let contact:Contact[] = new Array(user['contacts'].length)
+      for(let i = 0; i < user['contacts'].length; i++) {
+        contact[i]=(new Contact(user['contacts'][i]['emails'], user['contacts'][i]['name']))
+        console.log(contact)
+      }
+      let userr = new User(user['firstName'], user['lastName'], user['email'], user['password'], contact, user['userFolders'])
+      this.emailService.setUser(userr)
+      let email = new EmailComponent(this.httpService, this.emailService, this.route);
+      email.initiateEmail();
+      this.valid = true
     })
-
   }
-  // handleError() {
-  //     this.route.navigate(["/emails"]);
-  // }
 }

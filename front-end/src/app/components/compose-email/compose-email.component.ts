@@ -13,12 +13,12 @@ import { EmailService } from 'src/app/services/email.service';
 
 export class ComposeEmailComponent implements OnInit {
 
-  private sentEmail: DraftEmail = new DraftEmail('', 'rowaina;dkfvkdv', [], '', '', '', '', '', [])
+  private sentEmail: DraftEmail = new DraftEmail('', '', [], '', '', '', '', '', [])
   private folders: Folder[]
   private draftFolder: Folder
-  private email:Email;
-  date:any;
-  public  f: string[]=["sara","nancy"]
+  private email: Email;
+  date: any;
+  public f: string[]=["sara","nancy"]
 
   constructor(private httpService: EmailHttpService, private emailService: EmailService) {
     this.folders = emailService.getFolders()
@@ -53,17 +53,11 @@ export class ComposeEmailComponent implements OnInit {
   getatt():string[]{
     let attach = document.getElementById("attachments") as HTMLInputElement;
     let attachments: string[] = new Array(attach.files.length)
-    for(let i=0;i<attach.files.length;i++){
-      attachments[i]=(attach.files[i].name)
-    }
-    console.log(attachments)
+    for(let i=0;i<attach.files.length;i++){ attachments[i]=(attach.files[i].name) }
     return attachments;
-
   }
 
-  run(file:string){
-    this.httpService.openAttachment(file).subscribe();
-  }
+  run(file:string){ this.httpService.openAttachment(file).subscribe(); }
 
   composeEmail(operation: string) { //facade
     let to = document.getElementById("to") as HTMLInputElement;
@@ -76,16 +70,14 @@ export class ComposeEmailComponent implements OnInit {
     let body = document.getElementById("body") as HTMLInputElement;
     let attach = document.getElementById("attachments") as HTMLInputElement;
     let attachments: string[] = new Array(attach.files.length)
-    for(let i=0;i < attach.files.length;i++){
-      attachments[i]=(attach.files[i].name)
-    }
+    for(let i=0;i < attach.files.length;i++){ attachments[i]=(attach.files[i].name) }
     let to_arr=to.value.split(', ');
-    console.log(to_arr)
     this.email = new Email('', from, to_arr, sentDate.toLocaleDateString(), time,subject.value, body.value, priority.value, attachments)
     if(operation==='send'){
       if(this.emailService.getCurrentFolder() == 'draft') {
         this.httpService.sendEmail(this.email).subscribe( res=>{
-          this.httpService.deleteMails('draft', [this.email.getId()]).subscribe()
+          let id = []
+          id.push(this.email.getId())
           this.email.setID(res["id"]);
           console.log(res)
         })
@@ -101,25 +93,6 @@ export class ComposeEmailComponent implements OnInit {
         this.email.setID(res["id"]);
         console.log(res)
       })
-      //TODO send to back
     }
-  }
-
-  OpenDraft(email:Email){
-    let to = document.getElementById("to") as HTMLInputElement;
-    let from = this.emailService.getUser().getEmail();
-    let priority = document.getElementById("priority") as HTMLInputElement;
-    let sentDate = email.getDate().split(":");
-    let time = sentDate[0]+sentDate[1]+sentDate[2];
-    let subject = document.getElementById("subject") as HTMLInputElement;
-    let body = document.getElementById("body") as HTMLInputElement;
-    let attach = document.getElementById("attachments") as HTMLInputElement;
-    let attachments: string[] = new Array(attach.files.length)
-    let to_arr = email.getTo();
-    to.value = to_arr.join(", ")
-    from = email.getFrom();
-    // priority=email.getPriority() ;
-    subject.value=email.getSubject();
-    body.value=email.getBody();
   }
 }

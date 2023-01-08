@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Email } from 'src/app/model/Email';
 import { EmailService } from 'src/app/services/email.service';
-import * as http from "http";
-import {EmailHttpService} from "../../services/http.service";
-import { ComposeEmailComponent } from '../compose-email/compose-email.component';
 import {Router} from "@angular/router";
+import { DraftEmail } from 'src/app/model/DraftEmail';
+import { EmailHttpService } from 'src/app/services/http.service';
 
 
 @Component({
@@ -12,24 +11,16 @@ import {Router} from "@angular/router";
   templateUrl: './mail-box.component.html',
   styleUrls: ['./mail-box.component.css']
 })
+export class MailBoxComponent {
 
-export class MailBoxComponent implements OnInit {
-
-  constructor(private emailService: EmailService,private httpService: EmailHttpService, private  route:Router) { }
-
-  ngOnInit(): void {
-
-  }
+  constructor(private emailService: EmailService, private  route:Router, private httpService: EmailHttpService) { }
 
   getOpenedEmail(): Email {
-    if(this.emailService.getCurrentFolder() == "draft") {
-      this.route.navigate(["/compose"])
-    }
+    if(this.emailService.getOpenedEmail() instanceof DraftEmail) { this.route.navigate(["/compose"]) }
     return this.emailService.getOpenedEmail()
   }
+
   run(file:string){
     this.httpService.openAttachment(file).subscribe();
   }
-
-
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { EmailHttpService } from 'src/app/services/http.service';
 import { Contact } from 'src/app/model/Contact';
 import { Email } from 'src/app/model/Email';
@@ -12,128 +12,87 @@ import { User } from 'src/app/model/User';
   templateUrl: './email.component.html',
   styleUrls: ['./email.component.css']
 })
-export class EmailComponent implements OnInit {
-  // searchLable: string = ''
-  check:number=0;
-  click: string = ''
+export class EmailComponent {
+  check: number = 0;
   shownFolders: Folder[] = [new Folder('')]
   shownEmails: Email[] = []
   selectedEmails: Email[] = []
   contacts: Contact[] = []
   allSelected: boolean = false
-  currentContact: Contact =  new Contact(["00", "000", "000"], "rowaina")
+  currentContact: Contact =  new Contact(["00", "000", "000"], "")
   contactName: string = ''
   contactEmails: string = ''
-  user: User=this.emailService.getUser();
+  user: User = new User('', '', '', '', [], [])
 
   constructor(private httpService: EmailHttpService, private emailService: EmailService,private  route:Router) {
     this.shownFolders = emailService.getFolders()
-    // this.contacts=emailService.getUser().getContacts();
-    console.log(this.shownFolders + "hhhhhhhhhhhhh")
     this.shownEmails = []
     this.user = emailService.getUser()
-    console.log(this.user)
-  }
-
-  ngOnInit(): void {
-
   }
 
   initiateEmail(){
     this.user = this.emailService.getUser()
-    this.emailService.setFolders()
     this.shownFolders = this.emailService.getFolders()
     this.contacts = this.emailService.getUser().getContacts();
-    if(this.user.getUserFolders().length != 0) //TODO newli added
+    if(this.user.getUserFolders().length != 0)
       this.shownFolders.splice(4, this.shownFolders.length - 4)
     for(let i = 0; i < this.user.getUserFolders().length; i++) {
       this.shownFolders.push(new Folder(this.user.getUserFolders()[i]))
       this.emailService.names.push(this.user.getUserFolders()[i])
     }
-    console.log(this.contacts)
-    console.log(this.user)
   }
 
-  refresh(folder: string) {
-    console.log("refresh")
+  getPageEmails(folder: string) {
     this.selectedEmails = []
     this.check = 0;
     let click = document.getElementById('selectAll') as HTMLInputElement;
     click.checked = false;
-    this.httpService.getEMails(folder).subscribe((res) => {
-      this.emailService.setCurrentFolder(folder)
-      this.shownFolders[this.emailService.names.indexOf(folder)].setEmails([])
-      for(let i = 0; i < res.length; i++) {
-        let email =new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["priority"], res[i]["attachments"]);
-        this.shownEmails.push(email);
-        this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].addEmail(email)
-      }
-      this.pagesNavigate('current')
-   /*    this.selectAll() //TODO solve error */
-      console.log(this.selectedEmails)
-    })
-  }
-
-  sortByPriority() {
-    this.httpService.sortByPriority().subscribe((res) => {
-      this.loadEmails(res, this.emailService.getCurrentFolder())
-    })
-  }
-
-  getPageEmails(folder: string) {
+    this.selectAll()
     this.emailService.setCurrentFolder(folder)
     this.shownEmails=[];
-    this.httpService.getEMails(folder).subscribe( res=>{
-      this.loadEmails(res, folder)
-    })
+    this.httpService.getEMails(folder).subscribe( res=>{ this.loadEmails(res, folder) })
     this.route.navigate(["/emails"]);
   }
 
   loadEmails(res: any, folder: string) {
     this.shownEmails=[];
-      console.log(this.shownFolders[this.emailService.names.indexOf(folder)])
-      this.shownFolders[this.emailService.names.indexOf(folder)].setEmails([])
-      for (let i = 0; i < res.length; i++) {
-        let email=new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["priority"], res[i]["attachments"]);
-        this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].addEmail(email)
-      }
-      console.log(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails());
-      this.pagesNavigate('current')
+    this.shownFolders[this.emailService.names.indexOf(folder)].setEmails([])
+    for (let i = 0; i < res.length; i++) {
+      let email=new Email(res[i]["id"], res[i]["from"], res[i]["to"], res[i]["date"], res[i]["time"], res[i]["subject"], res[i]["body"], res[i]["priority"], res[i]["attachments"]);
+      this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].addEmail(email)
+    }
+    this.pagesNavigate('current')
   }
 
-  addFolder(name: string) {
-    this.shownFolders.push(new Folder(name))
-    this.emailService.names.push(name)
-    this.httpService.addFolder(name);
-  }
-
-    //delete folder (observer updated)
-  deleteFolder(name: string) {
-    let index = this.emailService.names.indexOf(name)
-    this.emailService.names.splice(index, 1)
-    this.shownFolders.splice(index, 1)
-    //TODO send to back to delete
-  }
-
-  sort() {
-    let sort= document.getElementById("sort") as HTMLInputElement;
-    this.shownEmails=[];
-    this.httpService.sort(sort.value).subscribe( res=>{
-      this.loadEmails(res, this.emailService.getCurrentFolder())
-    })
+  sort(kind: string) {
+    if(kind == 'emails') {
+      let sort= document.getElementById("sort") as HTMLInputElement;
+      this.shownEmails = [];
+      this.httpService.sort(sort.value).subscribe( res=>{
+        this.loadEmails(res, this.emailService.getCurrentFolder())
+      })
+    } else if(kind == 'contacts') {
+      this.httpService.sortContacts().subscribe((res)=> {
+        for(let i = 0; i < res.length; i++) {
+          this.contacts[i] = new Contact(res[i]['emails'], res[i]['name'])
+        }
+      })
+    } else if(kind == 'priority') {
+      this.httpService.sortByPriority().subscribe((res) => {
+        this.loadEmails(res, this.emailService.getCurrentFolder())
+      })
+    }
   }
 
   addfolder() {
     let name = document.getElementById("FolderName") as HTMLInputElement;
     if (name?.value != '') {
-      this.addFolder(name?.value)
+      this.shownFolders.push(new Folder(name?.value))
+      this.emailService.names.push(name?.value)
       let click = document.getElementById("NewFolder");
       click!.style.display = "none";
     }
-    this.httpService.addFolder(name.value).subscribe(() => {
-      name.value = '';
-    });
-
+    this.httpService.addFolder(name.value).subscribe(() => { name.value = '' });
   }
 
   showWindow(window: string) {
@@ -153,19 +112,11 @@ export class EmailComponent implements OnInit {
     })
   }
 
-  sortContacts() {
+  setOpenedEmail(id: number) { this.emailService.setOpenedEmail(this.shownEmails[id]) }
 
-  }
+  logout(){ this.httpService.logout().subscribe() }
 
-  getUserName(): string { return this.emailService.getUser().getFirstName().concat(" " + this.emailService.getUser().getLastName()) }
-
-  getUserEmail(): string { return this.emailService.getUser().getEmail() }
-
-  setOpenedEmail(id: number) {
-    console.log(this.shownEmails)
-    this.emailService.setOpenedEmail(this.shownEmails[id])
-    console.log(this.shownEmails[id])
-  }
+  getUser() { return this.emailService.getUser() }
 
   search(value: string, kind: string){
     if(kind == 'email') {
@@ -175,13 +126,16 @@ export class EmailComponent implements OnInit {
       this.httpService.search(t.getAll('type') as string[], value).subscribe(res => {
         this.loadEmails(res, this.emailService.getCurrentFolder())
       })
-      console.log(value, t.getAll('type'));
-    } else if(kind == 'contats') {
-      /* this.httpService.searchContacts(value, ) */
+    } else if(kind == 'contacts') {
+      this.httpService.searchContacts('name', value).subscribe((res)=> {
+        let contact: Contact[] = new Array(res.length)
+        for(let i = 0; i < res.length; i++) {
+          contact[i] = new Contact(res[i]['emails'], res[i]['name'])
+        }
+        this.contacts = contact
+      })
     }
   }
-
-  logout(){ this.httpService.logout().subscribe() }
 
   showContacts() {
     this.user = this.emailService.getUser()
@@ -199,72 +153,66 @@ export class EmailComponent implements OnInit {
     this.selectAll()
   }
 
-  showContactDetails(i:number){ //TODO test
+  showContactDetails(index: number){
     this.showWindow('contactDetails')
-    this.currentContact = this.contacts[i]
+    this.currentContact = this.contacts[index]
   }
 
-  edit(kind: string, id: number){
-    console.log(kind)
+  edit(kind: string, value: string, id: number){
     if(kind == 'name') {
-      let click = document.getElementById("name") ;
-      console.log(click.innerText)
+      let click = document.getElementById("name")
       let name = this.currentContact.getName()
       this.currentContact.setName(click.innerText)
-      console.log(this.currentContact)
       this.httpService.editContact(name, this.currentContact).subscribe()
     } else if(kind == 'email') {
-      let click = document.getElementById("email") ;
       let emails = this.currentContact.getEmails()
-      emails[id] = click.innerText
+      emails[id] = value
       this.contacts[this.contacts.indexOf(this.currentContact)].setEmails(emails)
       this.currentContact.setEmails(emails)
       this.httpService.editContact(this.currentContact.getName(), this.currentContact).subscribe()
     }
   }
 
-  rename(window: Folder,id: string){ //TODO all renames
+  rename(window: Folder,id: string){
     let index = this.emailService.names.indexOf(window.getName())
     this.shownFolders[index].setName(id) //set Folder name
     this.emailService.names[index] = id //set names
     window.setName(id); // change shown name
     this.emailService.setCurrentFolder(id) //set current folder
-    console.log(this.emailService.names)
-    console.log(this.shownFolders)
     this.httpService.renameFolder(window.getName(), id).subscribe();
   }
 
   delete(folder: Folder, kind: string, id: number){
     if(kind == 'folder') {
       if (confirm('The folder will be deleted permanently')) {
-        this.deleteFolder(folder.getName());
+        let index = this.emailService.names.indexOf(folder.getName())
+        this.emailService.names.splice(index, 1)
+        this.shownFolders.splice(index, 1)
         this.httpService.deleteFolder(folder.getName()).subscribe();
       }
     } else if(kind == 'contact') { //DONE
       if (confirm('The contact will be deleted permanently')) {
         this.httpService.deleteContact(this.contacts[id].getName()).subscribe(() => {
-          console.log(this.contacts[id].getName())
           this.contacts.splice(id, 1)
           this.showContacts()
         })
       }
-    } else if(kind == 'emailContact') { //TODO test
+    } else if(kind == 'emailContact') {
       if (confirm('The email will be deleted permanently')) {
         let email = this.contacts[this.contacts.indexOf(this.currentContact)].getEmails()
         email.splice(id, 1)
         this.contacts[this.contacts.indexOf(this.currentContact)].setEmails(email)
-        console.log(this.currentContact)
         this.currentContact.setEmails(email)
         this.httpService.editContact(this.currentContact.getName(), this.currentContact).subscribe()
       }
     }
   }
 
-  backToContacts(){
-    let contact = document.getElementById("contacts");
-    let details = document.getElementById("contactDetails");
-    contact.style.display="block";
-    details.style.display="none";
+  back(block: string, none: string){
+    let contact = document.getElementById(block);
+    let details = document.getElementById(none);
+    contact.style.display = "block";
+    details.style.display = "none";
   }
 
   addName(){
@@ -277,8 +225,8 @@ export class EmailComponent implements OnInit {
   addEmail(){
     let display = document.getElementById("enteredemail");
     let name = document.getElementById("emailOfContact") as HTMLInputElement;
-    display.textContent=display.textContent+name.value+", ";
-    name.value='';
+    display.textContent = display.textContent + name.value + ", ";
+    name.value = '';
     this.contactEmails = display.textContent
   }
 
@@ -289,7 +237,6 @@ export class EmailComponent implements OnInit {
     contact.style.display="block";
     let emails = this.contactEmails.split(', ');
     emails.pop()
-    console.log(emails)
     let sentContact = new Contact(emails, this.contactName)
     this.httpService.addContact(sentContact).subscribe(() => {
       this.contacts.push(sentContact)
@@ -298,14 +245,7 @@ export class EmailComponent implements OnInit {
     })
   }
 
-  back(){
-    let contact = document.getElementById("contacts");
-    let add = document.getElementById("add_contacts");
-    contact.style.display="block";
-    add.style.display="none";
-  }
-
-  addNewEmail(email: string) { //TODO test
+  addNewEmail(email: string) {
     this.currentContact.addEmail(email)
     this.httpService.editContact(this.currentContact.getName(), this.currentContact).subscribe()
   }
@@ -315,31 +255,18 @@ export class EmailComponent implements OnInit {
     let contact = document.getElementById("contacts");
     contact.style.display="none";
     add.style.display="block";
-    console.log("add")
     let email = document.getElementById("emailOfContact") as HTMLInputElement;
     let name = document.getElementById("nameofcontact") as HTMLInputElement;
     name.value = ""
     email.value = ""
   }
 
-  sortContact() {
-    this.httpService.sortContacts().subscribe((res)=> {
-      let sortedContacts = []
-      for(let i = 0; i < res.length; i++) {
-        sortedContacts.push(new Contact(res['emails'][i], res['name'][i]))
-      }
-      this.contacts = sortedContacts
-    })
-  }
-
-
+  //manually panigation
   pagesNavigate(state: string) {
     let len = this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails().length;
     let next = this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails().indexOf(this.shownEmails[this.shownEmails.length-1])
     let prev = this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails().indexOf(this.shownEmails[0])
-    console.log("next: "+next);
-    if( ((len-1)-next)<=0 && (state == 'next') ||  prev==0 && (state == 'previous')){return;}
-
+    if( ((len - 1) - next) <= 0 && state == 'next' ||  prev==0 && state == 'previous') { return }
     for(let i = 0; i < 10; i++){
       this.shownEmails.pop();
     }
@@ -348,37 +275,33 @@ export class EmailComponent implements OnInit {
         if(i == len) return
         this.shownEmails.push(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails()[i]);
       }
-    }
-    if(state=='previous'){
+    } else if(state == 'previous'){
       for(let i = prev-10; i < prev ; i++){
-        if(i<0){break;}
+        if(i < 0){ break }
         this.shownEmails.push(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails()[i]);
       }
-    }
-    if(state=='next'){
-      for(let i = next+1; i < next+11 ; i++){
-        if(i==len){break;}
+    } else if(state == 'next'){
+      for(let i = next + 1; i < next + 11 ; i++){
+        if(i == len){ break }
         this.shownEmails.push(this.shownFolders[this.emailService.names.indexOf(this.emailService.getCurrentFolder())].getEmails()[i]);
       }
     }
   }
 
-  selectAllOne(id: number) {
+  //one by one selection or deselection on select all
+  selectAllOne(id: number, select: boolean) {
     let index = id + ''
     let click = document.getElementById(index) as HTMLInputElement;
     let click1 = document.getElementById("check-box");
-    click.checked=true;
-    this.selectedEmails.push(this.shownEmails[id])
-    click1.style.display = "block";
-  }
-
-  dontSelectAllOne(id: number) {
-    let index = id + ''
-    let click = document.getElementById(index) as HTMLInputElement;
-    let click1 = document.getElementById("check-box");
-    click.checked=false;
-    this.selectedEmails.pop()
-    click1.style.display = "none";
+    if(select == true) {
+      click.checked = true;
+      this.selectedEmails.push(this.shownEmails[id])
+      click1.style.display = "block";
+    } else {
+      click.checked = false;
+      this.selectedEmails.pop()
+      click1.style.display = "none";
+    }
   }
 
   select(id: number) {
@@ -386,14 +309,13 @@ export class EmailComponent implements OnInit {
     let click = document.getElementById(index) as HTMLInputElement;
     let click1 = document.getElementById("check-box");
     if(click.checked) {
-      this.check=this.check+1;
+      this.check=this.check + 1;
       click.checked=true;
       this.selectedEmails.push(this.shownEmails[id])
       click1.style.display = "block";
     } else {
       this.check=this.check-1;
-      console.log(this.check)
-      if(this.check==0) {
+      if(this.check == 0) {
         click.checked=false;
         click1.style.display = "none";
       }
@@ -401,20 +323,19 @@ export class EmailComponent implements OnInit {
     }
   }
 
-  //TODO add to select all button
   selectAll() {
     this.selectedEmails = []
     let click1 = document.getElementById("check-box");
     let click = document.getElementById('selectAll') as HTMLInputElement;
     if(click.checked) {
       for(let i = 0; i < this.shownEmails.length; i++) {
-        this.selectAllOne(i)
+        this.selectAllOne(i, true)
       }
       this.check=this.shownEmails.length;
       click1.style.display = "block";
     } else {
       for(let i = 0; i < this.shownEmails.length; i++) {
-        this.dontSelectAllOne(i)
+        this.selectAllOne(i, false)
       }
       this.check=0;
       click1.style.display = "none";
@@ -423,15 +344,10 @@ export class EmailComponent implements OnInit {
 
   moveEmailToFolder(folder: string) {
     let id = []
-    console.log(this.selectedEmails)
-    for(let i = 0; i < this.selectedEmails.length; i++) {
-      id.push(this.selectedEmails[i].getId())
-    }
-    console.log(id)
-    console.log(this.emailService.getCurrentFolder())
+    for(let i = 0; i < this.selectedEmails.length; i++) { id.push(this.selectedEmails[i].getId()) }
     this.httpService.move(this.emailService.currentFolder, folder, id).subscribe(() => {
       this.pagesNavigate('current')
-      this.refresh(this.emailService.currentFolder) //TODO refresh
+      this.getPageEmails(this.emailService.currentFolder)
     })
   }
 }
