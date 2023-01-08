@@ -158,7 +158,6 @@ export class EmailComponent {
     this.currentContact = this.contacts[index]
   }
 
-
   rename(window: Folder,id: string){
     let index = this.emailService.names.indexOf(window.getName())
     this.shownFolders[index].setName(id) //set Folder name
